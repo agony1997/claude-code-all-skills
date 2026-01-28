@@ -65,54 +65,55 @@ claude /plugin add ./path/to/all-skills
 
 ### 建議配置
 
-將 **tools** 放在 User scope（全域可用），**技術棧**放在 Project scope（按專案需求啟用）。
+將 **devops_git + tools** 放在 User scope（全域可用），**技術棧**放在 Project scope（按專案需求啟用）。
+
+插件在 `enabledPlugins` 中的 key 格式為 `插件名@marketplace名`，例如 `devops_git@all-skills`。
 
 #### User scope — 全域工具
 
-編輯 `~/.claude/settings.json`：
+透過 `/plugin` 安裝 marketplace 後，在 User scope 啟用 `devops_git` 和所有 `tools_` 插件。
+
+`~/.claude/settings.json`：
 
 ```jsonc
 {
   "enabledPlugins": {
-    "all-skills": true        // 安裝 marketplace
-  },
-  "enabledSkills": {
-    // 全域啟用 devops_git + 所有 tools_ 插件
-    "devops_git": true,
-    "tools_api-docs": true,
-    "tools_business-report": true,
-    "tools_chart-generator": true,
-    "tools_excel-converter": true,
-    "tools_markdown-converter": true,
-    "tools_pdf-processor": true,
-    "tools_tech-presentation": true,
-    "tools_word-processor": true
+    "all-skills": true,                          // marketplace
+    "devops_git@all-skills": true,                // Git 全域可用
+    "tools_api-docs@all-skills": true,
+    "tools_business-report@all-skills": true,
+    "tools_chart-generator@all-skills": true,
+    "tools_excel-converter@all-skills": true,
+    "tools_markdown-converter@all-skills": true,
+    "tools_pdf-processor@all-skills": true,
+    "tools_tech-presentation@all-skills": true,
+    "tools_word-processor@all-skills": true
   }
 }
 ```
 
 #### Project scope — 按專案啟用技術棧
 
-在專案根目錄建立 `.claude/settings.json`：
+在專案根目錄建立 `.claude/settings.json`，只啟用該專案需要的技術棧插件：
 
 **範例 A：Java 個人開發（Spring Boot + PostgreSQL + Quasar）**
 
 ```jsonc
 {
-  "enabledSkills": {
-    "core_system-design": true,
-    "core_ddd-delivery": true,
-    "core_microservices": true,
-    "core_spring-boot": true,
-    "core_testing-review": true,
-    "db_schema-design": true,
-    "db_postgresql": true,
-    "db_redis": true,
-    "frontend_vue": true,
-    "frontend_quasar": true,
-    "frontend_typescript": true,
-    "devops_docker": true,
-    "devops_cicd": true
+  "enabledPlugins": {
+    "core_system-design@all-skills": true,
+    "core_ddd-delivery@all-skills": true,
+    "core_microservices@all-skills": true,
+    "core_spring-boot@all-skills": true,
+    "core_testing-review@all-skills": true,
+    "db_schema-design@all-skills": true,
+    "db_postgresql@all-skills": true,
+    "db_redis@all-skills": true,
+    "frontend_vue@all-skills": true,
+    "frontend_quasar@all-skills": true,
+    "frontend_typescript@all-skills": true,
+    "devops_docker@all-skills": true,
+    "devops_cicd@all-skills": true
   }
 }
 ```
@@ -121,26 +122,40 @@ claude /plugin add ./path/to/all-skills
 
 ```jsonc
 {
-  "enabledSkills": {
-    "core_pg-standards": true,
-    "core_quarkus": true,
-    "core_testing-review": true,
-    "db_mssql": true,
-    "frontend_vue": true,
-    "frontend_quasar": true,
-    "frontend_typescript": true
+  "enabledPlugins": {
+    "core_pg-standards@all-skills": true,
+    "core_quarkus@all-skills": true,
+    "core_testing-review@all-skills": true,
+    "db_mssql@all-skills": true,
+    "frontend_vue@all-skills": true,
+    "frontend_quasar@all-skills": true,
+    "frontend_typescript@all-skills": true
   }
 }
 ```
+
+### 覆蓋 User scope 設定
+
+如果某個插件在 User scope 已啟用，但特定專案不需要，可以在 Project scope 中設為 `false` 覆蓋：
+
+```jsonc
+// <project>/.claude/settings.json
+{
+  "enabledPlugins": {
+    "tools_business-report@all-skills": false    // 此專案停用商業報告
+  }
+}
+```
+
+不寫的插件會繼承 User scope 的值。
 
 ### 設定層級
 
 ```
 User scope（~/.claude/settings.json）
-  └─ devops_git + tools_ 全域可用
+  └─ devops_git + tools_ 全域可用，所有專案繼承
 
 Project scope（<project>/.claude/settings.json）
-  └─ core_ / db_ / frontend_ / devops_(docker, cicd) 按技術棧啟用
+  ├─ core_ / db_ / frontend_ / devops_(docker, cicd) 按技術棧啟用
+  └─ 可用 false 覆蓋 User scope 中不需要的插件
 ```
-
-這樣每個專案只載入需要的技術棧技能，不會被無關插件干擾，同時文件工具在任何地方都可使用。
