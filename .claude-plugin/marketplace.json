@@ -1,7 +1,9 @@
 {
   "name": "all-skills",
   "version": "3.0.0",
-  "owner": "Custom Skills",
+  "owner": {
+    "name": "agony1997"
+  },
   "description": "所有技能的 Marketplace：33 個獨立可安裝 plugin，含專業技術與辦公自動化技能",
   "profiles": [
     {
