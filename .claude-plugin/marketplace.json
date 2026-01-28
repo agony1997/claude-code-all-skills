@@ -1,25 +1,11 @@
 {
   "name": "all-skills",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "owner": {
     "name": "agony1997"
   },
-  "description": "所有技能的 Marketplace：26 個技能插件 + 2 個套裝插件（含前綴分類）",
+  "description": "所有技能的 Marketplace：26 個技能插件（含前綴分類）",
   "plugins": [
-    {
-      "name": "profile_java-personal",
-      "source": "./plugins/profile_java-personal",
-      "description": "Java 個人開發套裝：DDD 全流程 + Spring Boot + PostgreSQL + Quasar（16 個技能）",
-      "category": "profile",
-      "tags": ["profile", "java", "personal", "fullstack", "ddd", "spring-boot", "postgresql", "quasar"]
-    },
-    {
-      "name": "profile_java-company",
-      "source": "./plugins/profile_java-company",
-      "description": "Java 公司開發套裝：Quarkus + MSSQL + Quasar，遵規導向（9 個技能）",
-      "category": "profile",
-      "tags": ["profile", "java", "company", "quarkus", "mssql", "quasar"]
-    },
     {
       "name": "core_system-design",
       "source": "./plugins/core_system-design",
