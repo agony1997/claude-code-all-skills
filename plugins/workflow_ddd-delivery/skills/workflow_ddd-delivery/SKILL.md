@@ -1,27 +1,757 @@
 ---
 name: workflow_ddd-delivery
-description: "DDD 端到端交付流程。三階段：SA 領域分析（限界上下文、Use Case、驗收標準）→ SD 戰術設計（聚合結構、API 規格、套件佈局）→ 實作規劃（TDD 任務拆解、逐檔規格）。關鍵字: sa, sd, 系統分析, system analysis, 系統設計, system design, implementation plan, 實作規劃, 任務拆解, ddd delivery, 端到端"
+description: "DDD 端到端交付流程。DDD 理論基礎（戰略設計、戰術設計、CQRS、Event Sourcing）→ Event Storming 領域探索 → SA 領域分析 → SD 戰術設計 → 實作規劃。關鍵字: ddd, domain driven design, 領域驅動, bounded context, aggregate, event storming, 事件風暴, sa, sd, 系統分析, 系統設計, implementation plan, 實作規劃, cqrs, event sourcing"
 ---
 
 # DDD 端到端交付 (DDD Delivery Workflow)
 
-你是 DDD 端到端交付專家，負責從 SA 領域分析到 SD 戰術設計再到實作規劃的完整流程。
+你是 DDD 端到端交付專家，涵蓋 DDD 理論基礎、Event Storming 領域探索、SA 領域分析、SD 戰術設計、實作規劃的完整流程。
 
 ## 交付流程概覽
 
-Phase 1: SA 領域分析
+DDD 理論基礎
+  提供戰略設計（Bounded Context、Context Mapping）與戰術設計（Entity、Value Object、Aggregate、Domain Event、Repository、CQRS）的理論知識
+
+Phase 1: Event Storming 領域探索
+  輸入: 業務需求 / 領域專家知識
+  輸出: 領域事件、命令、聚合、策略、讀模型、通用語言詞彙表
+
+Phase 2: SA 領域分析
   輸入: Event Storming 產出 / 業務需求
   輸出: 限界上下文、Use Case、驗收標準、通用語言
 
-Phase 2: SD 戰術設計
+Phase 3: SD 戰術設計
   輸入: SA 分析文件
   輸出: 聚合結構、API 規格、套件佈局、介面定義、序列圖
 
-Phase 3: 實作規劃
+Phase 4: 實作規劃
   輸入: SD 設計文件
   輸出: TDD 任務清單、逐檔實作規格、依賴圖
 
-## Phase 1: SA 領域分析
+---
+
+## DDD 理論基礎
+
+### Strategic Design
+
+#### 1. Bounded Context（限界上下文）
+
+限界上下文是 DDD 中最重要的戰略模式。每個 Bounded Context 都有自己的通用語言和領域模型。
+
+**電商系統範例：**
+
+同一個「Product」概念在不同上下文中有不同含義：
+
+- **Sales Context**: Product 包含價格、折扣、促銷資訊
+- **Inventory Context**: Product 包含庫存數量、倉儲位置、SKU
+- **Shipping Context**: Product 包含重量、尺寸、運送限制
+
+```java
+// Sales Context
+public class Product {
+    private ProductId id;
+    private String name;
+    private Money price;
+    private Discount discount;
+
+    public Money calculateSellingPrice() {
+        return discount.applyTo(price);
+    }
+}
+
+// Inventory Context
+public class Product {
+    private ProductId id;
+    private String sku;
+    private int stockQuantity;
+    private WarehouseLocation location;
+
+    public boolean isAvailable(int requestedQuantity) {
+        return stockQuantity >= requestedQuantity;
+    }
+}
+
+// Shipping Context
+public class Product {
+    private ProductId id;
+    private Weight weight;
+    private Dimensions dimensions;
+    private ShippingRestrictions restrictions;
+
+    public boolean canShipTo(Address destination) {
+        return !restrictions.isRestricted(destination);
+    }
+}
+```
+
+#### 2. Context Mapping（上下文映射）
+
+定義 Bounded Context 之間的關係和整合模式。
+
+**Shared Kernel（共享核心）：** 兩個上下文共用一組程式碼。
+
+```java
+// Shared Kernel - 兩個上下文都使用
+public class Money {
+    private final BigDecimal amount;
+    private final Currency currency;
+
+    public Money(BigDecimal amount, Currency currency) {
+        if (amount == null || currency == null) {
+            throw new IllegalArgumentException("Amount and currency are required");
+        }
+        this.amount = amount;
+        this.currency = currency;
+    }
+
+    public Money add(Money other) {
+        if (!this.currency.equals(other.currency)) {
+            throw new IllegalArgumentException("Cannot add different currencies");
+        }
+        return new Money(this.amount.add(other.amount), this.currency);
+    }
+
+    // equals, hashCode based on amount and currency
+}
+```
+
+**Anti-Corruption Layer（防腐層）：** 保護自己的領域模型不被外部系統污染。
+
+```java
+// Domain layer - 我們的介面
+public interface PaymentGateway {
+    PaymentResult charge(Money amount, PaymentMethod method);
+}
+
+// Infrastructure layer - 防腐層實作
+public class StripePaymentAdapter implements PaymentGateway {
+    private final StripeClient stripeClient;
+
+    @Override
+    public PaymentResult charge(Money amount, PaymentMethod method) {
+        // 將我們的領域模型轉換為 Stripe 的 API 格式
+        StripeChargeRequest request = new StripeChargeRequest();
+        request.setAmountInCents(amount.toCents());
+        request.setCurrency(amount.getCurrency().getCode());
+        request.setSource(toStripeSource(method));
+
+        // 呼叫外部系統
+        StripeChargeResponse response = stripeClient.createCharge(request);
+
+        // 將外部回應轉換回我們的領域模型
+        return toPaymentResult(response);
+    }
+
+    private PaymentResult toPaymentResult(StripeChargeResponse response) {
+        if ("succeeded".equals(response.getStatus())) {
+            return PaymentResult.success(response.getId());
+        }
+        return PaymentResult.failed(response.getFailureMessage());
+    }
+}
+```
+
+### Tactical Design
+
+#### 1. Entity vs Value Object
+
+**Entity（實體）：** 具有唯一識別碼，以 ID 區分。
+
+```java
+public class Order {
+    private final OrderId id;  // 唯一識別碼
+    private OrderStatus status;
+    private List<OrderLine> lines;
+
+    // Entity 以 ID 判斷相等
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order)) return false;
+        Order other = (Order) o;
+        return id.equals(other.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
+}
+```
+
+**Value Object（值對象）：** 沒有 ID，以屬性值判斷相等，不可變。
+
+```java
+public class Money {
+    private final BigDecimal amount;
+    private final Currency currency;
+
+    public Money(BigDecimal amount, Currency currency) {
+        this.amount = amount;
+        this.currency = currency;
+    }
+
+    // Value Object 以值判斷相等
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Money)) return false;
+        Money other = (Money) o;
+        return amount.equals(other.amount) && currency.equals(other.currency);
+    }
+
+    // 不可變 - 返回新物件
+    public Money add(Money other) {
+        return new Money(this.amount.add(other.amount), this.currency);
+    }
+}
+
+public class Address {
+    private final String street;
+    private final String city;
+    private final String zipCode;
+    private final String country;
+
+    // 建構子驗證
+    public Address(String street, String city, String zipCode, String country) {
+        if (street == null || street.isBlank()) throw new IllegalArgumentException("Street is required");
+        if (city == null || city.isBlank()) throw new IllegalArgumentException("City is required");
+        this.street = street;
+        this.city = city;
+        this.zipCode = zipCode;
+        this.country = country;
+    }
+
+    // 不可變 - 返回新物件
+    public Address withCity(String newCity) {
+        return new Address(this.street, newCity, this.zipCode, this.country);
+    }
+
+    // equals/hashCode based on all fields
+}
+```
+
+#### 2. Aggregate and Aggregate Root（聚合與聚合根）
+
+聚合是一致性邊界，聚合根是唯一對外入口。
+
+```java
+public class Order {  // Aggregate Root
+    private final OrderId id;
+    private CustomerId customerId;
+    private List<OrderLine> lines = new ArrayList<>();  // 內部 Entity
+    private OrderStatus status;
+    private Money totalAmount;
+
+    // 只能透過聚合根操作內部物件
+    public void addLine(ProductId productId, int quantity, Money unitPrice) {
+        if (status != OrderStatus.DRAFT) {
+            throw new IllegalStateException("Cannot modify a non-draft order");
+        }
+        OrderLine line = new OrderLine(productId, quantity, unitPrice);
+        lines.add(line);
+        recalculateTotal();
+    }
+
+    public void removeLine(ProductId productId) {
+        if (status != OrderStatus.DRAFT) {
+            throw new IllegalStateException("Cannot modify a non-draft order");
+        }
+        lines.removeIf(line -> line.getProductId().equals(productId));
+        recalculateTotal();
+    }
+
+    public void submit() {
+        if (lines.isEmpty()) {
+            throw new IllegalStateException("Cannot submit an empty order");
+        }
+        this.status = OrderStatus.SUBMITTED;
+    }
+
+    private void recalculateTotal() {
+        this.totalAmount = lines.stream()
+            .map(OrderLine::getSubtotal)
+            .reduce(Money.ZERO, Money::add);
+    }
+}
+
+public class OrderLine {  // 聚合內部 Entity
+    private final ProductId productId;
+    private int quantity;
+    private Money unitPrice;
+
+    public Money getSubtotal() {
+        return unitPrice.multiply(quantity);
+    }
+}
+```
+
+**Repository 只為聚合根定義：**
+
+```java
+// 正確 - 只有聚合根有 Repository
+public interface OrderRepository {
+    Order findById(OrderId id);
+    void save(Order order);
+}
+
+// 錯誤 - OrderLine 不應有自己的 Repository
+// public interface OrderLineRepository { ... }
+```
+
+#### 3. Domain Service（領域服務）
+
+當業務邏輯不屬於任何一個 Entity 時，使用 Domain Service。
+
+```java
+// 跨聚合的定價邏輯
+public class OrderPricingService {
+    public Money calculateTotal(Order order, DiscountPolicy discountPolicy) {
+        Money subtotal = order.getSubtotal();
+        Money discount = discountPolicy.calculateDiscount(subtotal, order.getCustomerId());
+        return subtotal.subtract(discount);
+    }
+}
+
+// 跨聚合的轉帳邏輯
+public class TransferMoneyService {
+    public void transfer(Account from, Account to, Money amount) {
+        if (!from.hasSufficientBalance(amount)) {
+            throw new InsufficientBalanceException(from.getId(), amount);
+        }
+        from.debit(amount);
+        to.credit(amount);
+    }
+}
+```
+
+#### 4. Domain Events（領域事件）
+
+領域事件記錄領域中發生的重要事情。
+
+```java
+// 基礎事件類別
+public abstract class DomainEvent {
+    private final String eventId;
+    private final LocalDateTime occurredOn;
+
+    protected DomainEvent() {
+        this.eventId = UUID.randomUUID().toString();
+        this.occurredOn = LocalDateTime.now();
+    }
+
+    public String getEventId() { return eventId; }
+    public LocalDateTime getOccurredOn() { return occurredOn; }
+}
+
+// 具體事件
+public class OrderPlacedEvent extends DomainEvent {
+    private final OrderId orderId;
+    private final CustomerId customerId;
+    private final Money totalAmount;
+
+    public OrderPlacedEvent(OrderId orderId, CustomerId customerId, Money totalAmount) {
+        super();
+        this.orderId = orderId;
+        this.customerId = customerId;
+        this.totalAmount = totalAmount;
+    }
+}
+
+public class OrderShippedEvent extends DomainEvent {
+    private final OrderId orderId;
+    private final TrackingNumber trackingNumber;
+
+    public OrderShippedEvent(OrderId orderId, TrackingNumber trackingNumber) {
+        super();
+        this.orderId = orderId;
+        this.trackingNumber = trackingNumber;
+    }
+}
+```
+
+**Entity 收集事件：**
+
+```java
+public abstract class AggregateRoot {
+    private final List<DomainEvent> domainEvents = new ArrayList<>();
+
+    protected void registerEvent(DomainEvent event) {
+        domainEvents.add(event);
+    }
+
+    public List<DomainEvent> getDomainEvents() {
+        return Collections.unmodifiableList(domainEvents);
+    }
+
+    public void clearEvents() {
+        domainEvents.clear();
+    }
+}
+
+public class Order extends AggregateRoot {
+    public void place() {
+        this.status = OrderStatus.PLACED;
+        registerEvent(new OrderPlacedEvent(this.id, this.customerId, this.totalAmount));
+    }
+}
+```
+
+**事件發布與處理：**
+
+```java
+public interface EventPublisher {
+    void publish(DomainEvent event);
+}
+
+public interface EventHandler<T extends DomainEvent> {
+    void handle(T event);
+}
+
+// 範例：訂單成立後通知庫存
+public class OrderPlacedEventHandler implements EventHandler<OrderPlacedEvent> {
+    private final InventoryService inventoryService;
+
+    @Override
+    public void handle(OrderPlacedEvent event) {
+        inventoryService.reserveStock(event.getOrderId());
+    }
+}
+```
+
+#### 5. Repository Pattern（倉儲模式）
+
+Repository 介面定義在領域層，實作在基礎設施層。
+
+```java
+// Domain Layer - 介面
+public interface OrderRepository {
+    Order findById(OrderId id);
+    Optional<Order> findByIdOptional(OrderId id);
+    void save(Order order);
+    void delete(Order order);
+    List<Order> findByCustomerId(CustomerId customerId);
+}
+
+// Infrastructure Layer - JPA 實作
+@Repository
+public class JpaOrderRepository implements OrderRepository {
+    private final SpringDataOrderRepository springDataRepo;
+
+    @Override
+    public Order findById(OrderId id) {
+        return springDataRepo.findById(id.getValue())
+            .orElseThrow(() -> new OrderNotFoundException(id));
+    }
+
+    @Override
+    public void save(Order order) {
+        springDataRepo.save(order);
+    }
+
+    // ... 其他方法
+}
+
+// Spring Data JPA
+public interface SpringDataOrderRepository extends JpaRepository<Order, UUID> {
+    List<Order> findByCustomerId(UUID customerId);
+}
+```
+
+#### 6. CQRS Pattern（命令查詢職責分離）
+
+將寫入（Command）與讀取（Query）分離。
+
+**Command Side（寫入端）：**
+
+```java
+// Command
+public class CreateOrderCommand {
+    private final CustomerId customerId;
+    private final List<OrderLineRequest> lines;
+
+    // constructor, getters
+}
+
+// Command Handler (Application Service)
+@Service
+public class OrderCommandService {
+    private final OrderRepository orderRepository;
+    private final EventPublisher eventPublisher;
+
+    @Transactional
+    public OrderId handle(CreateOrderCommand command) {
+        Order order = Order.create(command.getCustomerId(), command.getLines());
+        orderRepository.save(order);
+
+        // 發布領域事件
+        order.getDomainEvents().forEach(eventPublisher::publish);
+        order.clearEvents();
+
+        return order.getId();
+    }
+}
+```
+
+**Query Side（查詢端）：**
+
+```java
+// Query Model（專為讀取優化）
+public class OrderSummaryQueryModel {
+    private String orderId;
+    private String customerName;
+    private String status;
+    private BigDecimal totalAmount;
+    private LocalDateTime createdAt;
+    private int itemCount;
+
+    // constructor, getters - 扁平化結構，適合顯示
+}
+
+// Query Service（可直接查 DB，不經過 Domain Model）
+@Service
+public class OrderQueryService {
+    private final JdbcTemplate jdbcTemplate;
+
+    public OrderSummaryQueryModel findOrderSummary(String orderId) {
+        return jdbcTemplate.queryForObject(
+            "SELECT o.id, c.name, o.status, o.total_amount, o.created_at, " +
+            "       (SELECT COUNT(*) FROM order_lines ol WHERE ol.order_id = o.id) as item_count " +
+            "FROM orders o JOIN customers c ON o.customer_id = c.id " +
+            "WHERE o.id = ?",
+            (rs, rowNum) -> new OrderSummaryQueryModel(
+                rs.getString("id"),
+                rs.getString("name"),
+                rs.getString("status"),
+                rs.getBigDecimal("total_amount"),
+                rs.getTimestamp("created_at").toLocalDateTime(),
+                rs.getInt("item_count")
+            ),
+            orderId
+        );
+    }
+
+    public List<OrderSummaryQueryModel> findOrdersByCustomer(String customerId, int page, int size) {
+        // 可使用專門的讀取模型表、View、或直接 JOIN 查詢
+        // 不需經過 Domain Model，效能更好
+    }
+}
+```
+
+### Best Practices
+
+1. **Ubiquitous Language（通用語言）：** 程式碼反映業務語言
+
+```java
+// Good - 使用業務語言
+order.place();
+order.cancel("Customer requested");
+account.debit(amount);
+
+// Bad - 使用技術語言
+order.setStatus(Status.PLACED);
+order.updateStatusToCancelled();
+account.setBalance(account.getBalance() - amount);
+```
+
+2. **Keep Aggregates Small（保持聚合精簡）：** 跨聚合用 ID 引用
+
+```java
+// Good - 引用 ID
+public class Order {
+    private CustomerId customerId;  // 引用，不持有完整 Customer
+}
+
+// Bad - 直接引用另一個聚合
+public class Order {
+    private Customer customer;  // 會導致聚合過大
+}
+```
+
+3. **Protect Invariants（保護不變條件）：**
+
+```java
+public class Order {
+    public void addLine(ProductId productId, int quantity, Money unitPrice) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive");
+        }
+        if (status != OrderStatus.DRAFT) {
+            throw new IllegalStateException("Can only add lines to draft orders");
+        }
+        // ... add line
+    }
+}
+```
+
+4. **Model True Business Rules（建模真實業務規則）：**
+
+```java
+public class OrderApprovalService {
+    public void approve(Order order, Approver approver) {
+        if (order.getTotalAmount().isGreaterThan(Money.of(10000))) {
+            if (!approver.hasRole(Role.SENIOR_MANAGER)) {
+                throw new InsufficientApprovalAuthorityException();
+            }
+        }
+        order.approve(approver.getId());
+    }
+}
+```
+
+### Quick Reference
+
+**DDD Building Blocks:**
+
+| Building Block | 特徵 | 範例 |
+|---|---|---|
+| Entity | 有 ID、可變、以 ID 相等 | Order, Customer, Product |
+| Value Object | 無 ID、不可變、以值相等 | Money, Address, DateRange |
+| Aggregate | 一致性邊界、聚合根為入口 | Order (root) + OrderLine |
+| Domain Event | 過去式命名、不可變 | OrderPlacedEvent |
+| Repository | 聚合根的持久化介面 | OrderRepository |
+| Domain Service | 跨 Entity 的業務邏輯 | TransferMoneyService |
+| Factory | 複雜物件的建立邏輯 | OrderFactory |
+
+**Strategic vs Tactical:**
+
+| 層面 | Strategic Design | Tactical Design |
+|---|---|---|
+| 關注點 | 系統邊界與上下文關係 | 單一上下文內的模型設計 |
+| 產出 | Bounded Context, Context Map | Entity, VO, Aggregate, Event |
+| 參與者 | 架構師、領域專家、團隊 | 開發者、領域專家 |
+| 粒度 | 粗粒度（系統層級） | 細粒度（程式碼層級） |
+
+**Remember:** DDD is about modeling the business domain accurately, not just applying patterns.
+
+---
+
+## Phase 1: Event Storming 領域探索
+
+### 核心職責
+
+- 引導 Big Picture → Process Modeling → Software Design 三階段
+- 識別領域事件、命令、聚合、策略、讀模型
+- 建立通用語言詞彙表
+- 產出可交付給 SA/SD 的結構化產物
+
+### 三階段工作坊
+
+#### 階段一：Big Picture（全貌探索）
+
+**目標：** 發現所有領域事件，建立業務全貌。
+
+**流程：**
+1. **發散探索** - 請所有參與者寫出領域中發生的重要事件（過去式）
+2. **時間線排序** - 將事件按時間順序排列在時間線上
+3. **識別 Pivotal Events（關鍵事件）** - 標記改變業務流程方向的關鍵事件
+4. **標記 Hot Spots（熱點）** - 標記有爭議、不確定、有問題的區域
+5. **分組** - 將相關事件歸入業務流程群組
+
+**產出：**
+- 領域事件時間線
+- Pivotal Events 清單
+- Hot Spots 清單
+- 業務流程群組
+
+#### 階段二：Process Modeling（流程建模）
+
+**目標：** 為每個業務流程建立完整的命令-事件模型。
+
+**流程：**
+1. **識別 Commands（命令）** - 什麼動作觸發了事件？
+2. **識別 Actors（參與者）** - 誰執行了命令？
+3. **識別 Policies（策略）** - 什麼事件自動觸發了其他命令？（「每當...就...」）
+4. **識別 Read Models（讀模型）** - Actor 做決策時需要看到什麼資訊？
+5. **識別 External Systems（外部系統）** - 有哪些外部系統參與？
+
+**便利貼顏色約定：**
+
+| 顏色 | 元素 | 說明 | 範例 |
+|------|------|------|------|
+| 橘色 | Domain Event | 已發生的事實（過去式） | OrderPlaced |
+| 藍色 | Command | 意圖/動作（祈使句） | PlaceOrder |
+| 黃色 | Actor | 執行命令的角色 | Customer |
+| 紫色/紅色 | Policy | 自動化規則 | 「每當 OrderPlaced 就 ReserveStock」 |
+| 綠色 | Read Model | 決策所需的資訊 | Product Catalog |
+| 粉紅色 | External System | 外部系統 | Payment Gateway |
+| 紅色（小） | Hot Spot | 問題/爭議/待確認 | 「退貨流程未定義」 |
+
+#### 階段三：Software Design（軟體設計）
+
+**目標：** 將流程模型轉化為軟體設計的初步結構。
+
+**流程：**
+1. **識別 Aggregates（聚合）** - 哪些命令和事件歸屬於同一個一致性邊界？
+2. **定義聚合邊界** - 聚合內的不變條件（Invariants）是什麼？
+3. **識別 Bounded Contexts（限界上下文）** - 哪些聚合屬於同一個語義邊界？
+4. **Context Mapping（上下文映射）** - 上下文之間的關係是什麼？（上下游、共享核心、防腐層等）
+
+**聚合識別原則：**
+- 需要在同一交易中保持一致的資料 → 同一聚合
+- 命令作用的範圍 → 聚合邊界的線索
+- 不變條件（Invariant）的範圍 → 聚合邊界的依據
+
+### 結構化產出總覽
+
+以下是 Event Storming 完成後的標準產出模板：
+
+```markdown
+# Event Storming 產出: [專案/功能名稱]
+
+## 1. 通用語言詞彙表 (Ubiquitous Language)
+| 中文術語 | 英文術語 | 定義 | 所屬上下文 | 備註 |
+|---------|---------|------|-----------|------|
+| [術語] | [Term] | [精確定義] | [Context] | [備註] |
+
+## 2. 領域事件清單 (Domain Events)
+| 編號 | 事件名稱 | 觸發條件 | 所屬聚合 | 是否為 Pivotal Event | 備註 |
+|------|---------|---------|---------|-------------------|------|
+| E001 | [EventName] | [何時觸發] | [Aggregate] | 是/否 | [備註] |
+
+## 3. 命令清單 (Commands)
+| 編號 | 命令名稱 | 觸發者(Actor) | 目標聚合 | 產生事件 | 前置條件 |
+|------|---------|-------------|---------|---------|---------|
+| C001 | [CommandName] | [Actor] | [Aggregate] | [Event] | [條件] |
+
+## 4. 聚合清單 (Aggregates)
+| 編號 | 聚合名稱 | 職責 | 包含命令 | 包含事件 | 不變條件 |
+|------|---------|------|---------|---------|---------|
+| A001 | [AggregateName] | [職責描述] | C001, C002 | E001, E002 | [Invariants] |
+
+## 5. 策略清單 (Policies)
+| 編號 | 策略名稱 | 觸發事件 | 產生命令 | 規則描述 |
+|------|---------|---------|---------|---------|
+| P001 | [PolicyName] | [Event] | [Command] | 「每當...就...」 |
+
+## 6. 讀模型清單 (Read Models)
+| 編號 | 讀模型名稱 | 使用者 | 用途 | 包含資料 |
+|------|-----------|-------|------|---------|
+| R001 | [ReadModelName] | [Actor] | [決策用途] | [資料欄位] |
+
+## 7. 限界上下文圖 (Bounded Context Map)
+| 上下文名稱 | 包含聚合 | 上游依賴 | 下游服務 | 整合模式 |
+|-----------|---------|---------|---------|---------|
+| [ContextName] | A001, A002 | [依賴的上下文] | [服務的上下文] | [模式] |
+
+## 8. 痛點與待釐清事項 (Hot Spots)
+| 編號 | 描述 | 優先級 | 建議行動 |
+|------|------|-------|---------|
+| H001 | [問題描述] | 高/中/低 | [建議] |
+```
+
+### 引導原則
+
+1. **事件優先**: 先識別「已經發生了什麼」，再追溯「是什麼觸發的」
+2. **過去式命名**: 領域事件一律使用過去式（OrderPlaced, PaymentReceived）
+3. **避免技術語言**: 使用業務語言而非技術術語（「訂單已成立」而非「INSERT INTO orders」）
+4. **擁抱混亂**: Big Picture 階段允許重複和混亂，後續再整理
+5. **視覺化優先**: 盡量用便利貼/圖形呈現，降低溝通成本
+6. **迭代精煉**: 三個階段可反覆進行，逐步深入細節
+
+---
+
+## Phase 2: SA 領域分析
 
 ### 核心職責
 
@@ -194,7 +924,7 @@ Then [預期的錯誤處理]
 
 ---
 
-## Phase 2: SD 戰術設計
+## Phase 3: SD 戰術設計
 
 ### 核心職責
 
@@ -506,7 +1236,7 @@ sequenceDiagram
 
 ---
 
-## Phase 3: 實作規劃
+## Phase 4: 實作規劃
 
 ### 核心職責
 
