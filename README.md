@@ -77,7 +77,8 @@ claude /plugin add ./path/to/all-skills
     "all-skills": true        // 安裝 marketplace
   },
   "enabledSkills": {
-    // 全域啟用所有 tools_ 插件
+    // 全域啟用 devops_git + 所有 tools_ 插件
+    "devops_git": true,
     "tools_api-docs": true,
     "tools_business-report": true,
     "tools_chart-generator": true,
@@ -110,7 +111,6 @@ claude /plugin add ./path/to/all-skills
     "frontend_vue": true,
     "frontend_quasar": true,
     "frontend_typescript": true,
-    "devops_git": true,
     "devops_docker": true,
     "devops_cicd": true
   }
@@ -128,8 +128,7 @@ claude /plugin add ./path/to/all-skills
     "db_mssql": true,
     "frontend_vue": true,
     "frontend_quasar": true,
-    "frontend_typescript": true,
-    "devops_git": true
+    "frontend_typescript": true
   }
 }
 ```
@@ -138,10 +137,10 @@ claude /plugin add ./path/to/all-skills
 
 ```
 User scope（~/.claude/settings.json）
-  └─ tools_ 全域可用，任何專案皆可使用文件工具
+  └─ devops_git + tools_ 全域可用
 
 Project scope（<project>/.claude/settings.json）
-  └─ core_ / db_ / frontend_ / devops_ 按技術棧啟用
+  └─ core_ / db_ / frontend_ / devops_(docker, cicd) 按技術棧啟用
 ```
 
 這樣每個專案只載入需要的技術棧技能，不會被無關插件干擾，同時文件工具在任何地方都可使用。
