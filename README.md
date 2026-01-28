@@ -63,6 +63,28 @@ Claude Code 技能插件 Marketplace，共 26 個插件，依前綴分為 5 大�
 claude /plugin add ./path/to/all-skills
 ```
 
+### 快速開始（複製範例設定檔）
+
+本專案在 `examples/` 目錄提供可直接複製使用的設定檔：
+
+| 檔案 | 用途 | 複製目標 |
+|------|------|----------|
+| `examples/global-settings.json` | 全域設定（User scope） | `~/.claude/settings.json` |
+| `examples/project-settings.json` | 專案設定（Project scope） | `<project>/.claude/settings.json` |
+
+**一鍵複製指令：**
+
+```bash
+# 複製全域設定（啟用 devops_git + 所有 tools_ 插件）
+cp examples/global-settings.json ~/.claude/settings.json
+
+# 複製專案設定（以 Spring Boot + PostgreSQL + Vue/Quasar 為例）
+mkdir -p <project>/.claude
+cp examples/project-settings.json <project>/.claude/settings.json
+```
+
+> 複製後請依自身需求調整 `enabledPlugins` 中各插件的 `true`/`false`。
+
 ### 建議配置
 
 將 **devops_git + tools** 放在 User scope（全域可用），**技術棧**放在 Project scope（按專案需求啟用）。
@@ -73,56 +95,84 @@ claude /plugin add ./path/to/all-skills
 
 透過 `/plugin` 安裝 marketplace 後，在 User scope 啟用 `devops_git` 和所有 `tools_` 插件。
 
-`~/.claude/settings.json`：
+`~/.claude/settings.json`（對應 `examples/global-settings.json`）：
 
 ```jsonc
 {
   "enabledPlugins": {
-    "all-skills": true,                          // marketplace
-    "devops_git@all-skills": true,                // Git 全域可用
+    "all-skills": true,                          // marketplace 本體
+    "subtask": true,                             // 平行任務編排
+    "devops_git@all-skills": true,               // Git 全域可用
     "tools_api-docs@all-skills": true,
     "tools_business-report@all-skills": true,
     "tools_chart-generator@all-skills": true,
     "tools_excel-converter@all-skills": true,
     "tools_markdown-converter@all-skills": true,
     "tools_pdf-processor@all-skills": true,
-    "tools_tech-presentation@all-skills": true,
-    "tools_word-processor@all-skills": true
+    "tools_tech-presentation@all-skills": true
+  },
+  "language": "繁體中文",
+  "autoUpdatesChannel": "latest",
+  "permissions": {
+    "allow": [
+      "Bash(*)", "Read", "Edit", "Write",
+      "NotebookEdit", "WebFetch", "WebSearch"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(git push)"
+    ]
   }
 }
 ```
 
 #### Project scope — 按專案啟用技術棧
 
-在專案根目錄建立 `.claude/settings.json`，只啟用該專案需要的技術棧插件：
+在專案根目錄建立 `.claude/settings.json`，只啟用該專案需要的技術棧插件，並可將全域已啟用但專案不需要的 tools 設為 `false` 覆蓋。
 
-**範例 A：Java 個人開發（Spring Boot + PostgreSQL + Quasar）**
+`<project>/.claude/settings.json`（對應 `examples/project-settings.json`）：
+
+**範例 A：Spring Boot + PostgreSQL + Vue/Quasar（個人開發）**
 
 ```jsonc
 {
+  "permissions": {
+    "allow": [
+      "Bash(*)", "Read", "Edit", "Write",
+      "NotebookEdit", "WebFetch", "WebSearch"
+    ],
+    "deny": [],
+    "ask": ["Bash(git push *)", "Bash(git push)"]
+  },
   "enabledPlugins": {
-    "core_system-design@all-skills": true,
+    "all-skills": true,
     "core_ddd-delivery@all-skills": true,
-    "core_microservices@all-skills": true,
+    "core_system-design@all-skills": true,
     "core_spring-boot@all-skills": true,
     "core_testing-review@all-skills": true,
     "db_schema-design@all-skills": true,
     "db_postgresql@all-skills": true,
-    "db_redis@all-skills": true,
     "frontend_vue@all-skills": true,
     "frontend_quasar@all-skills": true,
     "frontend_typescript@all-skills": true,
-    "devops_docker@all-skills": true,
-    "devops_cicd@all-skills": true
+    // 專案不需要的 tools 設為 false 覆蓋全域設定
+    "tools_api-docs@all-skills": false,
+    "tools_business-report@all-skills": false,
+    "tools_chart-generator@all-skills": false,
+    "tools_excel-converter@all-skills": false,
+    "tools_markdown-converter@all-skills": false,
+    "tools_pdf-processor@all-skills": false,
+    "tools_tech-presentation@all-skills": false
   }
 }
 ```
 
-**範例 B：Java 公司開發（Quarkus + MSSQL + Quasar）**
+**範例 B：Quarkus + MSSQL + Quasar（公司開發）**
 
 ```jsonc
 {
   "enabledPlugins": {
+    "all-skills": true,
     "core_pg-standards@all-skills": true,
     "core_quarkus@all-skills": true,
     "core_testing-review@all-skills": true,
@@ -153,9 +203,29 @@ claude /plugin add ./path/to/all-skills
 
 ```
 User scope（~/.claude/settings.json）
-  └─ devops_git + tools_ 全域可用，所有專案繼承
+  ├─ all-skills: true                        ← marketplace 本體
+  ├─ subtask: true                           ← 平行任務編排
+  ├─ devops_git + tools_ 全域可用，所有專案繼承
+  └─ permissions / language / autoUpdatesChannel
 
 Project scope（<project>/.claude/settings.json）
-  ├─ core_ / db_ / frontend_ / devops_(docker, cicd) 按技術棧啟用
-  └─ 可用 false 覆蓋 User scope 中不需要的插件
+  ├─ core_ / db_ / frontend_ 按技術棧啟用
+  ├─ 可用 false 覆蓋 User scope 中不需要的插件
+  └─ permissions（可獨立設定）
+```
+
+### 目錄結構
+
+```
+all-skills/
+├── README.md
+├── plugins/                    # 26 個技能插件
+│   ├── core_*/
+│   ├── db_*/
+│   ├── frontend_*/
+│   ├── devops_*/
+│   └── tools_*/
+└── examples/                   # 可直接複製的設定檔範例
+    ├── global-settings.json    # → ~/.claude/settings.json
+    └── project-settings.json   # → <project>/.claude/settings.json
 ```
