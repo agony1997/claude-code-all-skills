@@ -1,41 +1,25 @@
 {
   "name": "all-skills",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "owner": {
     "name": "agony1997"
   },
-  "description": "所有技能的 Marketplace：26 個獨立可安裝 plugin（含前綴分類），含專業技術與辦公自動化技能",
-  "profiles": [
+  "description": "所有技能的 Marketplace：26 個技能插件 + 2 個套裝插件（含前綴分類）",
+  "plugins": [
     {
-      "id": "java-personal-dev",
-      "displayName": "Java 個人開發配置",
-      "description": "個人獨立開發者 DDD 全流程配置：Event Storming → SA 領域分析 → SD 戰術設計 → DB 設計 → 實作規劃 → TDD 開發 → 品質審查與重構。搭配 Spring Boot + JPA + PostgreSQL + Quasar 技術棧。",
-      "tags": ["java", "personal", "fullstack", "ddd", "spring-boot", "jpa", "postgresql", "quasar", "event-storming", "code-quality"],
-      "plugins": [
-        "core_system-design", "core_ddd-delivery", "db_schema-design",
-        "core_microservices",
-        "core_testing-review",
-        "core_spring-boot",
-        "frontend_vue", "frontend_quasar", "frontend_typescript",
-        "db_postgresql", "db_redis",
-        "devops_git", "devops_docker", "devops_cicd",
-        "tools_api-docs", "tools_chart-generator"
-      ]
+      "name": "profile_java-personal",
+      "source": "./plugins/profile_java-personal",
+      "description": "Java 個人開發套裝：DDD 全流程 + Spring Boot + PostgreSQL + Quasar（16 個技能）",
+      "category": "profile",
+      "tags": ["profile", "java", "personal", "fullstack", "ddd", "spring-boot", "postgresql", "quasar"]
     },
     {
-      "id": "java-company-dev",
-      "displayName": "Java 公司開發配置",
-      "description": "公司團隊 PG 角色配置：Quarkus + MSSQL + Quasar 技術棧，遵規導向，TDD 開發流程",
-      "tags": ["java", "company", "pg", "quarkus", "mssql", "quasar", "tdd"],
-      "plugins": [
-        "core_pg-standards", "core_quarkus", "db_mssql",
-        "frontend_quasar", "frontend_vue", "frontend_typescript",
-        "core_testing-review",
-        "devops_git", "tools_api-docs"
-      ]
-    }
-  ],
-  "plugins": [
+      "name": "profile_java-company",
+      "source": "./plugins/profile_java-company",
+      "description": "Java 公司開發套裝：Quarkus + MSSQL + Quasar，遵規導向（9 個技能）",
+      "category": "profile",
+      "tags": ["profile", "java", "company", "quarkus", "mssql", "quasar"]
+    },
     {
       "name": "core_system-design",
       "source": "./plugins/core_system-design",

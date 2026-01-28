@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "name": "profile_java-personal",
+  "description": "Java 個人開發套裝：DDD 全流程 + Spring Boot + PostgreSQL + Quasar 技術棧",
+  "author": {
+    "name": "Custom Skills"
+  },
+  "skills": [
+    "../core_system-design/skills/core_system-design",
+    "../core_ddd-delivery/skills/core_ddd-delivery",
+    "../core_microservices/skills/core_microservices",
+    "../core_spring-boot/skills/core_spring-boot",
+    "../core_testing-review/skills/core_testing-review",
+    "../db_schema-design/skills/db_schema-design",
+    "../db_postgresql/skills/db_postgresql",
+    "../db_redis/skills/db_redis",
+    "../frontend_vue/skills/frontend_vue",
+    "../frontend_quasar/skills/frontend_quasar",
+    "../frontend_typescript/skills/frontend_typescript",
+    "../devops_git/skills/devops_git",
+    "../devops_docker/skills/devops_docker",
+    "../devops_cicd/skills/devops_cicd",
+    "../tools_api-docs/skills/tools_api-docs",
+    "../tools_chart-generator/skills/tools_chart-generator"
+  ]
+}

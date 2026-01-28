@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "name": "profile_java-company",
+  "description": "Java 公司開發套裝：Quarkus + MSSQL + Quasar 技術棧，遵規導向",
+  "author": {
+    "name": "Custom Skills"
+  },
+  "skills": [
+    "../core_pg-standards/skills/core_pg-standards",
+    "../core_quarkus/skills/core_quarkus",
+    "../core_testing-review/skills/core_testing-review",
+    "../db_mssql/skills/db_mssql",
+    "../frontend_quasar/skills/frontend_quasar",
+    "../frontend_vue/skills/frontend_vue",
+    "../frontend_typescript/skills/frontend_typescript",
+    "../devops_git/skills/devops_git",
+    "../tools_api-docs/skills/tools_api-docs"
+  ]
+}
