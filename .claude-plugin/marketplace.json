@@ -193,7 +193,7 @@
       "source": "./plugins/composite_architect",
       "description": "複合技能：系統設計 + DDD 端到端交付 + 品質保證",
       "category": "composite",
-      "tags": ["architect", "架構師", "system-design", "clean-architecture", "hexagonal", "ddd", "domain-driven-design", "event-storming", "bounded-context", "aggregate", "cqrs", "sa", "sd", "tdd", "code-review", "refactor", "重構", "實作規劃", "品質保證"]
+      "tags": ["architect", "架構師", "system-design", "clean-architecture", "hexagonal", "ddd", "domain-driven-design", "event-storming", "bounded-context", "aggregate", "cqrs", "sa", "sd", "實作規劃", "壞味道", "code-smell", "重構", "DDD遷移"]
     },
     {
       "name": "composite_spring-stack",

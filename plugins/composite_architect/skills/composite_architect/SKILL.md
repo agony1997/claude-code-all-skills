@@ -1,11 +1,11 @@
 ---
 name: composite_architect
-description: "複合技能：系統架構設計 + DDD 端到端交付 + 品質保證。技術選型、架構模式、Clean Architecture、Hexagonal Architecture、NFR、ADR、DDD 理論基礎、Event Storming、SA 領域分析、SD 戰術設計、實作規劃、Bounded Context、Aggregate、CQRS、Event Sourcing、TDD、測試策略、Code Review、重構。關鍵字: architect, 架構師, system design, clean architecture, hexagonal, ports and adapters, 整潔架構, 六邊形架構, dependency inversion, ddd, domain driven design, 領域驅動, bounded context, aggregate, event storming, 事件風暴, sa, sd, 系統分析, 系統設計, implementation plan, 實作規劃, cqrs, event sourcing, tdd, test-driven, 測試驅動, unit test, code review, 程式碼審查, review, 審查, refactor, 重構, code smell, 壞味道, 品質檢查"
+description: "複合技能：系統架構設計 + DDD 端到端交付。技術選型、架構模式、Clean Architecture、Hexagonal Architecture、NFR、ADR、DDD 理論基礎、Event Storming、SA 領域分析、SD 戰術設計、實作規劃、Bounded Context、Aggregate、CQRS、Event Sourcing、DDD 合規審查、壞味道識別、DDD 遷移。關鍵字: architect, 架構師, system design, clean architecture, hexagonal, ports and adapters, 整潔架構, 六邊形架構, dependency inversion, ddd, domain driven design, 領域驅動, bounded context, aggregate, event storming, 事件風暴, sa, sd, 系統分析, 系統設計, implementation plan, 實作規劃, cqrs, event sourcing, code smell, 壞味道, refactor, 重構, 貧血模型, anemic model"
 ---
 
 # 系統架構師 (Composite Architect)
 
-你是系統架構師，整合系統設計、DDD 端到端交付、品質保證三大能力。負責從架構設計到 DDD 落地再到品質把關的完整流程。
+你是系統架構師，整合系統設計與 DDD 端到端交付能力。負責架構設計、DDD 落地、DDD 合規審查。測試驅動開發(TDD)、程式碼審查流程、除錯方法論由 superpowers 技能負責,本技能聚焦於架構知識與 DDD 領域專業。
 
 ---
 
@@ -471,7 +471,9 @@ src/main/java/com/example/[project]/
 
 ### Phase 4: 實作規劃
 
-#### 拆解順序（每個聚合）
+> **注意**: 任務拆解格式、TDD 流程、Code Review 流程由 superpowers 技能負責。本節僅定義 DDD 專案的分層實作順序。
+
+#### DDD 分層實作順序（每個聚合）
 
 ```
 Phase 1: Domain Layer — VO → Event → Entity → Aggregate Root → Repository Interface → Domain Service
@@ -481,269 +483,69 @@ Phase 4: Presentation Layer — REST Controller → Request/Response DTO → Exc
 Phase 5: Frontend — API Client → Pinia Store → Component → Page/Route
 ```
 
-#### 逐檔實作規格格式
-
-```markdown
-### Task [N]: [任務名稱]
-**檔案**: `src/.../[FileName].java`
-**類型**: Test | Implementation | Migration
-**依賴**: Task [X], Task [Y]
-
-#### 目的: [一句話職責]
-#### 規格: [實作要點]
-#### 介面定義: [類別/方法簽章]
-#### 測試案例: [Given/When/Then]
-#### 驗收標準: [檢查項目]
-```
-
-#### 原則
-- **由內而外**: Domain → Application → Infrastructure → Presentation
-- **測試先行**: 每個 Implementation 前有對應 Test
-- **最小單元**: 每個任務對應一個檔案
-- **依賴排序**: 被依賴的先做
+**原則**: 由內而外（Domain 先行）、被依賴的先做、每個聚合獨立完成一輪
 
 ---
 
-## Part 3: 品質保證
+## Part 3: DDD 合規審查與架構壞味道
 
-### 1. TDD 方法論
+> **注意**: TDD 方法論、測試策略、測試案例設計、Code Review 流程、品質報告格式由 superpowers 技能負責。本節僅涵蓋 DDD/架構專屬的審查知識。
 
-#### Red-Green-Refactor 循環
-1. **Red**: 撰寫失敗的測試
-2. **Green**: 撰寫最少的程式碼讓測試通過
-3. **Refactor**: 重構程式碼,保持測試通過
+### 1. DDD 合規性審查清單
 
-#### TDD 原則
-- 測試優先、小步前進、快速回饋 (<1秒)
-- 測試間獨立、可讀性如文檔、維護性與產品程式碼同等
+**聚合設計:**
+- [ ] 聚合根是否為唯一入口？外部是否直接操作內部 Entity？
+- [ ] 聚合邊界是否合理？是否過大（God Aggregate）或過小？
+- [ ] 不變條件 (Invariant) 是否在聚合內強制執行？
+- [ ] 聚合間是否只透過 ID 引用（非物件引用）？
 
-#### AAA 模式 + 命名規範
-```java
-@Test  // test{Method}_{Scenario}_{Expected}
-public void testCreateOrder_ValidRequest_ReturnsOrder() {
-    // Arrange: 設定測試資料
-    // Act: 執行測試方法
-    // Assert: 驗證結果
-}
-```
+**Entity vs Value Object:**
+- [ ] Value Object 是否不可變 (Immutable)？
+- [ ] Value Object 是否用 equals/hashCode 比較值？
+- [ ] Entity 是否用 ID 判斷相等？
 
-### 2. 測試策略
+**領域邏輯位置:**
+- [ ] 業務邏輯是否在 Domain Layer？（非 Service 或 Controller）
+- [ ] 是否存在貧血模型 (Anemic Domain Model)？
+- [ ] Domain Service 是否只處理跨聚合邏輯？
 
-#### 測試金字塔
-- 單元測試 (60-70%): JUnit 5, Mockito, Vitest
-- 整合測試 (20-30%): RESTAssured, Testing Library
-- E2E 測試 (5-10%): Playwright, Cypress
+**倉儲模式:**
+- [ ] Repository 是否只針對聚合根？
+- [ ] Repository 介面是否在 Domain Layer？
+- [ ] 是否洩漏 JPA/Hibernate 細節到 Domain Layer？
 
-#### 測試覆蓋率目標
-| 層級 | 目標 |
-|------|------|
-| 整體 | > 80% |
-| Service | > 90% |
-| Controller | > 80% |
-| Repository | > 70% |
+**SOLID 快速參考:**
+- **S**: 每個類別只有一個變更原因？
+- **O**: 擴展不需修改現有程式碼？
+- **L**: 子類別能完全替換父類別？
+- **I**: 介面是否過於龐大？
+- **D**: 高層模組依賴抽象而非具體？
 
-### 3. 測試案例設計
+### 2. 架構壞味道識別
 
-#### 等價類劃分
-| 等價類 | 條件 | 測試值 |
-|--------|------|--------|
-| 有效等價類 | 1 <= qty <= 100 | 1, 50, 100 |
-| 無效 (下限) | qty < 1 | 0, -1 |
-| 無效 (上限) | qty > 100 | 101, 1000 |
-
-#### 邊界值分析
-測試: 最小值-1, 最小值, 最小值+1, 最大值-1, 最大值, 最大值+1
-
-#### 決策表
-| 當前狀態 | 目標狀態 | 用戶角色 | 允許? |
-|---------|---------|---------|-------|
-| PENDING | PAID | USER | 是 |
-| PAID | PROCESSING | ADMIN | 是 |
-| COMPLETED | CANCELLED | ADMIN | 否 |
-
-### 4. 後端測試
-
-#### JUnit 5 + Mockito 單元測試
-```java
-@ExtendWith(MockitoExtension.class)
-public class OrderServiceTest {
-    @Mock OrderRepository orderRepository;
-    @Mock ProductService productService;
-    @InjectMocks OrderServiceImpl orderService;
-
-    @Test
-    @DisplayName("建立訂單成功")
-    public void testCreateOrder_Success() {
-        // Arrange
-        when(productService.getById(1L)).thenReturn(product);
-        when(orderRepository.save(any())).thenAnswer(inv -> {
-            Order o = inv.getArgument(0); o.setOrderId(1L); return o;
-        });
-        // Act
-        Order result = orderService.createOrder(request);
-        // Assert
-        assertThat(result).isNotNull();
-        assertThat(result.getStatus()).isEqualTo(OrderStatus.PENDING_PAYMENT);
-        verify(orderRepository).save(any(Order.class));
-    }
-}
-```
-
-#### Mockito 常用技巧
-```java
-when(repo.findById(1L)).thenReturn(Optional.of(order));  // 回傳值
-when(repo.findById(999L)).thenThrow(new NotFoundException());  // 丟例外
-verify(repo, times(1)).save(any());  // 驗證呼叫次數
-ArgumentCaptor<Order> captor = ArgumentCaptor.forClass(Order.class);  // 捕獲參數
-verify(repo).save(captor.capture());
-```
-
-#### 參數化測試
-```java
-@ParameterizedTest
-@CsvSource({"1, 500, 500", "2, 500, 1000", "5, 300, 1500"})
-public void testCalculateTotal(int qty, int price, int expected) {
-    BigDecimal result = service.calculateTotal(qty, BigDecimal.valueOf(price));
-    assertThat(result).isEqualByComparingTo(BigDecimal.valueOf(expected));
-}
-```
-
-#### RESTAssured 整合測試
-```java
-@QuarkusTest
-public class OrderResourceIT {
-    @Test
-    public void testCreateOrder() {
-        given()
-            .contentType(ContentType.JSON)
-            .header("Authorization", "Bearer " + token)
-            .body(request)
-        .when().post()
-        .then()
-            .statusCode(201)
-            .body("orderId", notNullValue())
-            .body("status", equalTo("PENDING_PAYMENT"));
-    }
-}
-```
-
-### 5. 前端測試
-
-#### Vitest 元件測試
-```typescript
-describe('OrderCard', () => {
-  it('顯示訂單資訊', () => {
-    const wrapper = mount(OrderCard, {
-      global: { plugins: [Quasar] },
-      props: { order }
-    })
-    expect(wrapper.text()).toContain('ORD20240115001')
-  })
-
-  it('點擊觸發事件', async () => {
-    await wrapper.find('[data-test="view-button"]').trigger('click')
-    expect(wrapper.emitted('view')).toBeTruthy()
-  })
-})
-```
-
-#### Pinia Store 測試
-```typescript
-describe('useOrderStore', () => {
-  beforeEach(() => setActivePinia(createPinia()))
-
-  it('searchOrders 成功', async () => {
-    vi.mocked(orderApi.searchOrders).mockResolvedValue(mockResponse)
-    await store.searchOrders({}, 1, 20)
-    expect(store.orders).toEqual(mockResponse.data)
-  })
-})
-```
-
-### 6. 程式碼審查
-
-#### 審查維度
-
-**DDD 合規性:**
-- 聚合根是否為唯一入口？聚合邊界是否合理？
-- 不變條件是否在聚合內強制執行？聚合間只透過 ID 引用？
-- Value Object 是否不可變？Entity 是否用 ID 判斷相等？
-- 業務邏輯是否在 Domain Layer？是否存在貧血模型？
-- Repository 是否只針對聚合根？介面是否在 Domain Layer？
-
-**SOLID 原則:**
-- S: 每個類別只有一個變更原因？
-- O: 擴展不需修改現有程式碼？
-- L: 子類別能完全替換父類別？
-- I: 介面是否過於龐大？
-- D: 高層模組依賴抽象而非具體？
-
-**安全性:** SQL Injection/XSS 風險？輸入驗證？授權檢查？硬編碼密鑰？
-**效能:** N+1 查詢？大量資料分頁？不必要的重新渲染？
-
-### 7. 壞味道識別
-
-**Bloaters:**
 | 壞味道 | 特徵 | 重構手法 |
 |--------|------|---------|
 | Long Method | >20 行 | Extract Method |
 | Large Class | 職責過多 | Extract Class |
 | Long Parameter List | >3 個參數 | Introduce Parameter Object |
 | Primitive Obsession | 原始型別表達領域概念 | Replace with Value Object |
+| Switch Statements | 多處 switch/if-else 判斷型別 | Replace with Polymorphism |
+| Divergent Change | 一個類別因多種原因修改 | Extract Class (SRP) |
+| Shotgun Surgery | 一個變更需修改多個類別 | Move Method, Inline Class |
+| Feature Envy | 方法過度使用其他類別資料 | Move Method |
+| Message Chains | a.getB().getC().getD() | Hide Delegate |
 
-**OO Abusers:**
-| 壞味道 | 特徵 | 重構手法 |
-|--------|------|---------|
-| Switch Statements | 多處 switch/if-else | Replace with Polymorphism |
-| Refused Bequest | 子類別不用父類別方法 | Replace Inheritance with Delegation |
-
-**Change Preventers:**
-| 壞味道 | 特徵 | 重構手法 |
-|--------|------|---------|
-| Divergent Change | 一個類別因多原因修改 | Extract Class (SRP) |
-| Shotgun Surgery | 一個變更改多個類別 | Move Method, Inline Class |
-
-**Couplers:**
-| 壞味道 | 特徵 | 重構手法 |
-|--------|------|---------|
-| Feature Envy | 過度使用他類資料 | Move Method |
-| Message Chains | a.getB().getC() | Hide Delegate |
-
-### 8. DDD 遷移模式
+### 3. DDD 遷移模式
 
 **貧血模型 → 富領域模型:**
-1. 識別貧血: Entity 只有 getter/setter,邏輯在 Service
+1. 識別貧血: Entity 只有 getter/setter，邏輯全在 Service
 2. 搬移邏輯到 Entity: `order.cancel()` 取代 `service.cancelOrder(id)`
-3. 引入 Value Object: `OrderStatus` enum, `Money` VO
+3. 引入 Value Object: `OrderStatus` enum, `Money` VO 取代原始型別
 
-**Strangler Fig Pattern:** 在舊系統旁建新 DDD 模組 → 新功能用新模組 → 逐步遷移 → 移除舊模組
+**Strangler Fig Pattern（遺留系統遷移）:**
+1. 在舊系統旁建立新的 DDD 模組
+2. 新功能用新模組實作
+3. 逐步將舊功能遷移到新模組
+4. 最終移除舊模組
 
-### 9. 品質報告格式
-
-```markdown
-# 程式碼品質報告
-## 摘要
-- 範圍 / 評級 (通過|需修改|需重大修改) / 問題數
-
-## 問題清單
-### [C1] [標題] (Critical|Major|Minor|Suggestion)
-- 檔案: path:行號 | 壞味道: [類型]
-- 問題/影響/建議修改 (Before/After)
-
-## 重構計畫 (優先級 1→2→3)
-## 前置條件: 測試覆蓋率 >= N%
-```
-
-| 等級 | 說明 | 處理 |
-|------|------|------|
-| Critical | 安全漏洞、資料損失 | 必須修改 |
-| Major | 違反架構、效能問題 | 強烈建議 |
-| Minor | 命名不當、風格不一致 | 建議修改 |
-| Suggestion | 更好替代方案 | 選擇性採納 |
-
-### 工作原則
-1. 先測試再重構
-2. 小步前進,每次一個原子化重構
-3. 客觀具體,引用具體程式碼行
-4. 提供 Before/After 修改建議
-5. 區分嚴重度,聚焦架構和安全
+遷移優先順序: 核心領域 → 頻繁變更 → 有測試覆蓋 → 獨立性高
