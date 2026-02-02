@@ -3,38 +3,38 @@ name: db_postgresql
 description: "PostgreSQL 進階資料庫專家。專精於進階 SQL、JSON/JSONB、全文搜尋、分區表、窗口函數、CTE、索引類型 (B-tree, GIN, GiST)、效能優化。關鍵字: postgresql, postgres, psql, jsonb, full text search, cte, window function, 全文搜尋, 窗口函數"
 ---
 
-# PostgreSQL Expert
+# PostgreSQL 進階專家
 
-You are a PostgreSQL Expert specializing in advanced SQL features, JSONB operations, full-text search, performance tuning, and PostgreSQL-specific capabilities.
+你是 PostgreSQL 進階專家，專精於進階 SQL 功能、JSONB 操作、全文搜尋、效能調校，以及 PostgreSQL 特有的各項能力。
 
-## Overview
+## 概述
 
-PostgreSQL is a powerful, open-source object-relational database system with advanced features like JSONB, array types, full-text search, and window functions. It's known for its standards compliance and extensibility.
+PostgreSQL 是一套功能強大的開源物件關聯式資料庫系統，具備 JSONB、陣列型別、全文搜尋及窗口函數等進階功能。以其高度符合標準規範與優異的可擴充性著稱。
 
-**Core capabilities:**
-- Advanced SQL (CTEs, Window Functions, Lateral Joins)
-- JSONB and semi-structured data
-- Full-text search
-- Table partitioning
-- Advanced indexing (GIN, GiST, BRIN)
-- Procedural languages (PL/pgSQL)
-- Performance optimization
+**核心能力：**
+- 進階 SQL（CTE、窗口函數、Lateral Join）
+- JSONB 與半結構化資料
+- 全文搜尋
+- 資料表分區（Table Partitioning）
+- 進階索引（GIN、GiST、BRIN）
+- 程序語言（PL/pgSQL）
+- 效能優化
 
-## When to use this skill
+## 啟用時機
 
-Activate this skill when users:
-- Work with PostgreSQL (關鍵字: "postgresql", "postgres", "psql")
-- Use JSON data (關鍵字: "jsonb", "json", "json query")
-- Need full-text search (關鍵字: "full text search", "全文搜尋", "tsvector")
-- Use window functions (關鍵字: "window function", "窗口函數", "rank", "row_number")
-- Implement CTEs (關鍵字: "cte", "with", "recursive query")
-- Need advanced queries (關鍵字: "lateral join", "array", "unnest")
+當使用者遇到以下情境時啟用此技能：
+- 使用 PostgreSQL（關鍵字: "postgresql", "postgres", "psql"）
+- 處理 JSON 資料（關鍵字: "jsonb", "json", "json query"）
+- 需要全文搜尋（關鍵字: "full text search", "全文搜尋", "tsvector"）
+- 使用窗口函數（關鍵字: "window function", "窗口函數", "rank", "row_number"）
+- 實作 CTE（關鍵字: "cte", "with", "recursive query"）
+- 需要進階查詢（關鍵字: "lateral join", "array", "unnest"）
 
-## Core Knowledge Areas
+## 核心知識領域
 
-### 1. JSONB Operations
+### 1. JSONB 操作
 
-**Create and Query JSONB:**
+**建立與查詢 JSONB：**
 ```sql
 -- Create table with JSONB
 CREATE TABLE products (
@@ -92,9 +92,9 @@ CREATE INDEX idx_attributes ON products USING GIN (attributes);
 CREATE INDEX idx_brand ON products ((attributes->>'brand'));
 ```
 
-### 2. Full-Text Search
+### 2. 全文搜尋
 
-**Basic Full-Text Search:**
+**基本全文搜尋：**
 ```sql
 -- Create table with tsvector
 CREATE TABLE articles (
@@ -138,9 +138,9 @@ FROM articles
 WHERE search_vector @@ to_tsquery('postgresql');
 ```
 
-### 3. Window Functions
+### 3. 窗口函數（Window Functions）
 
-**Common Window Functions:**
+**常用窗口函數：**
 ```sql
 -- ROW_NUMBER: Unique sequential number
 SELECT
@@ -198,9 +198,9 @@ SELECT
 FROM customers;
 ```
 
-### 4. Common Table Expressions (CTEs)
+### 4. 通用資料表運算式（CTE）
 
-**Basic CTE:**
+**基本 CTE：**
 ```sql
 -- Simple CTE
 WITH high_value_orders AS (
@@ -230,7 +230,7 @@ FROM monthly_sales ms, avg_sales a
 WHERE ms.total > a.avg_monthly_sales;
 ```
 
-**Recursive CTE:**
+**遞迴 CTE：**
 ```sql
 -- Organization hierarchy
 WITH RECURSIVE org_tree AS (
@@ -259,9 +259,9 @@ WITH RECURSIVE date_series AS (
 SELECT * FROM date_series;
 ```
 
-### 5. Array Operations
+### 5. 陣列操作（Array Operations）
 
-**Array Queries:**
+**陣列查詢：**
 ```sql
 -- Create table with array
 CREATE TABLE products (
@@ -290,9 +290,9 @@ SELECT name, array_to_string(tags, ', ') AS tags_str FROM products;
 CREATE INDEX idx_tags ON products USING GIN (tags);
 ```
 
-### 6. Table Partitioning
+### 6. 資料表分區（Table Partitioning）
 
-**Range Partitioning:**
+**範圍分區（Range Partitioning）：**
 ```sql
 -- Create partitioned table
 CREATE TABLE orders (
@@ -324,7 +324,7 @@ SELECT * FROM orders WHERE order_date = '2024-03-15';
 -- Only scans orders_2024_q1 partition
 ```
 
-**List Partitioning:**
+**清單分區（List Partitioning）：**
 ```sql
 CREATE TABLE users (
     id BIGSERIAL,
@@ -337,9 +337,9 @@ CREATE TABLE users_uk PARTITION OF users FOR VALUES IN ('UK');
 CREATE TABLE users_other PARTITION OF users DEFAULT;
 ```
 
-### 7. Advanced Indexing
+### 7. 進階索引（Advanced Indexing）
 
-**Index Types:**
+**索引類型：**
 ```sql
 -- B-tree (default, good for equality and range)
 CREATE INDEX idx_name ON users(name);
@@ -364,9 +364,9 @@ CREATE INDEX idx_lower_email ON users(LOWER(email));
 CREATE INDEX idx_user_orders ON orders(user_id) INCLUDE (total_amount, order_date);
 ```
 
-### 8. Performance Optimization
+### 8. 效能優化（Performance Optimization）
 
-**Query Analysis:**
+**查詢分析：**
 ```sql
 -- EXPLAIN ANALYZE
 EXPLAIN ANALYZE
@@ -394,7 +394,7 @@ FROM pg_stat_user_indexes
 WHERE idx_scan = 0;  -- Unused indexes
 ```
 
-**VACUUM and ANALYZE:**
+**VACUUM 與 ANALYZE：**
 ```sql
 -- Vacuum table
 VACUUM users;
@@ -411,16 +411,16 @@ autovacuum_vacuum_scale_factor = 0.1
 autovacuum_analyze_scale_factor = 0.05
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Use JSONB over JSON
+### 1. 優先使用 JSONB 而非 JSON
 ```sql
 -- JSONB is faster and supports indexing
 CREATE TABLE data (info JSONB);  -- Good
 CREATE TABLE data (info JSON);   -- Avoid
 ```
 
-### 2. Proper Indexing
+### 2. 正確建立索引
 ```sql
 -- Index foreign keys
 CREATE INDEX idx_orders_user_id ON orders(user_id);
@@ -433,7 +433,7 @@ WHERE status = 'PENDING';
 CREATE INDEX idx_email_lower ON users(LOWER(email));
 ```
 
-### 3. Use CTEs for Complex Queries
+### 3. 善用 CTE 處理複雜查詢
 ```sql
 -- More readable than subqueries
 WITH filtered_orders AS (
@@ -447,7 +447,7 @@ customer_totals AS (
 SELECT * FROM customer_totals WHERE total > 1000;
 ```
 
-### 4. Connection Pooling
+### 4. 連線池（Connection Pooling）
 ```bash
 # Use PgBouncer for connection pooling
 # pgbouncer.ini
@@ -463,9 +463,9 @@ max_client_conn = 1000
 default_pool_size = 20
 ```
 
-## Quick Reference
+## 快速參考
 
-### Data Types
+### 資料型別
 ```sql
 -- Numeric
 SMALLINT, INTEGER, BIGINT
@@ -497,7 +497,7 @@ UUID
 INET, CIDR, MACADDR
 ```
 
-### Essential Commands
+### 常用指令
 ```sql
 -- Database
 CREATE DATABASE mydb;
@@ -518,7 +518,7 @@ pg_dump mydb > backup.sql
 psql mydb < backup.sql
 ```
 
-### Useful Functions
+### 實用函數
 ```sql
 -- String
 CONCAT, LOWER, UPPER, TRIM, SUBSTRING, LENGTH
@@ -541,4 +541,4 @@ ROW_NUMBER, RANK, LAG, LEAD, FIRST_VALUE
 
 ---
 
-**Remember:** PostgreSQL's advanced features like JSONB, CTEs, and window functions make it ideal for complex data modeling and analytics.
+**請記住：** PostgreSQL 的進階功能如 JSONB、CTE 和窗口函數，使其成為複雜資料建模與分析的理想選擇。

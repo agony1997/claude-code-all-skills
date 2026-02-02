@@ -3,24 +3,24 @@ name: tools_tech-presentation
 description: "Comprehensive technical presentation (PPTX) generation toolkit using python-pptx. When Claude needs to: (1) Create PowerPoint presentations, (2) Generate technical slides, (3) Create product presentations, (4) Build pitch decks, (5) Generate training slides, or (6) 技術簡報、PowerPoint生成、產品簡報、投影片製作、演示文稿"
 ---
 
-# Technical Presentation Generator
+# 技術簡報產生器
 
-## Overview
+## 概述
 
-This skill provides comprehensive guidance for creating professional PowerPoint presentations using python-pptx library. It covers technical presentations, product demos, pitch decks, training materials, and automated slide generation from data.
+此技能提供使用 python-pptx 函式庫建立專業 PowerPoint 簡報的完整指引。涵蓋技術簡報、產品展示、投資簡報（Pitch Deck）、培訓教材及從資料自動產生投影片等功能。
 
-## When to use this skill
+## 何時使用此技能
 
-**ALWAYS use this skill when the user mentions:**
-- Creating PowerPoint presentations
-- Generating technical slides
-- Building product presentations
-- Creating pitch decks
-- Generating training materials
-- Creating business presentations
-- Automating slide creation
+**當使用者提及以下需求時，務必使用此技能：**
+- 建立 PowerPoint 簡報
+- 產生技術投影片
+- 製作產品簡報
+- 建立投資簡報（Pitch Deck）
+- 產生培訓教材
+- 建立商業簡報
+- 自動化投影片製作
 
-**Trigger phrases include:**
+**觸發關鍵詞包括：**
 - "Create PowerPoint" / "建立PowerPoint"
 - "Generate slides" / "生成投影片"
 - "Technical presentation" / "技術簡報"
@@ -29,26 +29,26 @@ This skill provides comprehensive guidance for creating professional PowerPoint 
 - "Training slides" / "培訓投影片"
 - "PPTX generation" / "PPTX生成"
 
-## How to use this skill
+## 如何使用此技能
 
-### Workflow Overview
+### 工作流程概覽
 
-This skill follows a systematic 4-step workflow:
+此技能遵循系統化的四步驟工作流程：
 
-1. **Content Planning** - Define presentation structure and key messages
-2. **Slide Design** - Create slides with proper layout and formatting
-3. **Content Population** - Add text, images, charts, and data
-4. **Finalization** - Review, format, and export presentation
+1. **內容規劃** - 定義簡報結構與核心訊息
+2. **投影片設計** - 使用適當的版面配置與格式建立投影片
+3. **內容填充** - 加入文字、圖片、圖表與資料
+4. **最終定稿** - 審查、格式調整與匯出簡報
 
-## Python Library: python-pptx
+## Python 函式庫：python-pptx
 
-### Installation
+### 安裝
 
 ```bash
 pip install python-pptx
 ```
 
-### Basic Usage
+### 基本用法
 
 ```python
 from pptx import Presentation
@@ -68,9 +68,9 @@ title.text = "Technical Presentation"
 prs.save('presentation.pptx')
 ```
 
-## Creating Technical Presentations
+## 建立技術簡報
 
-### Title Slide
+### 標題投影片
 
 ```python
 from pptx import Presentation
@@ -95,7 +95,7 @@ subtitle.text = "Technical Deep Dive\nQ1 2024"
 prs.save('tech_presentation.pptx')
 ```
 
-### Content Slide with Bullet Points
+### 含項目符號的內容投影片
 
 ```python
 from pptx import Presentation
@@ -124,7 +124,7 @@ for point in ["High Availability", "Security First", "Cloud Native"]:
 prs.save('tech_presentation.pptx')
 ```
 
-### Slide with Image
+### 含圖片的投影片
 
 ```python
 from pptx import Presentation
@@ -152,7 +152,7 @@ pic = slide.shapes.add_picture('architecture.png', left, top, width=Inches(8))
 prs.save('tech_presentation.pptx')
 ```
 
-### Slide with Table
+### 含表格的投影片
 
 ```python
 from pptx import Presentation
@@ -204,7 +204,7 @@ for i, row in enumerate(data, start=1):
 prs.save('tech_presentation.pptx')
 ```
 
-### Slide with Chart
+### 含圖表的投影片
 
 ```python
 from pptx import Presentation
@@ -249,7 +249,7 @@ chart.has_title = False
 prs.save('tech_presentation.pptx')
 ```
 
-## Complete Technical Presentation Example
+## 完整技術簡報範例
 
 ```python
 from pptx import Presentation
@@ -522,9 +522,9 @@ def create_technical_presentation():
 create_technical_presentation()
 ```
 
-## Advanced Formatting
+## 進階格式設定
 
-### Custom Fonts and Colors
+### 自訂字型與色彩
 
 ```python
 from pptx import Presentation
@@ -554,7 +554,7 @@ p.alignment = PP_ALIGN.CENTER
 prs.save('formatted_presentation.pptx')
 ```
 
-### Master Slides and Templates
+### 母片投影片與範本
 
 ```python
 from pptx import Presentation
@@ -570,7 +570,7 @@ content_slide = prs.slides.add_slide(prs.slide_layouts[1])
 prs.save('presentation_from_template.pptx')
 ```
 
-### Adding Shapes
+### 新增圖形
 
 ```python
 from pptx import Presentation
@@ -604,9 +604,9 @@ text_frame.paragraphs[0].font.color.rgb = RGBColor(255, 255, 255)
 prs.save('shapes_presentation.pptx')
 ```
 
-## Automated Slide Generation
+## 自動化投影片產生
 
-### Generate Slides from Data
+### 從資料產生投影片
 
 ```python
 import pandas as pd
@@ -683,77 +683,77 @@ def generate_slides_from_data(csv_file):
 generate_slides_from_data('business_data.csv')
 ```
 
-## Best Practices
+## 最佳實務
 
-### Presentation Design
-- Use consistent layouts throughout
-- Limit text per slide (6x6 rule: max 6 bullets, 6 words each)
-- Use high-quality images
-- Maintain consistent color scheme
-- Include slide numbers
+### 簡報設計
+- 全程使用一致的版面配置
+- 限制每張投影片的文字量（6x6 法則：最多 6 個項目符號，每個最多 6 個詞）
+- 使用高品質圖片
+- 維持一致的配色方案
+- 加入投影片頁碼
 
-### Content Structure
-- Start with agenda/overview
-- One main idea per slide
-- Use visuals to support text
-- Include clear section dividers
-- End with summary/call-to-action
+### 內容結構
+- 以議程/概述作為開場
+- 每張投影片聚焦一個主要概念
+- 使用視覺元素輔助文字說明
+- 加入明確的段落分隔頁
+- 以總結/行動呼籲作為結尾
 
-### Technical Presentations
-- Include architecture diagrams
-- Show code snippets sparingly
-- Use charts for metrics
-- Include implementation timelines
-- Provide technical appendix
+### 技術簡報
+- 加入架構圖
+- 適量展示程式碼片段
+- 使用圖表呈現指標數據
+- 加入實作時程規劃
+- 提供技術附錄
 
-### Automation
-- Use templates for consistency
-- Generate slides from data sources
-- Automate chart creation
-- Version control presentations
-- Script repetitive tasks
+### 自動化
+- 使用範本確保一致性
+- 從資料來源自動產生投影片
+- 自動化圖表建立
+- 對簡報進行版本控制
+- 將重複性工作腳本化
 
-## Quick Reference
+## 快速參考
 
-### Common Slide Layouts
+### 常用投影片版面配置
 
-| Layout Index | Description |
-|--------------|-------------|
-| 0 | Title Slide |
-| 1 | Title and Content |
-| 2 | Section Header |
-| 3 | Two Content |
-| 4 | Comparison |
-| 5 | Title Only |
-| 6 | Blank |
-| 7 | Content with Caption |
-| 8 | Picture with Caption |
+| 版面索引 | 說明 |
+|----------|------|
+| 0 | 標題投影片（Title Slide） |
+| 1 | 標題與內容（Title and Content） |
+| 2 | 段落標題（Section Header） |
+| 3 | 雙欄內容（Two Content） |
+| 4 | 比較（Comparison） |
+| 5 | 僅標題（Title Only） |
+| 6 | 空白（Blank） |
+| 7 | 含標題的內容（Content with Caption） |
+| 8 | 含標題的圖片（Picture with Caption） |
 
-### Chart Types
+### 圖表類型
 
-| Chart Type | Use Case |
-|------------|----------|
-| COLUMN_CLUSTERED | Compare values across categories |
-| BAR_CLUSTERED | Compare values (horizontal) |
-| LINE | Show trends over time |
-| PIE | Show proportions |
-| AREA | Show cumulative trends |
-| XY_SCATTER | Show correlations |
+| 圖表類型 | 使用情境 |
+|----------|----------|
+| COLUMN_CLUSTERED | 跨類別比較數值 |
+| BAR_CLUSTERED | 橫向比較數值 |
+| LINE | 顯示趨勢變化 |
+| PIE | 顯示比例分布 |
+| AREA | 顯示累積趨勢 |
+| XY_SCATTER | 顯示相關性 |
 
-### Color Palette (RGB)
+### 色彩調色盤（RGB）
 
-| Color | RGB | Usage |
-|-------|-----|-------|
-| Blue | (0, 112, 192) | Primary |
-| Green | (0, 176, 80) | Success/Positive |
-| Red | (255, 0, 0) | Alert/Negative |
-| Orange | (255, 192, 0) | Warning |
-| Gray | (127, 127, 127) | Neutral |
+| 顏色 | RGB | 用途 |
+|------|-----|------|
+| 藍色（Blue） | (0, 112, 192) | 主色 |
+| 綠色（Green） | (0, 176, 80) | 成功/正面 |
+| 紅色（Red） | (255, 0, 0) | 警示/負面 |
+| 橘色（Orange） | (255, 192, 0) | 警告 |
+| 灰色（Gray） | (127, 127, 127) | 中性 |
 
-## Keywords
+## 關鍵詞
 
-**English keywords:**
+**英文關鍵詞：**
 technical presentation, powerpoint generation, pptx creation, slides generation, pitch deck, product demo, training slides, business presentation, python-pptx, automated slides
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 技術簡報, PowerPoint生成, PPTX建立, 投影片生成, 投資簡報, 產品演示, 培訓投影片, 商業簡報, 自動化投影片

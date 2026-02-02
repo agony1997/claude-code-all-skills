@@ -3,25 +3,25 @@ name: frontend_typescript
 description: "TypeScript 型別系統專家。專精於型別定義、泛型、進階型別、介面、型別推論、裝飾器、工具型別。關鍵字: typescript, type, interface, generic, 型別, 泛型, 介面, utility types"
 ---
 
-# TypeScript Expert
+# TypeScript 專家
 
-You are a TypeScript Expert specializing in type systems, generics, advanced types, and type-safe JavaScript development.
+你是一位 TypeScript 專家，專精於型別系統、泛型（Generics）、進階型別（Advanced Types）以及型別安全的 JavaScript 開發。
 
-## Overview
+## 概述
 
-TypeScript is a typed superset of JavaScript that adds static type checking. It helps catch errors early, improves IDE support, and makes code more maintainable.
+TypeScript 是 JavaScript 的型別超集（typed superset），加入了靜態型別檢查（static type checking）。它能幫助提早發現錯誤、改善 IDE 支援，並使程式碼更易於維護。
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Work with TypeScript (關鍵字: "typescript", "ts", "type", "型別")
-- Define types (關鍵字: "interface", "type", "介面", "型別定義")
-- Use generics (關鍵字: "generic", "泛型", "T extends")
-- Need advanced types (關鍵字: "utility types", "mapped types", "conditional types")
+當使用者有以下需求時啟用此技能：
+- 使用 TypeScript 開發（關鍵字: "typescript", "ts", "type", "型別"）
+- 定義型別（關鍵字: "interface", "type", "介面", "型別定義"）
+- 使用泛型（關鍵字: "generic", "泛型", "T extends"）
+- 需要進階型別（關鍵字: "utility types", "mapped types", "conditional types"）
 
-## Core Concepts
+## 核心概念
 
-### 1. Basic Types
+### 1. 基本型別
 
 ```typescript
 // Primitive types
@@ -66,7 +66,7 @@ function throwError(message: string): never {
 }
 ```
 
-### 2. Interfaces and Types
+### 2. 介面與型別
 
 ```typescript
 // Interface
@@ -101,7 +101,7 @@ type AddFunction = (a: number, b: number) => number;
 const add: AddFunction = (a, b) => a + b;
 ```
 
-### 3. Generics
+### 3. 泛型
 
 ```typescript
 // Generic function
@@ -162,7 +162,7 @@ logLength({ length: 5 }); // OK
 // logLength(123);       // Error: number doesn't have length
 ```
 
-### 4. Advanced Types
+### 4. 進階型別
 
 ```typescript
 // Mapped types
@@ -196,7 +196,7 @@ type UserReturnType = ReturnType<typeof getUser>;
 type GetUserParams = Parameters<typeof getUser>;
 ```
 
-### 5. Utility Types
+### 5. 工具型別
 
 ```typescript
 interface User {
@@ -233,7 +233,7 @@ type NullableString = string | null | undefined;
 type NonNullString = NonNullable<NullableString>; // string
 ```
 
-### 6. Type Guards
+### 6. 型別守衛
 
 ```typescript
 // typeof type guard
@@ -283,7 +283,7 @@ function move(pet: Bird | Fish) {
 }
 ```
 
-### 7. Decorators
+### 7. 裝飾器
 
 ```typescript
 // Class decorator
@@ -337,7 +337,7 @@ class User {
 }
 ```
 
-### 8. Async/Await with Types
+### 8. 搭配型別的 Async/Await
 
 ```typescript
 async function fetchUser(id: number): Promise<User> {
@@ -357,9 +357,9 @@ async function getUsers(): Promise<User[]> {
 }
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Prefer Interfaces for Objects
+### 1. 物件優先使用 Interface
 ```typescript
 // Good
 interface User {
@@ -371,7 +371,7 @@ interface User {
 type Status = "active" | "inactive";
 ```
 
-### 2. Use Type Inference
+### 2. 善用型別推論
 ```typescript
 // Let TypeScript infer
 const numbers = [1, 2, 3]; // number[]
@@ -381,7 +381,7 @@ const user = { name: "John", age: 30 }; // { name: string; age: number }
 const items: number[] = [];
 ```
 
-### 3. Avoid Any
+### 3. 避免使用 Any
 ```typescript
 // Bad
 function process(data: any) { }
@@ -392,7 +392,7 @@ function process<T>(data: T) { }
 function process(data: unknown) { }
 ```
 
-### 4. Use Strict Mode
+### 4. 使用嚴格模式
 ```json
 // tsconfig.json
 {
@@ -405,7 +405,7 @@ function process(data: unknown) { }
 }
 ```
 
-### 5. Type vs Interface
+### 5. Type 與 Interface 的選擇
 ```typescript
 // Use interface for objects that can be extended
 interface User {
@@ -421,9 +421,9 @@ type ID = string | number;
 type Coordinates = [number, number];
 ```
 
-## Quick Reference
+## 快速參考
 
-### Basic Syntax
+### 基本語法
 ```typescript
 let name: string;
 const age: number = 30;
@@ -431,7 +431,7 @@ function greet(name: string): string { return "Hello"; }
 const arrow = (x: number): number => x * 2;
 ```
 
-### Common Types
+### 常用型別
 ```typescript
 string, number, boolean, null, undefined
 any, unknown, never, void
@@ -440,7 +440,7 @@ Array<T>, T[], [string, number] (tuple)
 (arg: T) => R (function)
 ```
 
-### Type Operations
+### 型別運算
 ```typescript
 T | U         // Union
 T & U         // Intersection
@@ -450,7 +450,7 @@ typeof x      // Type of x
 T[K]          // Index access
 ```
 
-### Utility Types
+### 工具型別
 ```typescript
 Partial<T>, Required<T>, Readonly<T>
 Pick<T, K>, Omit<T, K>
@@ -460,4 +460,4 @@ NonNullable<T>, ReturnType<T>, Parameters<T>
 
 ---
 
-**Remember:** TypeScript is about catching errors at compile time. Invest time in proper typing for better code quality and developer experience.
+**請記住：** TypeScript 的核心目標是在編譯時期捕捉錯誤。投入時間在正確的型別定義上，將帶來更好的程式碼品質與開發體驗。

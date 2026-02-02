@@ -3,26 +3,26 @@ name: tools_pdf-processor
 description: "Comprehensive PDF manipulation toolkit for merging, splitting, extracting text/tables, creating PDFs, adding watermarks, and handling forms. When Claude needs to: (1) Merge multiple PDFs, (2) Split PDF into pages, (3) Extract text or tables from PDF, (4) Create new PDFs, (5) Add watermarks or annotations, (6) Rotate or reorder pages, (7) Extract images, (8) Password protect PDFs, or (9) PDF合併、分割、提取、建立、文字提取、表格提取、加密、浮水印"
 ---
 
-# PDF Processor
+# PDF 處理器
 
-## Overview
+## 概述
 
-This skill provides comprehensive PDF processing capabilities including merging, splitting, text/table extraction, PDF creation, watermarking, and form handling. It uses Python libraries (pypdf, pdfplumber, reportlab) and command-line tools (qpdf, pdftotext) for robust PDF manipulation.
+本技能提供全面的 PDF 處理功能，包括合併、分割、文字/表格提取、PDF 建立、浮水印及表單處理。它使用 Python 函式庫（pypdf、pdfplumber、reportlab）和命令列工具（qpdf、pdftotext）來進行穩健的 PDF 操作。
 
-## When to use this skill
+## 何時使用本技能
 
-**ALWAYS use this skill when the user mentions:**
-- Merging or combining multiple PDF files
-- Splitting PDF into separate pages or sections
-- Extracting text, tables, or images from PDF
-- Creating new PDF documents from scratch
-- Adding watermarks or annotations to PDFs
-- Rotating, reordering, or manipulating PDF pages
-- Password protecting or encrypting PDFs
-- Extracting metadata from PDFs
-- Converting documents to PDF format
+**當使用者提到以下需求時，請務必使用本技能：**
+- 合併或組合多個 PDF 檔案
+- 將 PDF 分割為獨立頁面或區段
+- 從 PDF 中提取文字、表格或圖片
+- 從頭建立新的 PDF 文件
+- 在 PDF 上加入浮水印或註釋
+- 旋轉、重新排列或操作 PDF 頁面
+- 對 PDF 設定密碼保護或加密
+- 從 PDF 中提取中繼資料（metadata）
+- 將文件轉換為 PDF 格式
 
-**Trigger phrases include:**
+**觸發詞彙包括：**
 - "Merge PDFs" / "合併PDF"
 - "Split PDF" / "分割PDF"
 - "Extract text from PDF" / "從PDF提取文字"
@@ -34,22 +34,22 @@ This skill provides comprehensive PDF processing capabilities including merging,
 - "Combine PDF files" / "組合PDF檔案"
 - "PDF to text" / "PDF轉文字"
 
-## How to use this skill
+## 如何使用本技能
 
-### Workflow Overview
+### 工作流程概述
 
-This skill follows a systematic approach based on the operation type:
+本技能依據操作類型採用系統化的處理方式：
 
-1. **Identify Operation** - Determine what PDF operation is needed
-2. **Choose Tool** - Select appropriate library or command-line tool
-3. **Process PDF** - Execute the operation with proper error handling
-4. **Validate Output** - Verify the output PDF is correct and accessible
+1. **辨識操作** - 確定需要哪種 PDF 操作
+2. **選擇工具** - 選取適當的函式庫或命令列工具
+3. **處理 PDF** - 以適當的錯誤處理執行操作
+4. **驗證輸出** - 確認輸出的 PDF 正確且可存取
 
-### Python Libraries
+### Python 函式庫
 
-#### pypdf - Basic PDF Operations
+#### pypdf - 基本 PDF 操作
 
-Use pypdf for merging, splitting, rotating, and basic manipulations:
+使用 pypdf 進行合併、分割、旋轉及基本操作：
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -64,9 +64,9 @@ for page in reader.pages:
     text += page.extract_text()
 ```
 
-#### pdfplumber - Text and Table Extraction
+#### pdfplumber - 文字與表格提取
 
-Use pdfplumber for accurate text extraction and table parsing:
+使用 pdfplumber 進行精確的文字提取與表格解析：
 
 ```python
 import pdfplumber
@@ -85,9 +85,9 @@ with pdfplumber.open("document.pdf") as pdf:
             print(table)
 ```
 
-#### reportlab - Create PDFs
+#### reportlab - 建立 PDF
 
-Use reportlab to create new PDF documents with text, shapes, and images:
+使用 reportlab 建立包含文字、圖形和圖片的新 PDF 文件：
 
 ```python
 from reportlab.lib.pagesizes import letter
@@ -98,9 +98,9 @@ c.drawString(100, 750, "Hello, PDF!")
 c.save()
 ```
 
-## Common PDF Operations
+## 常見 PDF 操作
 
-### Merge Multiple PDFs
+### 合併多個 PDF
 
 ```python
 from pypdf import PdfWriter, PdfReader
@@ -121,7 +121,7 @@ with open("merged.pdf", "wb") as output:
 print("PDFs merged successfully!")
 ```
 
-### Split PDF into Pages
+### 將 PDF 分割為單頁
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -139,7 +139,7 @@ for i, page in enumerate(reader.pages, start=1):
 print(f"Split into {len(reader.pages)} pages")
 ```
 
-### Split PDF by Page Range
+### 依頁面範圍分割 PDF
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -161,7 +161,7 @@ split_pdf("input.pdf", 1, 5, "pages_1_5.pdf")
 split_pdf("input.pdf", 10, 20, "pages_10_20.pdf")
 ```
 
-### Extract Text from PDF
+### 從 PDF 提取文字
 
 ```python
 import pdfplumber
@@ -179,7 +179,7 @@ with open("extracted_text.txt", "w", encoding="utf-8") as f:
 print("Text extracted successfully!")
 ```
 
-### Extract Text with Layout Preservation
+### 保留版面配置提取文字
 
 ```python
 import pdfplumber
@@ -195,7 +195,7 @@ with pdfplumber.open("document.pdf") as pdf:
 print("Text extracted with layout preserved")
 ```
 
-### Extract Tables from PDF
+### 從 PDF 提取表格
 
 ```python
 import pdfplumber
@@ -225,7 +225,7 @@ with pdfplumber.open("document.pdf") as pdf:
 print(f"Extracted {len(all_tables)} tables")
 ```
 
-### Create Simple PDF
+### 建立簡單 PDF
 
 ```python
 from reportlab.lib.pagesizes import letter
@@ -249,7 +249,7 @@ c.save()
 print("PDF created successfully!")
 ```
 
-### Create Multi-Page PDF with Formatting
+### 建立含格式的多頁 PDF
 
 ```python
 from reportlab.lib.pagesizes import letter
@@ -285,7 +285,7 @@ doc.build(story)
 print("Multi-page PDF created!")
 ```
 
-### Add Watermark to PDF
+### 在 PDF 加入浮水印
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -309,7 +309,7 @@ with open("watermarked.pdf", "wb") as output:
 print("Watermark added successfully!")
 ```
 
-### Create Text Watermark
+### 建立文字浮水印
 
 ```python
 from reportlab.pdfgen import canvas
@@ -350,7 +350,7 @@ with open("watermarked.pdf", "wb") as output:
     writer.write(output)
 ```
 
-### Rotate PDF Pages
+### 旋轉 PDF 頁面
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -370,7 +370,7 @@ with open("rotated.pdf", "wb") as output:
     writer.write(output)
 ```
 
-### Rotate All Pages
+### 旋轉所有頁面
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -390,7 +390,7 @@ def rotate_pdf(input_pdf, output_pdf, rotation):
 rotate_pdf("input.pdf", "rotated.pdf", 90)
 ```
 
-### Password Protect PDF
+### 對 PDF 設定密碼保護
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -415,7 +415,7 @@ with open("encrypted.pdf", "wb") as output:
 print("PDF password protected!")
 ```
 
-### Remove Password from PDF
+### 移除 PDF 密碼
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -435,7 +435,7 @@ with open("decrypted.pdf", "wb") as output:
 print("Password removed!")
 ```
 
-### Extract Metadata
+### 提取中繼資料（Metadata）
 
 ```python
 from pypdf import PdfReader
@@ -451,7 +451,7 @@ print(f"Producer: {meta.producer}")
 print(f"Creation Date: {meta.creation_date}")
 ```
 
-### Extract Images from PDF
+### 從 PDF 提取圖片
 
 ```python
 from pypdf import PdfReader
@@ -467,9 +467,9 @@ for page_number, page in enumerate(reader.pages):
 print("Images extracted!")
 ```
 
-## Command-Line Tools
+## 命令列工具
 
-### Using qpdf
+### 使用 qpdf
 
 ```bash
 # Merge PDFs
@@ -488,7 +488,7 @@ qpdf --password=mypassword --decrypt encrypted.pdf decrypted.pdf
 qpdf --compress-streams=y input.pdf compressed.pdf
 ```
 
-### Using pdftotext
+### 使用 pdftotext
 
 ```bash
 # Extract text
@@ -504,9 +504,9 @@ pdftotext -f 1 -l 5 document.pdf output.txt
 pdftotext -enc UTF-8 document.pdf output.txt
 ```
 
-## Advanced Operations
+## 進階操作
 
-### OCR for Scanned PDFs
+### 對掃描 PDF 進行 OCR（光學字元辨識）
 
 ```python
 import pytesseract
@@ -528,7 +528,7 @@ with open("ocr_output.txt", "w", encoding="utf-8") as f:
 print("OCR completed!")
 ```
 
-### Batch Process PDFs
+### 批次處理 PDF
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -557,7 +557,7 @@ def batch_merge_pdfs(input_dir, output_file):
 batch_merge_pdfs("pdf_folder", "combined.pdf")
 ```
 
-### Extract Specific Pages
+### 提取特定頁面
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -584,7 +584,7 @@ odd_pages = list(range(1, len(PdfReader("input.pdf").pages) + 1, 2))
 extract_pages("input.pdf", odd_pages, "odd_pages.pdf")
 ```
 
-### Reorder Pages
+### 重新排列頁面
 
 ```python
 from pypdf import PdfReader, PdfWriter
@@ -607,7 +607,7 @@ def reorder_pages(input_pdf, page_order, output_pdf):
 reorder_pages("input.pdf", [3, 1, 2, 4], "reordered.pdf")
 ```
 
-### Convert HTML to PDF
+### 將 HTML 轉換為 PDF
 
 ```python
 from weasyprint import HTML
@@ -628,51 +628,51 @@ html_string = """
 HTML(string=html_string).write_pdf('from_html.pdf')
 ```
 
-## Best Practices
+## 最佳實踐
 
-### Library Selection
-- **pypdf**: Use for merging, splitting, rotating, and basic manipulations
-- **pdfplumber**: Use for accurate text and table extraction
-- **reportlab**: Use for creating new PDFs from scratch
-- **qpdf**: Use for command-line operations and compression
+### 函式庫選擇
+- **pypdf**：用於合併、分割、旋轉及基本操作
+- **pdfplumber**：用於精確的文字與表格提取
+- **reportlab**：用於從頭建立新的 PDF
+- **qpdf**：用於命令列操作與壓縮
 
-### Performance Optimization
-- Use `read_only=True` for large PDFs when only reading
-- Process pages in batches for memory efficiency
-- Use command-line tools for very large files
-- Close file handles explicitly when done
+### 效能最佳化
+- 對大型 PDF 僅需讀取時使用 `read_only=True`
+- 分批處理頁面以提升記憶體效率
+- 對非常大的檔案使用命令列工具
+- 完成後明確關閉檔案控制代碼（file handle）
 
-### Error Handling
-- Always validate PDF files exist before processing
-- Wrap operations in try-except blocks
-- Check for corrupted or password-protected PDFs
-- Validate page numbers are within range
+### 錯誤處理
+- 處理前務必驗證 PDF 檔案是否存在
+- 將操作包裝在 try-except 區塊中
+- 檢查是否為損毀或受密碼保護的 PDF
+- 驗證頁碼是否在有效範圍內
 
-### Output Quality
-- Set appropriate DPI for image extraction (300 for print quality)
-- Use compression when creating PDFs to reduce file size
-- Preserve metadata when possible
-- Test output PDFs in different viewers
+### 輸出品質
+- 設定適當的 DPI 以提取圖片（列印品質建議 300）
+- 建立 PDF 時使用壓縮以減少檔案大小
+- 盡可能保留中繼資料（metadata）
+- 在不同的檢視器中測試輸出的 PDF
 
-## Quick Reference
+## 快速參考
 
-| Task | Tool | Code/Command |
+| 任務 | 工具 | 程式碼/命令 |
 |------|------|--------------|
-| Merge PDFs | pypdf | `merger.add_page(page)` |
-| Split PDF | pypdf | Create writer per page |
-| Extract text | pdfplumber | `page.extract_text()` |
-| Extract tables | pdfplumber | `page.extract_tables()` |
-| Create PDF | reportlab | `canvas.Canvas()` |
-| Add watermark | pypdf | `page.merge_page(watermark)` |
-| Rotate pages | pypdf | `page.rotate(90)` |
-| Password protect | pypdf | `writer.encrypt()` |
-| Command merge | qpdf | `qpdf --empty --pages ...` |
-| OCR scanned PDF | pytesseract | Convert to image first |
+| 合併 PDF | pypdf | `merger.add_page(page)` |
+| 分割 PDF | pypdf | 每頁建立一個 writer |
+| 提取文字 | pdfplumber | `page.extract_text()` |
+| 提取表格 | pdfplumber | `page.extract_tables()` |
+| 建立 PDF | reportlab | `canvas.Canvas()` |
+| 加入浮水印 | pypdf | `page.merge_page(watermark)` |
+| 旋轉頁面 | pypdf | `page.rotate(90)` |
+| 密碼保護 | pypdf | `writer.encrypt()` |
+| 命令列合併 | qpdf | `qpdf --empty --pages ...` |
+| 掃描 PDF 進行 OCR | pytesseract | 先轉換為圖片 |
 
-## Keywords
+## 關鍵字
 
 **English keywords:**
 pdf processor, merge pdf, split pdf, extract text, extract tables, create pdf, pdf watermark, rotate pdf, password protect pdf, pdf manipulation, combine pdf, pdf to text, pdf encryption, pdf images, batch pdf processing
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 PDF處理, 合併PDF, 分割PDF, 提取文字, 提取表格, 建立PDF, PDF浮水印, 旋轉PDF, 加密PDF, PDF操作, 組合PDF, PDF轉文字, PDF加密, PDF圖片, 批量處理PDF

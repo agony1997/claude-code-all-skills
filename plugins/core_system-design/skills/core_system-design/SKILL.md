@@ -407,9 +407,9 @@ src/
 
 整潔架構（又名六邊形架構、Ports and Adapters）強調關注點分離、框架獨立、可測試性。以下為核心概念與實踐模式。
 
-### Core Concepts
+### 核心概念
 
-#### 1. Architecture Layers
+#### 1. 架構分層
 
 ```
 ┌────────────────────────────────────────────┐
@@ -428,7 +428,7 @@ src/
      ↑ Dependencies point inward only ↑
 ```
 
-#### 2. Project Structure
+#### 2. 專案結構
 
 ```
 src/
@@ -483,9 +483,9 @@ src/
 │               └── Application.java
 ```
 
-#### 3. Domain Layer (Core)
+#### 3. 領域層 (核心)
 
-**Entity:**
+**實體 (Entity):**
 ```java
 package com.example.app.domain.entity;
 
@@ -521,7 +521,7 @@ public class Order {
 }
 ```
 
-**Value Object:**
+**值物件 (Value Object):**
 ```java
 package com.example.app.domain.valueobject;
 
@@ -554,7 +554,7 @@ public class Email {
 }
 ```
 
-**Repository Interface (Port):**
+**Repository 介面 (Port):**
 ```java
 package com.example.app.domain.repository;
 
@@ -566,9 +566,9 @@ public interface OrderRepository {
 }
 ```
 
-#### 4. Application Layer (Use Cases)
+#### 4. 應用層 (Use Cases)
 
-**Use Case Interface (Input Port):**
+**Use Case 介面 (Input Port):**
 ```java
 package com.example.app.application.port.input;
 
@@ -577,7 +577,7 @@ public interface CreateOrderUseCase {
 }
 ```
 
-**Use Case Implementation:**
+**Use Case 實作:**
 ```java
 package com.example.app.application.usecase;
 
@@ -613,7 +613,7 @@ public class CreateOrderUseCaseImpl implements CreateOrderUseCase {
 }
 ```
 
-**Command/Request DTO:**
+**命令/請求 DTO:**
 ```java
 package com.example.app.application.dto;
 
@@ -625,7 +625,7 @@ public class CreateOrderCommand {
 }
 ```
 
-**Response DTO:**
+**回應 DTO:**
 ```java
 package com.example.app.application.dto;
 
@@ -645,9 +645,9 @@ public class OrderResponse {
 }
 ```
 
-#### 5. Adapter Layer (Input)
+#### 5. 適配器層 (輸入)
 
-**Web Controller:**
+**Web 控制器:**
 ```java
 package com.example.app.adapter.input.web;
 
@@ -680,9 +680,9 @@ class CreateOrderRequest {
 }
 ```
 
-#### 6. Adapter Layer (Output)
+#### 6. 適配器層 (輸出)
 
-**Repository Adapter:**
+**Repository 適配器:**
 ```java
 package com.example.app.adapter.output.persistence;
 
@@ -723,7 +723,7 @@ class OrderJpaEntity {
 }
 ```
 
-**External Service Adapter:**
+**外部服務適配器:**
 ```java
 package com.example.app.adapter.output.external;
 
@@ -745,11 +745,11 @@ public class EmailServiceAdapter implements EmailService {
 }
 ```
 
-### Common Patterns & Examples
+### 常見模式與範例
 
-#### Pattern 1: Dependency Inversion
+#### 模式 1: 依賴反轉 (Dependency Inversion)
 
-**Bad (违反):**
+**錯誤 (違反):**
 ```java
 // Use Case depends on concrete implementation
 public class CreateOrderUseCase {
@@ -757,7 +757,7 @@ public class CreateOrderUseCase {
 }
 ```
 
-**Good:**
+**正確:**
 ```java
 // Use Case depends on abstraction (Port)
 public class CreateOrderUseCase {
@@ -765,7 +765,7 @@ public class CreateOrderUseCase {
 }
 ```
 
-#### Pattern 2: Mapper Pattern
+#### 模式 2: Mapper 模式
 
 ```java
 @Component
@@ -798,7 +798,7 @@ public class OrderMapper {
 }
 ```
 
-#### Pattern 3: Use Case Composition
+#### 模式 3: Use Case 組合
 
 ```java
 @UseCase
@@ -830,7 +830,7 @@ public class PlaceOrderUseCase implements PlaceOrderPort {
 }
 ```
 
-#### Pattern 4: Testing Use Cases
+#### 模式 4: 測試 Use Cases
 
 ```java
 @ExtendWith(MockitoExtension.class)
@@ -870,9 +870,9 @@ class CreateOrderUseCaseTest {
 }
 ```
 
-### Best Practices
+### 最佳實踐
 
-#### 1. Keep Domain Pure
+#### 1. 保持領域層純淨
 ```java
 // ✅ Good - Pure domain, no framework dependencies
 package com.example.domain;
@@ -898,14 +898,14 @@ public class Order {
 }
 ```
 
-#### 2. Dependency Rule
-All dependencies point inward:
-- Domain has ZERO dependencies
-- Application depends only on Domain
-- Adapters depend on Application and Domain
-- Infrastructure depends on Adapters
+#### 2. 依賴規則
+所有依賴方向指向內層:
+- Domain（領域層）不依賴任何外部
+- Application（應用層）僅依賴 Domain
+- Adapter（適配器層）依賴 Application 和 Domain
+- Infrastructure（基礎設施層）依賴 Adapter
 
-#### 3. Use Ports and Adapters
+#### 3. 使用 Ports and Adapters
 ```java
 // Port (Interface in Application layer)
 public interface PaymentGateway {
@@ -922,7 +922,7 @@ public class StripePaymentAdapter implements PaymentGateway {
 }
 ```
 
-#### 4. Separate DTOs from Entities
+#### 4. 將 DTO 與 Entity 分離
 ```java
 // Domain Entity
 public class Order {
@@ -939,34 +939,34 @@ public class OrderResponse {
 }
 ```
 
-#### 5. Use Cases should be Small
-Each use case should represent a single user action/goal:
+#### 5. Use Case 應保持精簡
+每個 Use Case 應代表單一使用者操作/目標:
 - CreateOrderUseCase
 - CancelOrderUseCase
 - UpdateOrderShippingAddressUseCase
 
-Avoid: OrderManagementUseCase (too broad)
+避免: OrderManagementUseCase（範圍過大）
 
-### Quick Reference
+### 快速參考
 
-#### Layer Responsibilities
+#### 各層職責
 
-| Layer | Responsibility | Dependencies |
-|-------|---------------|--------------|
-| **Domain** | Business logic, entities, value objects | None |
-| **Application** | Use cases, orchestration | Domain only |
-| **Adapter** | Input/output adapters | Application, Domain |
-| **Infrastructure** | Framework, config | All layers |
+| 分層 | 職責 | 依賴關係 |
+|------|------|----------|
+| **Domain（領域層）** | 業務邏輯、實體、值物件 | 無 |
+| **Application（應用層）** | Use Cases、流程編排 | 僅依賴 Domain |
+| **Adapter（適配器層）** | 輸入/輸出適配器 | Application、Domain |
+| **Infrastructure（基礎設施層）** | 框架、配置 | 所有層 |
 
-#### Key Principles
+#### 關鍵原則
 
-1. **Dependency Rule**: Dependencies point inward
-2. **Framework Independence**: Core is independent of frameworks
-3. **Testability**: Business logic is easily testable
-4. **UI Independence**: UI can change without affecting business rules
-5. **Database Independence**: Can swap databases without changing business rules
+1. **依賴規則**: 依賴方向指向內層
+2. **框架獨立**: 核心層不依賴任何框架
+3. **可測試性**: 業務邏輯易於測試
+4. **UI 獨立**: UI 變更不影響業務規則
+5. **資料庫獨立**: 可替換資料庫而不影響業務規則
 
-#### Naming Conventions
+#### 命名慣例
 
 ```
 Domain Layer:
@@ -988,4 +988,4 @@ Adapter Layer:
 
 ---
 
-**Remember:** Clean Architecture is about separation of concerns and testability. The goal is to make business logic independent of frameworks, UI, and databases.
+**請記住:** 整潔架構的核心在於關注點分離與可測試性。目標是讓業務邏輯獨立於框架、UI 和資料庫。

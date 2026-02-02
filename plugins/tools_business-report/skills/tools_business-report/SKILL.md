@@ -3,24 +3,24 @@ name: tools_business-report
 description: "Comprehensive business report generation toolkit for weekly reports, monthly reports, quarterly reviews, and executive summaries. When Claude needs to: (1) Generate weekly/monthly/quarterly reports, (2) Create executive summaries, (3) Produce data analysis reports, (4) Generate KPI dashboards, (5) Create business performance reports, or (6) 商業報告、週報、月報、季報、業績報告、數據分析報告、管理報告"
 ---
 
-# Business Report Generator
+# 商業報告產生器
 
-## Overview
+## 概述
 
-This skill provides comprehensive guidance for creating professional business reports including weekly reports, monthly reports, quarterly reviews, executive summaries, and data analysis reports. It covers report structure, data visualization, insights generation, and automated report creation.
+此技能提供建立專業商業報告的全面指引，包括週報、月報、季度評估、執行摘要及數據分析報告。涵蓋報告結構、數據視覺化、洞察產出以及自動化報告建立。
 
-## When to use this skill
+## 何時使用此技能
 
-**ALWAYS use this skill when the user mentions:**
-- Creating weekly, monthly, or quarterly reports
-- Generating executive summaries
-- Producing business performance reports
-- Creating KPI dashboards and reports
-- Generating data analysis reports
-- Creating management reports
-- Building automated reporting systems
+**當使用者提及以下內容時，務必使用此技能：**
+- 建立週報、月報或季報
+- 產生執行摘要
+- 製作業績報告
+- 建立 KPI 儀表板與報告
+- 產生數據分析報告
+- 建立管理報告
+- 建構自動化報告系統
 
-**Trigger phrases include:**
+**觸發用語包括：**
 - "Create weekly report" / "建立週報"
 - "Generate monthly report" / "生成月報"
 - "Quarterly review" / "季度報告"
@@ -30,21 +30,21 @@ This skill provides comprehensive guidance for creating professional business re
 - "KPI report" / "KPI報告"
 - "Management report" / "管理報告"
 
-## How to use this skill
+## 如何使用此技能
 
-### Workflow Overview
+### 工作流程概覽
 
-This skill follows a systematic 5-step workflow:
+此技能遵循系統化的五步驟工作流程：
 
-1. **Data Collection** - Gather relevant business data and metrics
-2. **Analysis** - Analyze trends, patterns, and key insights
-3. **Visualization** - Create charts and graphs to illustrate findings
-4. **Report Creation** - Structure and write the report
-5. **Distribution** - Format and distribute the report
+1. **數據收集** - 蒐集相關商業數據與指標
+2. **分析** - 分析趨勢、模式與關鍵洞察
+3. **視覺化** - 建立圖表以呈現發現結果
+4. **報告建立** - 組織架構並撰寫報告
+5. **分發** - 格式化並分發報告
 
-## Report Templates
+## 報告範本
 
-### Weekly Report Template
+### 週報範本
 
 ```markdown
 # Weekly Business Report
@@ -243,7 +243,7 @@ Brief overview of the week's key highlights, major achievements, challenges, and
 [Include relevant charts here]
 ```
 
-### Monthly Report Template
+### 月報範本
 
 ```markdown
 # Monthly Business Report
@@ -569,7 +569,7 @@ Product Line C: $100,000 (19%)  ██████████
 - **MoM:** Month over Month
 ```
 
-### Quarterly Business Review Template
+### 季度業務評估範本
 
 ```markdown
 # Quarterly Business Review
@@ -658,9 +658,9 @@ Q1 2024 delivered strong performance across all key metrics, with revenue exceed
 
 ```
 
-## Generating Reports with Python
+## 使用 Python 產生報告
 
-### Automated Report Generation
+### 自動化報告產生
 
 ```python
 import pandas as pd
@@ -800,68 +800,68 @@ generator.send_email_report(
 )
 ```
 
-## Best Practices
+## 最佳實踐
 
-### Report Structure
-- Start with executive summary
-- Use clear section headings
-- Include visual elements (charts, tables)
-- Highlight key insights
-- Provide actionable recommendations
+### 報告結構
+- 以執行摘要開頭
+- 使用清晰的段落標題
+- 包含視覺元素（圖表、表格）
+- 強調關鍵洞察
+- 提供可執行的建議
 
-### Data Presentation
-- Use tables for detailed metrics
-- Create charts for trends and comparisons
-- Apply conditional formatting
-- Include variance analysis
-- Show period-over-period comparisons
+### 數據呈現
+- 使用表格呈現詳細指標
+- 建立圖表展示趨勢與比較
+- 套用條件式格式
+- 包含差異分析
+- 顯示期間對期間的比較
 
-### Writing Style
-- Be concise and factual
-- Focus on insights, not just data
-- Use bullet points for clarity
-- Highlight exceptions and anomalies
-- Include context for metrics
+### 撰寫風格
+- 簡潔且基於事實
+- 著重於洞察，而非僅列數據
+- 使用條列式項目以提高清晰度
+- 強調例外與異常狀況
+- 為指標提供背景脈絡
 
-### Automation
-- Automate data collection
-- Generate reports on schedule
-- Use templates for consistency
-- Implement version control
-- Archive historical reports
+### 自動化
+- 自動化數據收集
+- 按排程產生報告
+- 使用範本確保一致性
+- 實施版本控制
+- 歸檔歷史報告
 
-## Quick Reference
+## 快速參考
 
-### Report Frequency Guide
+### 報告頻率指南
 
-| Report Type | Frequency | Key Audience | Focus Areas |
-|-------------|-----------|--------------|-------------|
-| Weekly Report | Weekly | Team, Managers | Metrics, Activities, Issues |
-| Monthly Report | Monthly | Management | Performance, Trends, Analysis |
-| Quarterly Review | Quarterly | Executives | Strategy, Goals, Results |
-| Annual Report | Yearly | Board, Stakeholders | Full-year performance, Strategy |
+| 報告類型 | 頻率 | 主要受眾 | 重點領域 |
+|----------|------|----------|----------|
+| 週報 | 每週 | 團隊、經理 | 指標、活動、議題 |
+| 月報 | 每月 | 管理層 | 績效、趨勢、分析 |
+| 季度評估 | 每季 | 高階主管 | 策略、目標、成果 |
+| 年度報告 | 每年 | 董事會、利害關係人 | 全年績效、策略 |
 
-### Common KPIs by Department
+### 各部門常見 KPI
 
-**Sales:**
-- Revenue, Pipeline Value, Win Rate, Average Deal Size
+**業務部門：**
+- Revenue（營收）、Pipeline Value（銷售管線價值）、Win Rate（成交率）、Average Deal Size（平均交易金額）
 
-**Marketing:**
-- Leads Generated, Conversion Rate, CAC, ROI
+**行銷部門：**
+- Leads Generated（潛在客戶數）、Conversion Rate（轉換率）、CAC（客戶取得成本）、ROI（投資報酬率）
 
-**Product:**
-- Active Users, Feature Adoption, NPS, Churn Rate
+**產品部門：**
+- Active Users（活躍使用者）、Feature Adoption（功能採用率）、NPS（淨推薦分數）、Churn Rate（流失率）
 
-**Customer Success:**
-- CSAT, NPS, Retention Rate, Support Tickets
+**客戶成功部門：**
+- CSAT（客戶滿意度）、NPS（淨推薦分數）、Retention Rate（留存率）、Support Tickets（支援工單數）
 
-**Finance:**
-- Revenue, Expenses, Profit Margin, Cash Flow
+**財務部門：**
+- Revenue（營收）、Expenses（費用）、Profit Margin（利潤率）、Cash Flow（現金流量）
 
-## Keywords
+## 關鍵字
 
-**English keywords:**
+**英文關鍵字：**
 business report, weekly report, monthly report, quarterly report, executive summary, performance report, KPI report, management report, data analysis report, business analytics
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 商業報告, 週報, 月報, 季度報告, 執行摘要, 業績報告, KPI報告, 管理報告, 數據分析報告, 商業分析

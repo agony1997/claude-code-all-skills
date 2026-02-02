@@ -3,38 +3,38 @@ name: db_mysql
 description: "MySQL 資料庫專家。專精於資料庫設計、索引優化、查詢優化、事務管理、備份恢復、複製架構、效能調校。關鍵字: mysql, database, 資料庫, sql, index, 索引優化, query optimization, replication, 查詢優化"
 ---
 
-# MySQL Expert
+# MySQL 專家
 
-You are a MySQL Database Expert specializing in database design, query optimization, indexing strategies, transaction management, and production MySQL operations.
+你是一位 MySQL 資料庫專家，專精於資料庫設計、查詢優化、索引策略、事務管理以及正式環境的 MySQL 維運。
 
-## Overview
+## 概述
 
-MySQL is the world's most popular open-source relational database management system. As a MySQL expert, you help with database design, performance tuning, high availability setup, and troubleshooting.
+MySQL 是全球最受歡迎的開源關聯式資料庫管理系統。身為 MySQL 專家，你協助處理資料庫設計、效能調校、高可用性架設及故障排除。
 
-**Core capabilities:**
-- Database schema design and normalization
-- Index optimization and query tuning
-- Transaction and locking mechanisms
-- Replication and high availability
-- Backup and recovery strategies
-- Security and user management
-- Performance monitoring and optimization
+**核心能力：**
+- 資料庫 Schema 設計與正規化
+- 索引優化與查詢調校
+- 事務與鎖定機制
+- 複製（Replication）與高可用性
+- 備份與復原策略
+- 安全性與使用者管理
+- 效能監控與優化
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Design database schema (關鍵字: "mysql", "database design", "資料庫設計", "schema")
-- Optimize queries (關鍵字: "query optimization", "slow query", "查詢優化", "慢查詢")
-- Create indexes (關鍵字: "index", "索引", "indexing strategy")
-- Handle transactions (關鍵字: "transaction", "事務", "lock", "鎖")
-- Set up replication (關鍵字: "replication", "複製", "master-slave")
-- Need performance tuning (關鍵字: "performance", "效能調校", "optimization")
+當使用者有以下需求時啟用此技能：
+- 設計資料庫 Schema（關鍵字: "mysql", "database design", "資料庫設計", "schema"）
+- 優化查詢（關鍵字: "query optimization", "slow query", "查詢優化", "慢查詢"）
+- 建立索引（關鍵字: "index", "索引", "indexing strategy"）
+- 處理事務（關鍵字: "transaction", "事務", "lock", "鎖"）
+- 設定複製（關鍵字: "replication", "複製", "master-slave"）
+- 需要效能調校（關鍵字: "performance", "效能調校", "optimization"）
 
-## Core Knowledge Areas
+## 核心知識領域
 
-### 1. Database Design
+### 1. 資料庫設計
 
-**Table Design:**
+**資料表設計：**
 ```sql
 -- Users table
 CREATE TABLE users (
@@ -79,9 +79,9 @@ CREATE TABLE order_items (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ```
 
-### 2. Indexing Strategies
+### 2. 索引策略
 
-**Index Types:**
+**索引類型：**
 ```sql
 -- Primary Key (Clustered Index)
 CREATE TABLE users (
@@ -104,7 +104,7 @@ CREATE FULLTEXT INDEX idx_description ON products(description);
 CREATE SPATIAL INDEX idx_location ON stores(location);
 ```
 
-**When to use indexes:**
+**何時使用索引：**
 ```sql
 -- Good: WHERE clause filtering
 SELECT * FROM orders WHERE user_id = 123;
@@ -125,7 +125,7 @@ JOIN users u ON o.user_id = u.id;
 -- Index: idx_user_id on orders, PRIMARY KEY on users
 ```
 
-**Index Best Practices:**
+**索引最佳實踐：**
 ```sql
 -- 1. Leftmost Prefix Rule
 CREATE INDEX idx_abc ON table(a, b, c);
@@ -150,9 +150,9 @@ CREATE INDEX idx_user_status ON orders(user_id, status);  -- Contains user_id al
 CREATE INDEX idx_deleted_at ON users(deleted_at);  -- For soft deletes
 ```
 
-### 3. Query Optimization
+### 3. 查詢優化
 
-**EXPLAIN Analysis:**
+**EXPLAIN 分析：**
 ```sql
 EXPLAIN SELECT u.username, o.order_no, o.total_amount
 FROM users u
@@ -170,7 +170,7 @@ LIMIT 10;
 -- Extra: Using filesort (bad), Using temporary (bad), Using index (good)
 ```
 
-**Common Query Problems:**
+**常見查詢問題：**
 ```sql
 -- Problem 1: Function on indexed column
 -- Bad:
@@ -202,7 +202,7 @@ SELECT users.id, users.username, orders.order_no, orders.total_amount
 FROM users JOIN orders ON users.id = orders.user_id;
 ```
 
-**Optimized Queries:**
+**優化後的查詢：**
 ```sql
 -- Use covering index
 CREATE INDEX idx_user_status_name ON users(status, username);
@@ -225,9 +225,9 @@ DELETE FROM logs WHERE created_at < DATE_SUB(NOW(), INTERVAL 30 DAY) LIMIT 1000;
 -- Run repeatedly until done
 ```
 
-### 4. Transactions and Locking
+### 4. 事務與鎖定
 
-**Transaction Isolation Levels:**
+**事務隔離等級：**
 ```sql
 -- Set isolation level
 SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;
@@ -255,7 +255,7 @@ ELSE
 END IF;
 ```
 
-**Locking:**
+**鎖定：**
 ```sql
 -- Shared lock (S lock) - Read lock
 SELECT * FROM orders WHERE id = 1 LOCK IN SHARE MODE;
@@ -277,7 +277,7 @@ WHERE id = 1 AND version = @old_version;
 -- Check ROW_COUNT(), if 0, someone else updated it
 ```
 
-**Deadlock Prevention:**
+**死鎖預防：**
 ```sql
 -- Always access tables in the same order
 -- Transaction 1:
@@ -296,9 +296,9 @@ COMMIT;
 -- Use proper indexes to reduce lock time
 ```
 
-### 5. Performance Tuning
+### 5. 效能調校
 
-**Key Configuration:**
+**關鍵組態設定：**
 ```ini
 # my.cnf / my.ini
 [mysqld]
@@ -329,7 +329,7 @@ character_set_server = utf8mb4
 collation_server = utf8mb4_unicode_ci
 ```
 
-**Monitor Performance:**
+**效能監控：**
 ```sql
 -- Show running queries
 SHOW PROCESSLIST;
@@ -355,9 +355,9 @@ WHERE TABLE_SCHEMA = 'mydb' AND DATA_FREE > 0;
 OPTIMIZE TABLE orders;
 ```
 
-### 6. Backup and Recovery
+### 6. 備份與復原
 
-**Backup Strategies:**
+**備份策略：**
 ```bash
 # Full backup with mysqldump
 mysqldump -u root -p --single-transaction --routines --triggers \
@@ -379,7 +379,7 @@ xtrabackup --backup --target-dir=/backup/full
 xtrabackup --backup --target-dir=/backup/inc1 --incremental-basedir=/backup/full
 ```
 
-**Point-in-Time Recovery:**
+**時間點復原（Point-in-Time Recovery）：**
 ```bash
 # Enable binary logs
 # my.cnf:
@@ -395,9 +395,9 @@ mysqlbinlog --start-datetime="2024-01-27 10:00:00" \
             mysql-bin.000001 | mysql -u root -p mydb
 ```
 
-### 7. Replication
+### 7. 複製（Replication）
 
-**Master-Slave Replication:**
+**主從複製（Master-Slave Replication）：**
 ```sql
 -- Master configuration (my.cnf)
 [mysqld]
@@ -438,28 +438,28 @@ SHOW SLAVE STATUS\G
 -- Seconds_Behind_Master: 0
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Schema Design
-- Use appropriate data types (INT vs BIGINT, VARCHAR vs TEXT)
-- Normalize to 3NF, denormalize for performance when needed
-- Use UNSIGNED for non-negative values
-- Use ENUM for fixed value sets
-- Add created_at and updated_at to all tables
+### 1. Schema 設計
+- 使用適當的資料類型（INT vs BIGINT、VARCHAR vs TEXT）
+- 正規化至第三正規化（3NF），需要時為效能考量進行反正規化
+- 對非負數值使用 UNSIGNED
+- 對固定值集合使用 ENUM
+- 為所有資料表加上 created_at 和 updated_at
 
-### 2. Indexing
-- Index foreign keys
-- Create composite indexes for common query patterns
-- Don't over-index (affects INSERT/UPDATE performance)
-- Monitor index usage with performance_schema
+### 2. 索引
+- 為外鍵建立索引
+- 針對常見查詢模式建立複合索引
+- 避免過度索引（會影響 INSERT/UPDATE 效能）
+- 使用 performance_schema 監控索引使用情況
 
-### 3. Query Writing
-- Avoid SELECT *
-- Use LIMIT for large result sets
-- Use prepared statements to prevent SQL injection
-- Avoid subqueries in SELECT list
+### 3. 查詢撰寫
+- 避免使用 SELECT *
+- 對大型結果集使用 LIMIT
+- 使用 Prepared Statements 防止 SQL Injection（SQL 注入）
+- 避免在 SELECT 清單中使用子查詢
 
-### 4. Security
+### 4. 安全性
 ```sql
 -- Create application user with limited privileges
 CREATE USER 'app_user'@'localhost' IDENTIFIED BY 'strong_password';
@@ -474,7 +474,7 @@ DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.
 FLUSH PRIVILEGES;
 ```
 
-### 5. Monitoring
+### 5. 監控
 ```sql
 -- Enable performance_schema
 SET GLOBAL performance_schema = ON;
@@ -487,9 +487,9 @@ ORDER BY SUM_TIMER_WAIT DESC LIMIT 10;
 SELECT * FROM performance_schema.table_lock_waits_summary_by_table;
 ```
 
-## Quick Reference
+## 快速參考
 
-### Common Data Types
+### 常用資料類型
 ```sql
 -- Integers
 TINYINT    -- 1 byte (-128 to 127)
@@ -517,7 +517,7 @@ TIMESTAMP       -- Auto-updated
 TIME            -- HH:MM:SS
 ```
 
-### Essential Commands
+### 常用指令
 ```sql
 -- Database operations
 CREATE DATABASE mydb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -546,7 +546,7 @@ DROP USER 'username'@'host';
 FLUSH PRIVILEGES;
 ```
 
-### Performance Metrics
+### 效能指標
 ```sql
 -- Connection stats
 SHOW STATUS LIKE 'Connections';
@@ -564,4 +564,4 @@ SHOW STATUS LIKE 'Innodb_rows%';
 
 ---
 
-**Remember:** Proper indexing and query optimization are the foundation of MySQL performance. Always test with production-like data volumes.
+**請記住：** 正確的索引與查詢優化是 MySQL 效能的基礎。務必使用接近正式環境的資料量進行測試。

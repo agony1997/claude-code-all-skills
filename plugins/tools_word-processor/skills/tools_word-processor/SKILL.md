@@ -3,26 +3,26 @@ name: tools_word-processor
 description: "Comprehensive Word document creation, editing, and conversion toolkit. When Claude needs to: (1) Create new Word documents, (2) Edit existing DOCX files, (3) Add formatting and styles, (4) Insert tables, images, and charts, (5) Convert between formats (DOCX/PDF/HTML), (6) Manage document structure, (7) Add headers/footers, (8) Process templates, or (9) Word文檔建立、編輯、轉換、格式化、表格插入、圖片處理"
 ---
 
-# Word Processor
+# Word 文件處理器
 
-## Overview
+## 概述
 
-This skill provides comprehensive Word document processing capabilities including creating new documents, editing existing files, formatting text, inserting tables/images, and converting between formats. It uses python-docx library for document manipulation and pandoc for format conversion.
+此技能提供全面的 Word 文件處理功能，包括建立新文件、編輯現有檔案、格式化文字、插入表格/圖片，以及在不同格式之間轉換。它使用 python-docx 函式庫進行文件操作，並使用 pandoc 進行格式轉換。
 
-## When to use this skill
+## 何時使用此技能
 
-**ALWAYS use this skill when the user mentions:**
-- Creating new Word documents
-- Editing existing DOCX files
-- Formatting Word documents (fonts, styles, paragraphs)
-- Inserting tables, images, or charts into Word
-- Converting Word to other formats (PDF, HTML, Markdown)
-- Converting other formats to Word
-- Managing document headers, footers, and page numbers
-- Creating Word templates
-- Processing multiple Word documents
+**當使用者提到以下需求時，務必使用此技能：**
+- 建立新的 Word 文件
+- 編輯現有的 DOCX 檔案
+- 格式化 Word 文件（字型、樣式、段落）
+- 在 Word 中插入表格、圖片或圖表
+- 將 Word 轉換為其他格式（PDF、HTML、Markdown）
+- 將其他格式轉換為 Word
+- 管理文件頁首、頁尾和頁碼
+- 建立 Word 範本
+- 批次處理多個 Word 文件
 
-**Trigger phrases include:**
+**觸發短語包括：**
 - "Create Word document" / "建立Word文檔"
 - "Edit DOCX file" / "編輯DOCX檔案"
 - "Add table to Word" / "在Word中加入表格"
@@ -33,26 +33,26 @@ This skill provides comprehensive Word document processing capabilities includin
 - "Word template" / "Word範本"
 - "Generate Word report" / "生成Word報告"
 
-## How to use this skill
+## 如何使用此技能
 
-### Workflow Overview
+### 工作流程概述
 
-This skill follows a systematic approach based on the operation type:
+此技能根據操作類型採用系統化方法：
 
-1. **Identify Operation** - Determine if creating new, editing existing, or converting
-2. **Choose Tool** - Select python-docx for editing or pandoc for conversion
-3. **Process Document** - Execute operations with proper formatting
-4. **Save Output** - Write document with correct encoding and format
+1. **識別操作** - 判斷是建立新文件、編輯現有文件，還是進行格式轉換
+2. **選擇工具** - 選擇 python-docx 進行編輯，或 pandoc 進行轉換
+3. **處理文件** - 以適當的格式執行操作
+4. **儲存輸出** - 以正確的編碼和格式寫入文件
 
-### Python Library: python-docx
+### Python 函式庫：python-docx
 
-#### Installation
+#### 安裝
 
 ```bash
 pip install python-docx
 ```
 
-#### Basic Usage
+#### 基本用法
 
 ```python
 from docx import Document
@@ -68,9 +68,9 @@ doc.add_paragraph('This is a paragraph.')
 doc.save('output.docx')
 ```
 
-## Creating Word Documents
+## 建立 Word 文件
 
-### Create Simple Document
+### 建立簡單文件
 
 ```python
 from docx import Document
@@ -97,7 +97,7 @@ doc.save('project_report.docx')
 print("Document created successfully!")
 ```
 
-### Add Formatted Text
+### 新增格式化文字
 
 ```python
 from docx import Document
@@ -133,7 +133,7 @@ p.alignment = WD_ALIGN_PARAGRAPH.CENTER
 doc.save('formatted_document.docx')
 ```
 
-### Insert Tables
+### 插入表格
 
 ```python
 from docx import Document
@@ -166,7 +166,7 @@ for i, row_data in enumerate(data, start=1):
 doc.save('table_document.docx')
 ```
 
-### Insert Dynamic Tables from Data
+### 從資料動態插入表格
 
 ```python
 from docx import Document
@@ -194,7 +194,7 @@ for i, row in df.iterrows():
 doc.save('data_report.docx')
 ```
 
-### Insert Images
+### 插入圖片
 
 ```python
 from docx import Document
@@ -221,7 +221,7 @@ for img in images:
 doc.save('image_document.docx')
 ```
 
-### Add Headers and Footers
+### 新增頁首和頁尾
 
 ```python
 from docx import Document
@@ -248,7 +248,7 @@ doc.add_paragraph('This document has custom header and footer.')
 doc.save('header_footer_document.docx')
 ```
 
-### Create Multi-Section Document
+### 建立多分節文件
 
 ```python
 from docx import Document
@@ -278,9 +278,9 @@ doc.add_paragraph('This is the conclusion section.')
 doc.save('multi_section_document.docx')
 ```
 
-## Editing Existing Documents
+## 編輯現有文件
 
-### Read and Modify Existing Document
+### 讀取並修改現有文件
 
 ```python
 from docx import Document
@@ -300,7 +300,7 @@ doc.add_paragraph('This is new content added to the document.')
 doc.save('modified_document.docx')
 ```
 
-### Find and Replace Text
+### 尋找並取代文字
 
 ```python
 from docx import Document
@@ -330,7 +330,7 @@ replace_text(doc, '{{AMOUNT}}', '$1,000')
 doc.save('filled_template.docx')
 ```
 
-### Extract Text from Document
+### 從文件擷取文字
 
 ```python
 from docx import Document
@@ -359,7 +359,7 @@ with open('extracted_text.txt', 'w', encoding='utf-8') as f:
     f.write(text)
 ```
 
-### Modify Table Content
+### 修改表格內容
 
 ```python
 from docx import Document
@@ -383,9 +383,9 @@ new_row.cells[2].text = '200'
 doc.save('modified_table_document.docx')
 ```
 
-## Document Conversion
+## 文件格式轉換
 
-### Convert Word to PDF
+### 將 Word 轉換為 PDF
 
 ```bash
 # Using LibreOffice command line
@@ -395,7 +395,7 @@ soffice --headless --convert-to pdf document.docx
 pandoc document.docx -o document.pdf
 ```
 
-### Convert Word to HTML
+### 將 Word 轉換為 HTML
 
 ```bash
 # Using pandoc
@@ -405,7 +405,7 @@ pandoc document.docx -o document.html
 pandoc document.docx -o document.html --css=style.css
 ```
 
-### Convert Word to Markdown
+### 將 Word 轉換為 Markdown
 
 ```bash
 # Using pandoc
@@ -415,7 +415,7 @@ pandoc document.docx -o document.md
 pandoc document.docx -o document.md --markdown-headings=atx
 ```
 
-### Convert Markdown to Word
+### 將 Markdown 轉換為 Word
 
 ```bash
 # Using pandoc
@@ -425,7 +425,7 @@ pandoc document.md -o document.docx
 pandoc document.md -o document.docx --reference-doc=template.docx
 ```
 
-### Convert HTML to Word
+### 將 HTML 轉換為 Word
 
 ```bash
 # Using pandoc
@@ -435,7 +435,7 @@ pandoc document.html -o document.docx
 pandoc document.html -o document.docx --metadata title="Document Title"
 ```
 
-### Batch Convert Documents
+### 批次轉換文件
 
 ```python
 import os
@@ -465,9 +465,9 @@ def batch_convert_to_pdf(input_dir, output_dir):
 batch_convert_to_pdf('docx_files', 'pdf_files')
 ```
 
-## Advanced Features
+## 進階功能
 
-### Create Document from Template
+### 從範本建立文件
 
 ```python
 from docx import Document
@@ -509,7 +509,7 @@ data = {
 fill_template('invoice_template.docx', 'invoice_2024.docx', data)
 ```
 
-### Add List (Bullets and Numbering)
+### 新增清單（項目符號與編號）
 
 ```python
 from docx import Document
@@ -531,7 +531,7 @@ doc.add_paragraph('Step 3: Review', style='List Number')
 doc.save('list_document.docx')
 ```
 
-### Add Table of Contents
+### 新增目錄
 
 ```python
 from docx import Document
@@ -582,7 +582,7 @@ doc.add_paragraph('Content for chapter 2...')
 doc.save('document_with_toc.docx')
 ```
 
-### Merge Multiple Documents
+### 合併多個文件
 
 ```python
 from docx import Document
@@ -609,7 +609,7 @@ files = ['doc1.docx', 'doc2.docx', 'doc3.docx']
 merge_documents(files, 'merged_document.docx')
 ```
 
-### Apply Custom Styles
+### 套用自訂樣式
 
 ```python
 from docx import Document
@@ -640,49 +640,49 @@ doc.add_paragraph('This paragraph uses the custom style.', style='CustomStyle')
 doc.save('custom_style_document.docx')
 ```
 
-## Best Practices
+## 最佳實踐
 
-### Document Creation
-- Use consistent heading levels (0 for title, 1-3 for sections)
-- Apply built-in styles for better compatibility
-- Set proper margins and page sizes
-- Use page breaks instead of multiple empty paragraphs
+### 文件建立
+- 使用一致的標題層級（0 為標題，1-3 為章節）
+- 套用內建樣式以獲得更好的相容性
+- 設定適當的邊界和頁面大小
+- 使用分頁符號而非多個空段落
 
-### Text Formatting
-- Keep formatting simple and consistent
-- Use styles instead of direct formatting
-- Prefer built-in paragraph styles (Normal, Heading 1, etc.)
-- Set font sizes using Pt() for consistency
+### 文字格式化
+- 保持格式簡潔且一致
+- 使用樣式而非直接格式化
+- 優先使用內建段落樣式（Normal、Heading 1 等）
+- 使用 Pt() 設定字型大小以確保一致性
 
-### Tables
-- Use appropriate table styles
-- Set column widths explicitly for large tables
-- Merge cells only when necessary
-- Keep table headers on each page for long tables
+### 表格
+- 使用適當的表格樣式
+- 對大型表格明確設定欄寬
+- 僅在必要時合併儲存格
+- 長表格應在每頁保留表頭
 
-### Images
-- Use appropriate image sizes (not too large)
-- Set explicit width/height using Inches()
-- Compress images before inserting
-- Use supported formats (PNG, JPG)
+### 圖片
+- 使用適當的圖片大小（不宜過大）
+- 使用 Inches() 明確設定寬度/高度
+- 插入前先壓縮圖片
+- 使用支援的格式（PNG、JPG）
 
-### Conversion
-- Use pandoc for format conversions
-- Specify reference documents for styling
-- Test converted documents in target format
-- Handle special characters and encoding properly
+### 格式轉換
+- 使用 pandoc 進行格式轉換
+- 指定參考文件以套用樣式
+- 在目標格式中測試轉換後的文件
+- 妥善處理特殊字元和編碼
 
-### Error Handling
-- Validate file paths before processing
-- Check document structure before modification
-- Handle missing fonts gracefully
-- Back up original documents before editing
+### 錯誤處理
+- 處理前先驗證檔案路徑
+- 修改前先檢查文件結構
+- 妥善處理缺少字型的情況
+- 編輯前先備份原始文件
 
-## 繁體中文處理最佳實踐 (Traditional Chinese Handling)
+## 繁體中文處理最佳實踐
 
 ### python-docx 中文支援
 
-python-docx 對 Unicode (包含繁體中文) 的支援良好,可以直接在程式碼中使用中文:
+python-docx 對 Unicode（包含繁體中文）的支援良好，可以直接在程式碼中使用中文：
 
 ```python
 from docx import Document
@@ -706,7 +706,7 @@ doc.save('專案報告.docx')
 
 ### 設定中文字型
 
-Word 文檔中,中文字體需要特別設定:
+Word 文檔中，中文字體需要特別設定：
 
 ```python
 from docx import Document
@@ -743,7 +743,7 @@ doc.save('中文文檔.docx')
 | 標楷體 | DFKai-SB | 傳統、正式 | ✅ |
 | 新細明體 | PMingLiU | 傳統、閱讀 | ✅ |
 | 微軟雅黑 | Microsoft YaHei | 簡體為主 | ✅ |
-| 思源黑體 | Noto Sans CJK TC | 開源、現代 | ❌ 需安裝 |
+| 思源黑體 | Noto Sans CJK TC | 開源、現代 | 需安裝 |
 
 ### 建立完整的繁體中文文檔範例
 
@@ -852,7 +852,7 @@ doc.save('輸出文檔.docx')
 
 ### 轉換編碼
 
-如果原始檔案編碼不是 UTF-8:
+如果原始檔案編碼不是 UTF-8：
 
 ```python
 # 嘗試不同編碼
@@ -868,9 +868,9 @@ for encoding in encodings:
         continue
 ```
 
-### Word 轉 PDF (保留中文)
+### Word 轉 PDF（保留中文）
 
-使用 LibreOffice (跨平台,免費):
+使用 LibreOffice（跨平台，免費）：
 
 ```python
 import subprocess
@@ -891,7 +891,7 @@ from docx2pdf import convert
 convert('中文文檔.docx', '中文文檔.pdf')
 ```
 
-### 使用範本 (包含中文)
+### 使用範本（包含中文）
 
 ```python
 from docx import Document
@@ -925,66 +925,66 @@ doc.save('已填寫範本.docx')
 
 ### 常見問題排解
 
-#### Q1: 中文字顯示為方塊 (□□□)
-**原因**: 未設定東亞字體
-**解決方案**:
+#### Q1: 中文字顯示為方塊
+**原因**：未設定東亞字體
+**解決方案**：
 ```python
 run._element.rPr.rFonts.set(qn('w:eastAsia'), 'Microsoft JhengHei')
 ```
 
 #### Q2: 讀取文字檔中文亂碼
-**原因**: 編碼不正確
-**解決方案**: 使用 `encoding='utf-8'` 或 `encoding='big5'`
+**原因**：編碼不正確
+**解決方案**：使用 `encoding='utf-8'` 或 `encoding='big5'`
 
 #### Q3: 轉 PDF 後中文變亂碼
-**原因**: PDF 轉換工具不支援中文字型
-**解決方案**: 使用 LibreOffice 或 docx2pdf (Windows)
+**原因**：PDF 轉換工具不支援中文字型
+**解決方案**：使用 LibreOffice 或 docx2pdf（Windows）
 
 #### Q4: 字型名稱無效
-**原因**: 系統未安裝該字型
-**解決方案**:
-- 確認字型已安裝: 控制台 → 字型
-- 使用系統內建字型 (Microsoft JhengHei, DFKai-SB)
+**原因**：系統未安裝該字型
+**解決方案**：
+- 確認字型已安裝：控制台 → 字型
+- 使用系統內建字型（Microsoft JhengHei、DFKai-SB）
 
 ### 推薦字型設定
 
-**正式文件**: 標楷體 (DFKai-SB)
+**正式文件**：標楷體（DFKai-SB）
 ```python
 run.font.name = 'DFKai-SB'
 run._element.rPr.rFonts.set(qn('w:eastAsia'), 'DFKai-SB')
 ```
 
-**現代文件**: 微軟正黑體 (Microsoft JhengHei)
+**現代文件**：微軟正黑體（Microsoft JhengHei）
 ```python
 run.font.name = 'Microsoft JhengHei'
 run._element.rPr.rFonts.set(qn('w:eastAsia'), 'Microsoft JhengHei')
 ```
 
-**閱讀文件**: 新細明體 (PMingLiU)
+**閱讀文件**：新細明體（PMingLiU）
 ```python
 run.font.name = 'PMingLiU'
 run._element.rPr.rFonts.set(qn('w:eastAsia'), 'PMingLiU')
 ```
 
-## Quick Reference
+## 快速參考
 
-| Task | Code |
+| 任務 | 程式碼 |
 |------|------|
-| Create document | `doc = Document()` |
-| Add heading | `doc.add_heading('Title', 0)` |
-| Add paragraph | `doc.add_paragraph('Text')` |
-| Add table | `doc.add_table(rows=3, cols=4)` |
-| Insert image | `doc.add_picture('image.png', width=Inches(2))` |
-| Save document | `doc.save('output.docx')` |
-| Open existing | `doc = Document('file.docx')` |
-| Add page break | `doc.add_page_break()` |
-| Bold text | `run.bold = True` |
-| Convert to PDF | `soffice --headless --convert-to pdf file.docx` |
+| 建立文件 | `doc = Document()` |
+| 新增標題 | `doc.add_heading('Title', 0)` |
+| 新增段落 | `doc.add_paragraph('Text')` |
+| 新增表格 | `doc.add_table(rows=3, cols=4)` |
+| 插入圖片 | `doc.add_picture('image.png', width=Inches(2))` |
+| 儲存文件 | `doc.save('output.docx')` |
+| 開啟現有檔案 | `doc = Document('file.docx')` |
+| 新增分頁符號 | `doc.add_page_break()` |
+| 粗體文字 | `run.bold = True` |
+| 轉換為 PDF | `soffice --headless --convert-to pdf file.docx` |
 
-## Keywords
+## 關鍵字
 
-**English keywords:**
+**英文關鍵字：**
 word processor, create word document, edit docx, word formatting, insert table, insert image, word conversion, docx to pdf, word template, document editing, python-docx, word automation, generate report
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 Word處理, 建立Word文檔, 編輯DOCX, Word格式化, 插入表格, 插入圖片, Word轉換, DOCX轉PDF, Word範本, 文檔編輯, Word自動化, 生成報告

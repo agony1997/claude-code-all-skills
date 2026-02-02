@@ -3,24 +3,24 @@ name: tools_markdown-converter
 description: "Comprehensive Markdown format conversion toolkit for converting between Markdown and other formats including HTML, PDF, Word (DOCX), and plain text. When Claude needs to: (1) Convert Markdown to HTML/PDF/DOCX, (2) Convert HTML/PDF/DOCX to Markdown, (3) Generate styled documents from Markdown, (4) Extract content to Markdown format, (5) Batch convert documents, or (6) Markdown轉換、格式互轉、HTML轉換、PDF生成、Word轉換、文檔轉換"
 ---
 
-# Markdown Converter
+# Markdown 轉換器
 
-## Overview
+## 概述
 
-This skill provides comprehensive Markdown conversion capabilities for transforming documents between Markdown and various formats including HTML, PDF, Word (DOCX), and plain text. It primarily uses pandoc as the universal document converter, with additional Python libraries for specific conversion needs.
+本技能提供全面的 Markdown 轉換功能，可在 Markdown 與多種格式之間進行文件轉換，包括 HTML、PDF、Word（DOCX）及純文字。主要使用 pandoc 作為通用文件轉換器，並搭配額外的 Python 函式庫來滿足特定的轉換需求。
 
-## When to use this skill
+## 何時使用本技能
 
-**ALWAYS use this skill when the user mentions:**
-- Converting Markdown to other formats (HTML, PDF, DOCX, etc.)
-- Converting other formats to Markdown
-- Generating styled PDFs from Markdown
-- Creating Word documents from Markdown
-- Extracting content as Markdown
-- Batch converting document formats
-- Publishing Markdown documentation
+**當使用者提及以下內容時，務必使用本技能：**
+- 將 Markdown 轉換為其他格式（HTML、PDF、DOCX 等）
+- 將其他格式轉換為 Markdown
+- 從 Markdown 生成帶有樣式的 PDF
+- 從 Markdown 建立 Word 文件
+- 將內容提取為 Markdown
+- 批次轉換文件格式
+- 發布 Markdown 文件
 
-**Trigger phrases include:**
+**觸發用語包括：**
 - "Convert Markdown to HTML/PDF/Word" / "轉換Markdown為HTML/PDF/Word"
 - "Convert HTML/PDF/Word to Markdown" / "轉換HTML/PDF/Word為Markdown"
 - "Generate PDF from Markdown" / "從Markdown生成PDF"
@@ -30,22 +30,22 @@ This skill provides comprehensive Markdown conversion capabilities for transform
 - "Publish Markdown documentation" / "發布Markdown文檔"
 - "Create HTML from Markdown" / "從Markdown建立HTML"
 
-## How to use this skill
+## 如何使用本技能
 
-### Workflow Overview
+### 工作流程概述
 
-This skill follows a systematic approach based on conversion direction:
+本技能依照轉換方向採用系統化的方法：
 
-1. **Identify Formats** - Determine source and target formats
-2. **Choose Tool** - Select pandoc or appropriate Python library
-3. **Apply Conversion** - Execute with proper options and styling
-4. **Validate Output** - Verify formatting and content preservation
+1. **辨識格式** — 確定來源格式與目標格式
+2. **選擇工具** — 選擇 pandoc 或適當的 Python 函式庫
+3. **執行轉換** — 使用正確的選項與樣式進行轉換
+4. **驗證輸出** — 確認格式與內容的完整性
 
-### Primary Tool: pandoc
+### 主要工具：pandoc
 
-pandoc is a universal document converter that supports numerous formats.
+pandoc 是一款通用文件轉換器，支援多種格式。
 
-#### Installation
+#### 安裝
 
 ```bash
 # Ubuntu/Debian
@@ -58,7 +58,7 @@ brew install pandoc
 choco install pandoc
 ```
 
-#### Basic Usage
+#### 基本用法
 
 ```bash
 # Convert Markdown to HTML
@@ -71,9 +71,9 @@ pandoc input.md -o output.pdf
 pandoc input.md -o output.docx
 ```
 
-## Markdown to Other Formats
+## Markdown 轉換為其他格式
 
-### Markdown to HTML
+### Markdown 轉 HTML
 
 ```bash
 # Basic conversion
@@ -101,7 +101,7 @@ pandoc input.md -o output.html \
     --metadata title="Document Title"
 ```
 
-### Markdown to PDF
+### Markdown 轉 PDF
 
 ```bash
 # Basic conversion (requires LaTeX)
@@ -136,7 +136,7 @@ pandoc input.md -o output.pdf \
     --metadata date="2024-01-15"
 ```
 
-### Markdown to Word (DOCX)
+### Markdown 轉 Word（DOCX）
 
 ```bash
 # Basic conversion
@@ -163,7 +163,7 @@ pandoc input.md -o output.docx \
     --metadata title="Professional Document"
 ```
 
-### Markdown to Plain Text
+### Markdown 轉純文字
 
 ```bash
 # Convert to plain text
@@ -176,9 +176,9 @@ pandoc input.md -o output.txt --to=plain --wrap=auto
 pandoc input.md -o output.txt --to=plain --wrap=preserve
 ```
 
-## Other Formats to Markdown
+## 其他格式轉換為 Markdown
 
-### HTML to Markdown
+### HTML 轉 Markdown
 
 ```bash
 # Basic conversion
@@ -196,7 +196,7 @@ pandoc input.html -o output.md \
 pandoc input.html -o output.md --markdown-headings=atx
 ```
 
-### Word (DOCX) to Markdown
+### Word（DOCX）轉 Markdown
 
 ```bash
 # Basic conversion
@@ -212,7 +212,7 @@ pandoc input.docx -o output.md --extract-media=./images
 pandoc input.docx -o output.md --track-changes=all
 ```
 
-### PDF to Markdown
+### PDF 轉 Markdown
 
 ```bash
 # Extract text and convert to Markdown
@@ -234,7 +234,7 @@ with open('output.md', 'w', encoding='utf-8') as f:
     f.write(markdown_content)
 ```
 
-### LaTeX to Markdown
+### LaTeX 轉 Markdown
 
 ```bash
 # Convert LaTeX to Markdown
@@ -244,9 +244,9 @@ pandoc input.tex -o output.md
 pandoc input.tex -o output.md --to=gfm
 ```
 
-## Advanced Conversions
+## 進階轉換
 
-### Markdown to Presentation (Reveal.js)
+### Markdown 轉簡報（Reveal.js）
 
 ```bash
 # Create HTML presentation
@@ -261,7 +261,7 @@ pandoc slides.md -o slides.html -t revealjs -s \
     --incremental
 ```
 
-### Markdown to EPUB
+### Markdown 轉 EPUB
 
 ```bash
 # Create EPUB book
@@ -277,7 +277,7 @@ pandoc book.md -o book.epub \
 pandoc book.md -o book.epub --css=style.css
 ```
 
-### Multiple Markdown Files to Single Document
+### 多個 Markdown 檔案合併為單一文件
 
 ```bash
 # Combine multiple Markdown files
@@ -290,9 +290,9 @@ pandoc *.md -o combined.html --toc
 pandoc intro.md main.md conclusion.md -o complete.docx
 ```
 
-## Python-Based Conversions
+## 基於 Python 的轉換
 
-### Using markdown2
+### 使用 markdown2
 
 ```python
 import markdown2
@@ -307,7 +307,7 @@ with open('output.html', 'w', encoding='utf-8') as f:
     f.write(html)
 ```
 
-### Using mistune
+### 使用 mistune
 
 ```python
 import mistune
@@ -322,7 +322,7 @@ with open('output.html', 'w', encoding='utf-8') as f:
     f.write(html)
 ```
 
-### Using pypandoc (Python wrapper for pandoc)
+### 使用 pypandoc（pandoc 的 Python 封裝）
 
 ```python
 import pypandoc
@@ -345,7 +345,7 @@ pypandoc.convert_file('input.md', 'html', outputfile='output.html',
                       extra_args=['--toc', '--css=style.css', '--standalone'])
 ```
 
-### HTML to Markdown with html2text
+### 使用 html2text 將 HTML 轉為 Markdown
 
 ```python
 import html2text
@@ -363,9 +363,9 @@ with open('output.md', 'w', encoding='utf-8') as f:
     f.write(markdown)
 ```
 
-## Batch Conversions
+## 批次轉換
 
-### Batch Convert Markdown to HTML
+### 批次將 Markdown 轉為 HTML
 
 ```bash
 # Convert all Markdown files in directory
@@ -400,7 +400,7 @@ def batch_md_to_html(input_dir, output_dir):
 batch_md_to_html('markdown_files', 'html_files')
 ```
 
-### Batch Convert Markdown to PDF
+### 批次將 Markdown 轉為 PDF
 
 ```python
 import os
@@ -429,7 +429,7 @@ def batch_md_to_pdf(input_dir, output_dir):
 batch_md_to_pdf('docs', 'pdf_output')
 ```
 
-### Batch Convert to Multiple Formats
+### 批次轉換為多種格式
 
 ```python
 import os
@@ -459,9 +459,9 @@ for file in os.listdir('.'):
         convert_to_multiple_formats(file)
 ```
 
-## Custom Styling and Templates
+## 自訂樣式與範本
 
-### Create Custom HTML Template
+### 建立自訂 HTML 範本
 
 ```html
 <!-- template.html -->
@@ -494,7 +494,7 @@ $body$
 pandoc input.md -o output.html --template=template.html
 ```
 
-### Create Custom CSS
+### 建立自訂 CSS
 
 ```css
 /* style.css */
@@ -556,7 +556,7 @@ th {
 pandoc input.md -o output.html --css=style.css --standalone
 ```
 
-### Create Word Template
+### 建立 Word 範本
 
 ```bash
 # Generate reference document
@@ -568,9 +568,9 @@ pandoc -o reference.docx --print-default-data-file reference.docx
 pandoc input.md -o output.docx --reference-doc=reference.docx
 ```
 
-## Documentation Publishing Workflows
+## 文件發布工作流程
 
-### Generate Static Documentation Site
+### 產生靜態文件網站
 
 ```bash
 # Convert all docs to HTML with navigation
@@ -585,7 +585,7 @@ for file in docs/*.md; do
 done
 ```
 
-### Create PDF Documentation
+### 建立 PDF 文件
 
 ```bash
 # Combine all documentation into single PDF
@@ -599,7 +599,7 @@ pandoc docs/*.md -o documentation.pdf \
     --highlight-style=tango
 ```
 
-### Export to Multiple Formats
+### 匯出為多種格式
 
 ```python
 import subprocess
@@ -631,55 +631,55 @@ def export_documentation(source_dir, output_base):
 export_documentation('docs', 'documentation')
 ```
 
-## Best Practices
+## 最佳實踐
 
-### Conversion Quality
-- Use pandoc for best format compatibility
-- Specify metadata (title, author, date) for better output
-- Use reference documents for consistent styling
-- Test output in target format viewers
+### 轉換品質
+- 使用 pandoc 以獲得最佳的格式相容性
+- 指定 metadata（中繼資料）如標題、作者、日期，以獲得更好的輸出
+- 使用參考文件以確保樣式一致
+- 在目標格式的檢視器中測試輸出結果
 
-### Markdown Writing for Conversion
-- Use standard Markdown syntax for best compatibility
-- Use ATX-style headers (# ## ###) instead of Setext
-- Include blank lines between elements
-- Use fenced code blocks with language specification
+### 撰寫適合轉換的 Markdown
+- 使用標準 Markdown 語法以獲得最佳相容性
+- 使用 ATX 樣式標題（# ## ###）而非 Setext 樣式
+- 在各元素之間加入空行
+- 使用帶有語言標示的圍欄式程式碼區塊（fenced code blocks）
 
-### Styling and Formatting
-- Create custom templates for consistent branding
-- Use CSS for HTML output styling
-- Use reference documents for Word/PDF styling
-- Test with different CSS/themes
+### 樣式與格式設定
+- 建立自訂範本以維持一致的品牌風格
+- 使用 CSS 設定 HTML 輸出的樣式
+- 使用參考文件設定 Word/PDF 的樣式
+- 測試不同的 CSS/主題
 
-### Performance
-- Use batch scripts for multiple files
-- Consider file size for PDF generation
-- Compress images before including in Markdown
-- Use appropriate PDF engines (xelatex for Unicode)
+### 效能
+- 使用批次腳本處理多個檔案
+- 注意 PDF 生成時的檔案大小
+- 在加入 Markdown 之前先壓縮圖片
+- 使用適當的 PDF 引擎（xelatex 用於 Unicode）
 
-### Error Handling
-- Validate Markdown syntax before conversion
-- Check for missing images or references
-- Test with sample content first
-- Handle special characters properly
+### 錯誤處理
+- 在轉換前驗證 Markdown 語法
+- 檢查是否有遺失的圖片或參照
+- 先以範例內容進行測試
+- 妥善處理特殊字元
 
-## Quick Reference
+## 快速參考
 
-| Conversion | Command |
-|------------|---------|
+| 轉換方向 | 指令 |
+|----------|------|
 | MD → HTML | `pandoc input.md -o output.html --standalone` |
 | MD → PDF | `pandoc input.md -o output.pdf --pdf-engine=xelatex` |
 | MD → DOCX | `pandoc input.md -o output.docx` |
 | HTML → MD | `pandoc input.html -o output.md` |
 | DOCX → MD | `pandoc input.docx -o output.md` |
-| MD → HTML (CSS) | `pandoc input.md -o output.html --css=style.css -s` |
-| MD → PDF (TOC) | `pandoc input.md -o output.pdf --toc` |
-| Multiple MD → PDF | `pandoc *.md -o output.pdf --toc` |
+| MD → HTML（含 CSS） | `pandoc input.md -o output.html --css=style.css -s` |
+| MD → PDF（含目錄） | `pandoc input.md -o output.pdf --toc` |
+| 多個 MD → PDF | `pandoc *.md -o output.pdf --toc` |
 
-## Keywords
+## 關鍵字
 
-**English keywords:**
+**英文關鍵字：**
 markdown converter, markdown to html, markdown to pdf, markdown to word, html to markdown, pdf to markdown, docx to markdown, document conversion, pandoc, markdown transformation, format conversion, documentation publishing
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 Markdown轉換, Markdown轉HTML, Markdown轉PDF, Markdown轉Word, HTML轉Markdown, PDF轉Markdown, DOCX轉Markdown, 文檔轉換, 格式轉換, 文檔發布

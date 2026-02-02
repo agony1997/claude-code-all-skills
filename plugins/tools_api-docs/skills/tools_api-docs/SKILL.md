@@ -3,24 +3,24 @@ name: tools_api-docs
 description: "Comprehensive API documentation generation toolkit using OpenAPI 3.0/Swagger specifications. When Claude needs to: (1) Generate API documentation from code, (2) Create OpenAPI/Swagger specifications, (3) Document REST API endpoints, (4) Generate API reference documentation, (5) Create interactive API docs, or (6) API文檔生成、OpenAPI規格、Swagger文檔、接口文檔、REST API文檔"
 ---
 
-# API Documentation Generator
+# API 文件產生器
 
-## Overview
+## 概述
 
-This skill provides comprehensive guidance for creating professional API documentation using OpenAPI 3.0 (Swagger) specifications. It covers REST API documentation, interactive API explorers, code generation from specs, and automated documentation generation from source code.
+本技能提供全面的指引，協助使用 OpenAPI 3.0（Swagger）規格建立專業的 API 文件。涵蓋 REST API 文件撰寫、互動式 API 瀏覽器、從規格產生程式碼，以及從原始碼自動產生文件等功能。
 
-## When to use this skill
+## 啟用時機
 
-**ALWAYS use this skill when the user mentions:**
-- Creating API documentation
-- Generating OpenAPI/Swagger specifications
-- Documenting REST API endpoints
-- Creating API reference documentation
-- Building interactive API documentation
-- Auto-generating API docs from code
-- API versioning documentation
+**當使用者提及以下內容時，務必啟用本技能：**
+- 建立 API 文件
+- 產生 OpenAPI/Swagger 規格
+- 撰寫 REST API 端點文件
+- 建立 API 參考文件
+- 建構互動式 API 文件
+- 從程式碼自動產生 API 文件
+- API 版本控制文件
 
-**Trigger phrases include:**
+**觸發詞彙包括：**
 - "Create API documentation" / "建立API文檔"
 - "Generate OpenAPI spec" / "生成OpenAPI規格"
 - "Document REST API" / "記錄REST API"
@@ -29,20 +29,20 @@ This skill provides comprehensive guidance for creating professional API documen
 - "Interactive API docs" / "互動式API文檔"
 - "API specification" / "API規格"
 
-## How to use this skill
+## 使用方式
 
-### Workflow Overview
+### 工作流程概述
 
-This skill follows a systematic 4-step workflow:
+本技能遵循系統化的四步驟工作流程：
 
-1. **Analyze API** - Review API endpoints, parameters, and responses
-2. **Create Specification** - Write OpenAPI 3.0 specification
-3. **Generate Documentation** - Use tools to create interactive docs
-4. **Maintain** - Keep documentation in sync with code
+1. **分析 API** - 檢視 API 端點、參數與回應
+2. **建立規格** - 撰寫 OpenAPI 3.0 規格
+3. **產生文件** - 使用工具建立互動式文件
+4. **維護** - 確保文件與程式碼同步
 
-## OpenAPI 3.0 Specification Structure
+## OpenAPI 3.0 規格結構
 
-### Basic OpenAPI Document
+### 基本 OpenAPI 文件
 
 ```yaml
 openapi: 3.0.3
@@ -92,7 +92,7 @@ components:
     # Reusable parameters
 ```
 
-## Complete OpenAPI Example
+## 完整 OpenAPI 範例
 
 ```yaml
 openapi: 3.0.3
@@ -1093,9 +1093,9 @@ components:
             $ref: '#/components/schemas/Error'
 ```
 
-## Generating Documentation from OpenAPI Spec
+## 從 OpenAPI 規格產生文件
 
-### Using Swagger UI
+### 使用 Swagger UI
 
 ```bash
 # Install Swagger UI
@@ -1119,7 +1119,7 @@ app.listen(3000, () => {
 });
 ```
 
-### Using Redoc
+### 使用 Redoc
 
 ```bash
 # Install Redoc
@@ -1132,7 +1132,7 @@ redoc-cli bundle openapi.yaml -o api-docs.html
 redoc-cli serve openapi.yaml
 ```
 
-### Using Postman
+### 使用 Postman
 
 ```bash
 # Import OpenAPI spec into Postman
@@ -1142,9 +1142,9 @@ redoc-cli serve openapi.yaml
 # Postman automatically creates requests for all endpoints
 ```
 
-## Auto-Generating OpenAPI from Code
+## 從程式碼自動產生 OpenAPI 規格
 
-### Using swagger-jsdoc (Node.js)
+### 使用 swagger-jsdoc（Node.js）
 
 ```javascript
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -1163,7 +1163,7 @@ const options = {
 const openapiSpecification = swaggerJsdoc(options);
 ```
 
-**Annotate routes:**
+**為路由加上註解：**
 
 ```javascript
 /**
@@ -1198,9 +1198,9 @@ const openapiSpecification = swaggerJsdoc(options);
 router.get('/products', productController.list);
 ```
 
-### Using FastAPI (Python)
+### 使用 FastAPI（Python）
 
-FastAPI automatically generates OpenAPI documentation:
+FastAPI 會自動產生 OpenAPI 文件：
 
 ```python
 from fastapi import FastAPI, Query
@@ -1239,55 +1239,55 @@ async def list_products(
 # http://localhost:8000/redoc (ReDoc)
 ```
 
-## Best Practices
+## 最佳實踐
 
-### OpenAPI Specification
+### OpenAPI 規格
 
-**Structure:**
-- Use clear and consistent naming
-- Group endpoints by tags
-- Reuse components (schemas, parameters, responses)
-- Include examples for all requests and responses
-- Document error responses
+**結構：**
+- 使用清晰且一致的命名方式
+- 透過 tag 將端點分組
+- 重複使用 components（schema、parameter、response）
+- 為所有請求與回應提供範例
+- 記錄錯誤回應
 
-**Descriptions:**
-- Write clear, concise descriptions
-- Include usage examples
-- Document authentication requirements
-- Explain query parameters and filters
-- Note any special behaviors or limitations
+**描述：**
+- 撰寫清晰、簡潔的描述
+- 附上使用範例
+- 記錄認證需求
+- 說明查詢參數與篩選條件
+- 標註任何特殊行為或限制
 
-**Versioning:**
-- Include API version in URL (`/v1/`, `/v2/`)
-- Document version changes in info section
-- Maintain separate specs for each major version
-- Use semantic versioning
+**版本控制：**
+- 在 URL 中包含 API 版本（`/v1/`、`/v2/`）
+- 在 info 區段記錄版本變更
+- 為每個主要版本維護獨立的規格
+- 採用語意化版本號（Semantic Versioning）
 
-### Documentation Quality
+### 文件品質
 
-**Completeness:**
-- Document all endpoints
-- Include all possible responses
-- Specify all parameters
-- Document authentication methods
-- Provide examples for complex operations
+**完整性：**
+- 記錄所有端點
+- 涵蓋所有可能的回應
+- 指定所有參數
+- 記錄認證方式
+- 為複雜操作提供範例
 
-**Clarity:**
-- Use consistent terminology
-- Provide clear descriptions
-- Include practical examples
-- Document edge cases
-- Explain error codes
+**清晰度：**
+- 使用一致的術語
+- 提供清楚的描述
+- 附上實際範例
+- 記錄邊界情況（Edge Case）
+- 說明錯誤代碼
 
-**Maintenance:**
-- Keep documentation in sync with code
-- Update docs before deploying changes
-- Version documentation alongside code
-- Review docs regularly
+**維護：**
+- 確保文件與程式碼保持同步
+- 部署變更前先更新文件
+- 文件與程式碼一起做版本控制
+- 定期審閱文件
 
-## Quick Reference
+## 快速參考
 
-### OpenAPI 3.0 Key Sections
+### OpenAPI 3.0 關鍵區段
 
 ```yaml
 openapi: 3.0.3              # OpenAPI version
@@ -1302,10 +1302,10 @@ components:
   securitySchemes:           # Auth methods
 ```
 
-### Common Data Types
+### 常見資料型別
 
-| Type | Format | Example |
-|------|--------|---------|
+| 型別 | 格式 | 範例 |
+|------|------|------|
 | string | - | "text" |
 | string | email | "user@example.com" |
 | string | uri | "https://example.com" |
@@ -1318,24 +1318,24 @@ components:
 | array | - | [1, 2, 3] |
 | object | - | {"key": "value"} |
 
-### HTTP Status Codes
+### HTTP 狀態碼
 
-| Code | Meaning | Use Case |
-|------|---------|----------|
-| 200 | OK | Successful GET, PUT request |
-| 201 | Created | Successful POST request |
-| 204 | No Content | Successful DELETE request |
-| 400 | Bad Request | Invalid request format |
-| 401 | Unauthorized | Authentication required |
-| 403 | Forbidden | Insufficient permissions |
-| 404 | Not Found | Resource doesn't exist |
-| 422 | Unprocessable Entity | Validation error |
-| 500 | Internal Server Error | Server error |
+| 狀態碼 | 含義 | 使用情境 |
+|--------|------|----------|
+| 200 | OK | 成功的 GET、PUT 請求 |
+| 201 | Created（已建立） | 成功的 POST 請求 |
+| 204 | No Content（無內容） | 成功的 DELETE 請求 |
+| 400 | Bad Request（錯誤請求） | 無效的請求格式 |
+| 401 | Unauthorized（未授權） | 需要認證 |
+| 403 | Forbidden（禁止存取） | 權限不足 |
+| 404 | Not Found（找不到資源） | 資源不存在 |
+| 422 | Unprocessable Entity（無法處理的實體） | 驗證錯誤 |
+| 500 | Internal Server Error（內部伺服器錯誤） | 伺服器錯誤 |
 
-## Keywords
+## 關鍵字
 
-**English keywords:**
+**英文關鍵字：**
 api documentation, openapi, swagger, rest api documentation, api specification, api reference, interactive api docs, swagger ui, redoc, api docs generation, openapi 3.0
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 API文檔, OpenAPI, Swagger, REST API文檔, API規格, API參考, 互動式API文檔, API文檔生成, OpenAPI規格

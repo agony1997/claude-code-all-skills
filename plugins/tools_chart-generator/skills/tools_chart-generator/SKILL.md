@@ -3,25 +3,25 @@ name: tools_chart-generator
 description: "Comprehensive chart and diagram generation toolkit using Mermaid and PlantUML. When Claude needs to: (1) Create flowcharts and process diagrams, (2) Generate UML diagrams, (3) Create sequence diagrams, (4) Build architecture diagrams, (5) Generate ER diagrams, (6) Create mindmaps and timelines, or (7) 圖表生成、流程圖、架構圖、時序圖、UML圖、Mermaid、PlantUML"
 ---
 
-# Chart and Diagram Generator
+# 圖表與圖形產生器
 
-## Overview
+## 概述
 
-This skill provides comprehensive guidance for creating professional charts and diagrams using Mermaid and PlantUML. It covers flowcharts, sequence diagrams, class diagrams, architecture diagrams, ER diagrams, state machines, mindmaps, and various other diagram types for technical documentation.
+此技能提供使用 Mermaid 和 PlantUML 建立專業圖表與圖形的完整指南。涵蓋流程圖（Flowchart）、時序圖（Sequence Diagram）、類別圖（Class Diagram）、架構圖（Architecture Diagram）、ER 圖（Entity-Relationship Diagram）、狀態機（State Machine）、心智圖（Mindmap）以及各種其他用於技術文件的圖表類型。
 
-## When to use this skill
+## 何時使用此技能
 
-**ALWAYS use this skill when the user mentions:**
-- Creating flowcharts or process diagrams
-- Generating UML diagrams
-- Creating sequence diagrams
-- Building architecture diagrams
-- Creating ER diagrams or database schemas
-- Generating class diagrams
-- Creating state diagrams
-- Building mindmaps or timelines
+**當使用者提及以下內容時，務必使用此技能：**
+- 建立流程圖或流程圖表
+- 產生 UML 圖
+- 建立時序圖
+- 建構架構圖
+- 建立 ER 圖或資料庫綱要（Database Schema）
+- 產生類別圖
+- 建立狀態圖
+- 建構心智圖或時間軸
 
-**Trigger phrases include:**
+**觸發詞彙包括：**
 - "Create flowchart" / "建立流程圖"
 - "Generate diagram" / "生成圖表"
 - "Draw sequence diagram" / "畫時序圖"
@@ -31,35 +31,35 @@ This skill provides comprehensive guidance for creating professional charts and 
 - "Class diagram" / "類圖"
 - "State diagram" / "狀態圖"
 
-## How to use this skill
+## 如何使用此技能
 
-### Workflow Overview
+### 工作流程概述
 
-This skill follows a systematic 3-step workflow:
+此技能遵循系統化的三步驟工作流程：
 
-1. **Identify Diagram Type** - Determine the appropriate diagram type for the use case
-2. **Choose Tool** - Select Mermaid or PlantUML based on requirements
-3. **Generate Diagram** - Create diagram code and render it
+1. **辨識圖表類型** - 根據使用情境判斷適合的圖表類型
+2. **選擇工具** - 依據需求選擇 Mermaid 或 PlantUML
+3. **產生圖表** - 建立圖表程式碼並進行渲染
 
-## Mermaid vs PlantUML
+## Mermaid 與 PlantUML 比較
 
-### When to Use Mermaid
-- Markdown-friendly diagrams
-- Quick, simple diagrams
-- GitHub/GitLab documentation
-- Web-based rendering
-- Flowcharts, sequence diagrams, Gantt charts
+### 何時使用 Mermaid
+- 適用於 Markdown 的圖表
+- 快速、簡單的圖表
+- GitHub/GitLab 文件
+- 基於網頁的渲染
+- 流程圖、時序圖、甘特圖（Gantt Chart）
 
-### When to Use PlantUML
-- Complex UML diagrams
-- Detailed system architecture
-- Standard UML compliance
-- Advanced styling needs
-- Enterprise documentation
+### 何時使用 PlantUML
+- 複雜的 UML 圖
+- 詳細的系統架構
+- 符合 UML 標準規範
+- 進階樣式需求
+- 企業級文件
 
-## Mermaid Diagrams
+## Mermaid 圖表
 
-### Flowchart
+### 流程圖（Flowchart）
 
 ```mermaid
 flowchart TD
@@ -75,7 +75,7 @@ flowchart TD
     style B fill:#87CEEB
 ```
 
-**Code:**
+**程式碼：**
 ```
 flowchart TD
     A[Start] --> B{Is it working?}
@@ -90,7 +90,7 @@ flowchart TD
     style B fill:#87CEEB
 ```
 
-### Sequence Diagram
+### 時序圖（Sequence Diagram）
 
 ```mermaid
 sequenceDiagram
@@ -109,7 +109,7 @@ sequenceDiagram
     Note over API,Database: Authentication Process
 ```
 
-**Code:**
+**程式碼：**
 ```
 sequenceDiagram
     participant User
@@ -127,7 +127,7 @@ sequenceDiagram
     Note over API,Database: Authentication Process
 ```
 
-### Class Diagram
+### 類別圖（Class Diagram）
 
 ```mermaid
 classDiagram
@@ -158,7 +158,7 @@ classDiagram
     Order "*" --> "*" Product : contains
 ```
 
-**Code:**
+**程式碼：**
 ```
 classDiagram
     class User {
@@ -188,7 +188,7 @@ classDiagram
     Order "*" --> "*" Product : contains
 ```
 
-### State Diagram
+### 狀態圖（State Diagram）
 
 ```mermaid
 stateDiagram-v2
@@ -205,7 +205,7 @@ stateDiagram-v2
     Processing: Preparing items
 ```
 
-**Code:**
+**程式碼：**
 ```
 stateDiagram-v2
     [*] --> Pending
@@ -221,7 +221,7 @@ stateDiagram-v2
     Processing: Preparing items
 ```
 
-### ER Diagram
+### ER 圖（Entity-Relationship Diagram）
 
 ```mermaid
 erDiagram
@@ -260,7 +260,7 @@ erDiagram
     }
 ```
 
-**Code:**
+**程式碼：**
 ```
 erDiagram
     USER ||--o{ ORDER : places
@@ -298,7 +298,7 @@ erDiagram
     }
 ```
 
-### Gantt Chart
+### 甘特圖（Gantt Chart）
 
 ```mermaid
 gantt
@@ -317,7 +317,7 @@ gantt
     Production Deployment      :deploy, 2024-04-21, 2024-04-25
 ```
 
-**Code:**
+**程式碼：**
 ```
 gantt
     title Project Timeline
@@ -335,7 +335,7 @@ gantt
     Production Deployment      :deploy, 2024-04-21, 2024-04-25
 ```
 
-### Mindmap
+### 心智圖（Mindmap）
 
 ```mermaid
 mindmap
@@ -372,7 +372,7 @@ mindmap
                 Alerts
 ```
 
-**Code:**
+**程式碼：**
 ```
 mindmap
     root((E-Commerce Platform))
@@ -408,9 +408,9 @@ mindmap
                 Alerts
 ```
 
-## PlantUML Diagrams
+## PlantUML 圖表
 
-### Component Diagram
+### 元件圖（Component Diagram）
 
 ```plantuml
 @startuml
@@ -446,7 +446,7 @@ ProductService --> Cache
 @enduml
 ```
 
-### Deployment Diagram
+### 部署圖（Deployment Diagram）
 
 ```plantuml
 @startuml
@@ -487,7 +487,7 @@ node "AWS Cloud" {
 @enduml
 ```
 
-### Activity Diagram
+### 活動圖（Activity Diagram）
 
 ```plantuml
 @startuml
@@ -526,7 +526,7 @@ stop
 @enduml
 ```
 
-### Use Case Diagram
+### 使用案例圖（Use Case Diagram）
 
 ```plantuml
 @startuml
@@ -556,7 +556,7 @@ rectangle "E-Commerce System" {
 @enduml
 ```
 
-### C4 Model - System Context
+### C4 模型 - 系統情境圖（System Context）
 
 ```plantuml
 @startuml
@@ -579,7 +579,7 @@ Rel(ecommerce, email, "Sends emails")
 @enduml
 ```
 
-### C4 Model - Container Diagram
+### C4 模型 - 容器圖（Container Diagram）
 
 ```plantuml
 @startuml
@@ -625,9 +625,9 @@ Rel(orderService, email, "Sends emails")
 @enduml
 ```
 
-## Generating Diagrams Programmatically
+## 以程式方式產生圖表
 
-### Python with Mermaid
+### 使用 Python 搭配 Mermaid
 
 ```python
 def generate_flowchart(steps):
@@ -654,7 +654,7 @@ with open('flowchart.md', 'w') as f:
     f.write(f"```mermaid\n{flowchart}\n```")
 ```
 
-### Python with PlantUML
+### 使用 Python 搭配 PlantUML
 
 ```python
 def generate_sequence_diagram(interactions):
@@ -682,7 +682,7 @@ diagram = generate_sequence_diagram(interactions)
 print(diagram)
 ```
 
-### Auto-Generate from JSON
+### 從 JSON 自動產生
 
 ```python
 import json
@@ -749,11 +749,11 @@ er_diagram = generate_er_diagram_from_json('schema.json')
 print(er_diagram)
 ```
 
-## Rendering Diagrams
+## 渲染圖表
 
-### Mermaid Rendering
+### Mermaid 渲染方式
 
-**Option 1: GitHub/GitLab**
+**方式一：GitHub/GitLab**
 ```markdown
 # Documentation
 
@@ -764,7 +764,7 @@ flowchart TD
 ```
 ```
 
-**Option 2: Mermaid CLI**
+**方式二：Mermaid CLI**
 ```bash
 # Install
 npm install -g @mermaid-js/mermaid-cli
@@ -776,13 +776,13 @@ mmdc -i diagram.mmd -o diagram.png
 mmdc -i diagram.mmd -o diagram.svg
 ```
 
-**Option 3: Mermaid Live Editor**
-- Visit: https://mermaid.live
-- Paste code and export
+**方式三：Mermaid 線上編輯器**
+- 網址：https://mermaid.live
+- 貼上程式碼即可匯出
 
-### PlantUML Rendering
+### PlantUML 渲染方式
 
-**Option 1: PlantUML CLI**
+**方式一：PlantUML CLI**
 ```bash
 # Install (requires Java)
 # Download plantuml.jar
@@ -794,7 +794,7 @@ java -jar plantuml.jar diagram.puml
 java -jar plantuml.jar -tsvg diagram.puml
 ```
 
-**Option 2: PlantUML Online Server**
+**方式二：PlantUML 線上伺服器**
 ```python
 import requests
 import zlib
@@ -825,65 +825,65 @@ Bob -> Alice: Hi!
 render_plantuml(plantuml_code, 'sequence.png')
 ```
 
-## Best Practices
+## 最佳實踐
 
-### Diagram Design
-- Keep diagrams simple and focused
-- Use consistent notation and styling
-- Include legends for complex diagrams
-- Limit elements per diagram (max 10-15)
-- Use meaningful labels and names
+### 圖表設計
+- 保持圖表簡潔且聚焦
+- 使用一致的標記法和樣式
+- 為複雜圖表加上圖例說明
+- 限制每張圖表的元素數量（最多 10-15 個）
+- 使用有意義的標籤和名稱
 
-### Mermaid Best Practices
-- Use descriptive node IDs
-- Apply consistent styling
-- Group related elements
-- Use subgraphs for organization
-- Include direction for flowcharts (TD, LR, etc.)
+### Mermaid 最佳實踐
+- 使用具描述性的節點 ID
+- 套用一致的樣式
+- 將相關元素分組
+- 使用子圖（subgraph）進行組織
+- 為流程圖加上方向指示（TD、LR 等）
 
-### PlantUML Best Practices
-- Follow UML standards
-- Use skinparams for styling
-- Include stereotypes when appropriate
-- Group related elements in packages
-- Use notes for additional context
+### PlantUML 最佳實踐
+- 遵循 UML 標準
+- 使用 skinparam 進行樣式設定
+- 適當時加入構造型（stereotype）
+- 將相關元素以 package 分組
+- 使用 note 補充額外說明
 
-### Documentation Integration
-- Store diagrams as code in version control
-- Generate diagrams as part of CI/CD
-- Include diagrams in technical documentation
-- Keep diagrams up-to-date with code
-- Use diagrams in presentations
+### 文件整合
+- 將圖表以程式碼形式存放於版本控制系統中
+- 在 CI/CD 流程中自動產生圖表
+- 將圖表納入技術文件
+- 保持圖表與程式碼同步更新
+- 在簡報中使用圖表
 
-## Quick Reference
+## 快速參考
 
-### Mermaid Diagram Types
+### Mermaid 圖表類型
 
-| Type | Keyword | Use Case |
+| 類型 | 關鍵字 | 用途 |
 |------|---------|----------|
-| Flowchart | `flowchart` | Process flows |
-| Sequence | `sequenceDiagram` | Interactions |
-| Class | `classDiagram` | Object models |
-| State | `stateDiagram-v2` | State machines |
-| ER | `erDiagram` | Database schemas |
-| Gantt | `gantt` | Project timelines |
-| Mindmap | `mindmap` | Concept mapping |
+| 流程圖（Flowchart） | `flowchart` | 流程展示 |
+| 時序圖（Sequence） | `sequenceDiagram` | 互動關係 |
+| 類別圖（Class） | `classDiagram` | 物件模型 |
+| 狀態圖（State） | `stateDiagram-v2` | 狀態機 |
+| ER 圖 | `erDiagram` | 資料庫綱要 |
+| 甘特圖（Gantt） | `gantt` | 專案時間軸 |
+| 心智圖（Mindmap） | `mindmap` | 概念對映 |
 
-### PlantUML Diagram Types
+### PlantUML 圖表類型
 
-| Type | Tag | Use Case |
+| 類型 | 標籤 | 用途 |
 |------|-----|----------|
-| Use Case | `@startuml` | User interactions |
-| Class | `@startuml` | Object-oriented design |
-| Component | `@startuml` | System components |
-| Deployment | `@startuml` | Infrastructure |
-| Sequence | `@startuml` | Message flows |
-| Activity | `@startuml` | Business processes |
-| State | `@startuml` | State transitions |
+| 使用案例圖（Use Case） | `@startuml` | 使用者互動 |
+| 類別圖（Class） | `@startuml` | 物件導向設計 |
+| 元件圖（Component） | `@startuml` | 系統元件 |
+| 部署圖（Deployment） | `@startuml` | 基礎設施 |
+| 時序圖（Sequence） | `@startuml` | 訊息流程 |
+| 活動圖（Activity） | `@startuml` | 業務流程 |
+| 狀態圖（State） | `@startuml` | 狀態轉換 |
 
-### Common Shapes and Notations
+### 常用圖形與標記
 
-**Mermaid Flowchart Shapes:**
+**Mermaid 流程圖圖形：**
 ```
 [Rectangle]        - Process
 ([Stadium])        - Start/End
@@ -893,7 +893,7 @@ render_plantuml(plantuml_code, 'sequence.png')
 ((Circle))         - Connection point
 ```
 
-**PlantUML Connectors:**
+**PlantUML 連接線：**
 ```
 -->   Arrow
 ..>   Dotted arrow
@@ -902,10 +902,10 @@ render_plantuml(plantuml_code, 'sequence.png')
 --    Bold line
 ```
 
-## Keywords
+## 關鍵字
 
-**English keywords:**
+**英文關鍵字：**
 chart generator, diagram generator, flowchart, sequence diagram, uml diagram, mermaid diagram, plantuml, architecture diagram, er diagram, class diagram, state diagram, mindmap, gantt chart
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵詞：**
 圖表生成, 流程圖, 時序圖, UML圖, Mermaid圖表, PlantUML, 架構圖, 實體關係圖, 類圖, 狀態圖, 思維導圖, 甘特圖

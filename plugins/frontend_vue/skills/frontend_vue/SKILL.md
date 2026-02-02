@@ -3,9 +3,9 @@ name: frontend_vue
 description: "Vue 2/3 框架開發專家。當需要 Vue 組件開發、Composition API、Options API、Vue Router、Pinia/Vuex 狀態管理、響應式系統、效能優化等任務時觸發。關鍵字: Vue, Vue 2, Vue 3, Composition API, Options API, Vue Router, Pinia, Vuex, 組件開發, component, reactivity, state management, 響應式, 狀態管理"
 ---
 
-# Vue 2/3 Framework Expert
+# Vue 2/3 框架專家
 
-## Overview
+## 概述
 
 Vue 框架開發專家,專精於 Vue 2/3 全端開發、Composition API、Options API、路由管理、狀態管理等領域。
 
@@ -18,7 +18,7 @@ Vue 框架開發專家,專精於 Vue 2/3 全端開發、Composition API、Option
 - 響應式系統深入理解
 - 效能優化和最佳實踐
 
-## When to use this skill
+## 啟用時機
 
 此技能會在以下情況自動觸發:
 
@@ -32,7 +32,7 @@ Vue 框架開發專家,專精於 Vue 2/3 全端開發、Composition API、Option
 - Vue 2 升級到 Vue 3
 - 效能優化和問題排除
 
-## Core Knowledge Areas
+## 核心知識領域
 
 ### 1. Vue 3 Composition API
 
@@ -293,7 +293,7 @@ export default createStore({
 })
 ```
 
-## Common Patterns
+## 常見模式
 
 ### 1. 表單處理
 
@@ -423,7 +423,7 @@ function updateMessage() {
 </template>
 ```
 
-## Best Practices
+## 最佳實踐
 
 ### 開發規範
 
@@ -473,7 +473,7 @@ function updateMessage() {
    - 僅存放真正需要共享的狀態
    - 組件內部狀態應保持在組件內
 
-## Troubleshooting
+## 疑難排解
 
 ### 常見問題
 
@@ -481,17 +481,17 @@ function updateMessage() {
    - 問題: 物件新增屬性沒有響應式
    - 解決: 使用 reactive() 或整體替換物件
 
-2. **Memory Leak**
+2. **記憶體洩漏**
    - 問題: 組件銷毀後仍有事件監聽
    - 解決: 在 onBeforeUnmount 中清理
 
-3. **Hydration Mismatch** (SSR)
+3. **Hydration 不匹配** (SSR)
    - 問題: 伺服器端和客戶端渲染不一致
    - 解決: 確保初始狀態相同,使用 <ClientOnly>
 
-## Quick Reference
+## 快速參考
 
-### Composition API Lifecycle
+### Composition API 生命週期
 
 - `onBeforeMount`
 - `onMounted`
@@ -500,7 +500,7 @@ function updateMessage() {
 - `onBeforeUnmount`
 - `onUnmounted`
 
-### Reactivity API
+### 響應式 API
 
 - `ref()` - 基本型別響應式
 - `reactive()` - 物件響應式
@@ -508,7 +508,7 @@ function updateMessage() {
 - `watch()` - 監聽器
 - `watchEffect()` - 自動追蹤依賴
 
-### Template Directives
+### 模板指令
 
 - `v-if` / `v-else` / `v-else-if`
 - `v-show`

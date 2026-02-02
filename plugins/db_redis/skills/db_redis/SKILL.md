@@ -3,37 +3,37 @@ name: db_redis
 description: "Redis 快取與資料結構專家。專精於快取策略、資料結構 (String/Hash/List/Set/ZSet)、發布訂閱、分散式鎖、Redis Cluster、效能優化。關鍵字: redis, cache, 快取, pub/sub, distributed lock, 分散式鎖, session"
 ---
 
-# Redis Expert
+# Redis 專家
 
-You are a Redis Expert specializing in caching strategies, data structures, pub/sub messaging, distributed locking, and high-performance Redis operations.
+你是一位 Redis 專家，專精於快取策略、資料結構、發布/訂閱（Pub/Sub）訊息傳遞、分散式鎖（Distributed Lock）以及高效能 Redis 操作。
 
-## Overview
+## 概述
 
-Redis is an in-memory data structure store used as a database, cache, message broker, and streaming engine. It supports various data structures and provides sub-millisecond latency.
+Redis 是一種記憶體內資料結構儲存系統，可作為資料庫、快取、訊息代理（Message Broker）和串流引擎（Streaming Engine）使用。它支援多種資料結構，並提供亞毫秒級的延遲。
 
-**Core capabilities:**
-- Caching strategies (cache-aside, write-through, write-behind)
-- Data structures (String, Hash, List, Set, Sorted Set, Bitmap, HyperLogLog)
-- Pub/Sub messaging
-- Distributed locks
-- Redis Cluster and Sentinel
-- Performance optimization
+**核心能力：**
+- 快取策略（Cache-Aside、Write-Through、Write-Behind）
+- 資料結構（String、Hash、List、Set、Sorted Set、Bitmap、HyperLogLog）
+- 發布/訂閱訊息傳遞（Pub/Sub Messaging）
+- 分散式鎖（Distributed Locks）
+- Redis Cluster 與 Sentinel
+- 效能優化
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Implement caching (關鍵字: "redis", "cache", "快取", "caching strategy")
-- Use data structures (關鍵字: "hash", "list", "set", "zset", "sorted set")
-- Implement pub/sub (關鍵字: "pub/sub", "publish", "subscribe", "發布訂閱")
-- Need distributed locks (關鍵字: "distributed lock", "分散式鎖", "redlock")
-- Store sessions (關鍵字: "session", "會話", "session store")
-- Implement rate limiting (關鍵字: "rate limit", "限流")
+當使用者有以下需求時啟用此技能：
+- 實作快取（關鍵字: "redis", "cache", "快取", "caching strategy"）
+- 使用資料結構（關鍵字: "hash", "list", "set", "zset", "sorted set"）
+- 實作發布/訂閱（關鍵字: "pub/sub", "publish", "subscribe", "發布訂閱"）
+- 需要分散式鎖（關鍵字: "distributed lock", "分散式鎖", "redlock"）
+- 儲存 Session（關鍵字: "session", "會話", "session store"）
+- 實作限流（關鍵字: "rate limit", "限流"）
 
-## Core Concepts
+## 核心概念
 
-### 1. String Operations
+### 1. String 操作
 
-**Basic String Commands:**
+**基本 String 指令：**
 ```bash
 # Set and get
 SET key value
@@ -63,7 +63,7 @@ APPEND key " more data"
 GETSET key newvalue
 ```
 
-**Use Cases:**
+**使用情境：**
 ```bash
 # Page view counter
 INCR page:views:article:123
@@ -76,9 +76,9 @@ SET rate:limit:user:123 1 EX 60 NX
 SETEX user:profile:123 3600 '{"name":"John","email":"john@example.com"}'
 ```
 
-### 2. Hash Operations
+### 2. Hash 操作
 
-**Hash Commands:**
+**Hash 指令：**
 ```bash
 # Set field
 HSET user:123 name "John Doe"
@@ -108,7 +108,7 @@ HKEYS user:123
 HVALS user:123
 ```
 
-**Use Cases:**
+**使用情境：**
 ```bash
 # Store user profile
 HSET user:123 name "John" email "john@example.com" age 30
@@ -123,9 +123,9 @@ HSET session:abc123 user_id 123 username "john" last_active 1706342400
 EXPIRE session:abc123 3600
 ```
 
-### 3. List Operations
+### 3. List 操作
 
-**List Commands:**
+**List 指令：**
 ```bash
 # Push
 LPUSH mylist "item1"  # Push to left
@@ -155,7 +155,7 @@ LINSERT mylist BEFORE "item2" "new_item"
 LTRIM mylist 0 99  # Keep only first 100 items
 ```
 
-**Use Cases:**
+**使用情境：**
 ```bash
 # Message queue
 LPUSH queue:emails "email1"
@@ -169,9 +169,9 @@ LTRIM activity:user:123 0 99
 BLPOP queue:tasks 0  # Wait indefinitely for new task
 ```
 
-### 4. Set Operations
+### 4. Set 操作
 
-**Set Commands:**
+**Set 指令：**
 ```bash
 # Add members
 SADD myset "member1" "member2"
@@ -198,7 +198,7 @@ SUNION set1 set2  # Union
 SDIFF set1 set2   # Difference
 ```
 
-**Use Cases:**
+**使用情境：**
 ```bash
 # Tags
 SADD post:123:tags "redis" "cache" "database"
@@ -217,9 +217,9 @@ SCARD visitors:2024-01-27  # Count unique visitors
 SINTER friends:user:123 friends:user:456
 ```
 
-### 5. Sorted Set Operations
+### 5. Sorted Set 操作
 
-**Sorted Set Commands:**
+**Sorted Set 指令：**
 ```bash
 # Add with score
 ZADD leaderboard 100 "player1"
@@ -252,7 +252,7 @@ ZREM leaderboard "player1"
 ZREMRANGEBYRANK leaderboard 0 9  # Remove bottom 10
 ```
 
-**Use Cases:**
+**使用情境：**
 ```bash
 # Leaderboard
 ZADD leaderboard:game 9500 "player1" 8700 "player2"
@@ -271,9 +271,9 @@ ZADD expiring:keys $(date +%s) "key1"
 ZREMRANGEBYSCORE expiring:keys 0 $(date +%s)  # Remove expired
 ```
 
-### 6. Caching Strategies
+### 6. 快取策略
 
-**Cache-Aside Pattern:**
+**Cache-Aside 模式（旁路快取）：**
 ```python
 def get_user(user_id):
     # Try cache first
@@ -297,7 +297,7 @@ def update_user(user_id, data):
     redis.delete(f"user:{user_id}")
 ```
 
-**Write-Through Pattern:**
+**Write-Through 模式（直寫快取）：**
 ```python
 def save_user(user_id, data):
     # Write to cache
@@ -307,7 +307,7 @@ def save_user(user_id, data):
     db.execute("INSERT/UPDATE users ...", data)
 ```
 
-**Cache Stampede Prevention:**
+**快取擊穿防護（Cache Stampede Prevention）：**
 ```python
 import time
 import random
@@ -339,9 +339,9 @@ def get_data(key):
         return get_data(key)  # Retry
 ```
 
-### 7. Distributed Lock
+### 7. 分散式鎖
 
-**Simple Lock (use Redlock for production):**
+**簡易鎖（正式環境請使用 Redlock）：**
 ```python
 import time
 import uuid
@@ -382,9 +382,9 @@ if lock.acquire():
         lock.release()
 ```
 
-### 8. Pub/Sub
+### 8. 發布/訂閱（Pub/Sub）
 
-**Publisher/Subscriber:**
+**發布者/訂閱者：**
 ```python
 # Publisher
 import redis
@@ -404,7 +404,7 @@ for message in pubsub.listen():
 pubsub.psubscribe('news.*')
 ```
 
-**Use Cases:**
+**使用情境：**
 ```python
 # Chat application
 r.publish('chat:room:123', json.dumps({
@@ -419,9 +419,9 @@ r.publish('notifications:user:123', json.dumps({
 }))
 ```
 
-### 9. Spring Boot Integration
+### 9. Spring Boot 整合
 
-**Configuration:**
+**組態設定：**
 ```yaml
 spring:
   redis:
@@ -437,7 +437,7 @@ spring:
     timeout: 3000ms
 ```
 
-**Redis Template:**
+**Redis Template：**
 ```java
 @Configuration
 public class RedisConfig {
@@ -478,7 +478,7 @@ public class UserCacheService {
 }
 ```
 
-**@Cacheable Annotation:**
+**@Cacheable 註解：**
 ```java
 @Service
 public class ProductService {
@@ -506,9 +506,9 @@ public class ProductService {
 }
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Key Naming Convention
+### 1. Key 命名規範
 ```bash
 # Use colon as delimiter
 user:123:profile
@@ -521,14 +521,14 @@ hash:cart:456
 list:queue:emails
 ```
 
-### 2. Set Expiration
+### 2. 設定過期時間
 ```bash
 # Always set TTL for cache data
 SETEX key 3600 value
 EXPIRE key 3600
 ```
 
-### 3. Use Pipeline for Batch Operations
+### 3. 使用 Pipeline 進行批次操作
 ```python
 pipe = redis.pipeline()
 for i in range(1000):
@@ -536,22 +536,22 @@ for i in range(1000):
 pipe.execute()
 ```
 
-### 4. Monitor Memory Usage
+### 4. 監控記憶體使用量
 ```bash
 INFO memory
 MEMORY USAGE key
 ```
 
-### 5. Use Appropriate Data Structure
-- String: Simple key-value, counters
-- Hash: Objects with fields
-- List: Queue, recent items
-- Set: Unique items, tags
-- Sorted Set: Leaderboard, priority queue
+### 5. 使用適當的資料結構
+- String：簡單的鍵值對、計數器
+- Hash：具有欄位的物件
+- List：佇列、最近項目
+- Set：唯一項目、標籤
+- Sorted Set：排行榜、優先佇列
 
-## Quick Reference
+## 快速參考
 
-### Common Commands
+### 常用指令
 ```bash
 # Keys
 SET key value
@@ -587,20 +587,20 @@ PUBLISH channel message
 SUBSCRIBE channel
 ```
 
-### Data Type Selection
+### 資料型別選擇
 
-| Use Case | Data Type |
+| 使用情境 | 資料型別 |
 |----------|-----------|
-| Simple cache | String |
-| User profile | Hash |
-| Message queue | List |
-| Tags, followers | Set |
-| Leaderboard | Sorted Set |
-| Real-time messaging | Pub/Sub |
-| Session store | Hash with TTL |
-| Rate limiting | String with INCR |
-| Distributed lock | String with NX |
+| 簡單快取 | String |
+| 使用者個人資料 | Hash |
+| 訊息佇列 | List |
+| 標籤、追蹤者 | Set |
+| 排行榜 | Sorted Set |
+| 即時訊息傳遞 | Pub/Sub |
+| Session 儲存 | Hash 搭配 TTL |
+| 限流 | String 搭配 INCR |
+| 分散式鎖 | String 搭配 NX |
 
 ---
 
-**Remember:** Redis is fast because it's in-memory. Always set appropriate expiration times and monitor memory usage to prevent OOM errors.
+**請記住：** Redis 之所以快速，是因為它在記憶體中運作。請務必設定適當的過期時間，並監控記憶體使用量以避免 OOM（Out of Memory）錯誤。

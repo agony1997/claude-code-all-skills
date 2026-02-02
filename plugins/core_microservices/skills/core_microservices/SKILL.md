@@ -3,37 +3,37 @@ name: core_microservices
 description: "微服務架構模式專家。專精於服務拆分、服務通訊、API Gateway、服務治理、分散式事務、微服務安全、可觀測性。關鍵字: microservices, 微服務, service mesh, api gateway, distributed system, 分散式系統, 服務治理"
 ---
 
-# Microservices Architecture Expert
+# Microservices (微服務) 架構專家
 
-You are a Microservices Architecture Expert specializing in designing, implementing, and operating distributed microservices systems.
+您是一位微服務架構專家，專精於設計、實作及營運分散式微服務系統。
 
-## Overview
+## 概述
 
-Microservices architecture structures an application as a collection of loosely coupled, independently deployable services. Each service is focused on a specific business capability and can be developed, deployed, and scaled independently.
+微服務架構將應用程式組織為一組鬆散耦合、可獨立部署的服務集合。每個服務專注於特定的業務能力，可以獨立開發、部署和擴展。
 
-**Core capabilities:**
-- Service decomposition strategies
-- Inter-service communication (REST, gRPC, messaging)
-- API Gateway patterns
-- Service discovery and load balancing
-- Distributed transaction management (Saga pattern)
-- Microservices security
-- Observability (logging, metrics, tracing)
+**核心能力:**
+- 服務拆分策略
+- 服務間通訊 (REST, gRPC, Messaging)
+- API Gateway 模式
+- Service Discovery (服務發現) 與 Load Balancing (負載均衡)
+- 分散式事務管理 (Saga Pattern)
+- 微服務安全
+- Observability (可觀測性)：日誌、指標、追蹤
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Design microservices architecture (關鍵字: "microservices", "微服務架構", "服務拆分")
-- Implement service communication (關鍵字: "service communication", "服務通訊", "api gateway")
-- Handle distributed transactions (關鍵字: "distributed transaction", "分散式事務", "saga")
-- Need service discovery (關鍵字: "service discovery", "服務發現", "consul")
-- Implement observability (關鍵字: "observability", "可觀測性", "monitoring")
+當使用者遇到以下情境時啟用此技能：
+- 設計微服務架構 (關鍵字: "microservices", "微服務架構", "服務拆分")
+- 實作服務通訊 (關鍵字: "service communication", "服務通訊", "api gateway")
+- 處理分散式事務 (關鍵字: "distributed transaction", "分散式事務", "saga")
+- 需要服務發現 (關鍵字: "service discovery", "服務發現", "consul")
+- 實作可觀測性 (關鍵字: "observability", "可觀測性", "monitoring")
 
-## Core Concepts
+## 核心概念
 
-### 1. Service Decomposition
+### 1. 服務拆分
 
-**By Business Capability:**
+**依業務能力拆分:**
 ```
 E-commerce System
 ├── User Service (Authentication, Profile)
@@ -44,7 +44,7 @@ E-commerce System
 └── Notification Service (Email, SMS)
 ```
 
-**By Subdomain (DDD approach):**
+**依子領域拆分 (DDD 方法):**
 ```
 Core Domain:
 - Order Management Service
@@ -59,9 +59,9 @@ Generic Domain:
 - Reporting Service
 ```
 
-### 2. Service Communication Patterns
+### 2. 服務通訊模式
 
-**Synchronous - REST:**
+**同步 - REST:**
 ```java
 @RestController
 @RequestMapping("/api/orders")
@@ -87,7 +87,7 @@ public class OrderController {
 }
 ```
 
-**Synchronous - gRPC:**
+**同步 - gRPC:**
 ```protobuf
 syntax = "proto3";
 
@@ -107,7 +107,7 @@ message UserResponse {
 }
 ```
 
-**Asynchronous - Message Queue:**
+**非同步 - Message Queue (訊息佇列):**
 ```java
 // Publisher
 @Service
@@ -137,7 +137,7 @@ public class InventoryEventListener {
 }
 ```
 
-### 3. API Gateway Pattern
+### 3. API Gateway 模式
 
 **Spring Cloud Gateway:**
 ```yaml
@@ -162,7 +162,7 @@ spring:
             - RateLimitFilter
 ```
 
-**Custom Gateway Filter:**
+**自訂 Gateway Filter:**
 ```java
 @Component
 public class AuthenticationFilter implements GlobalFilter, Ordered {
@@ -186,9 +186,9 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 }
 ```
 
-### 4. Distributed Transaction - Saga Pattern
+### 4. 分散式事務 - Saga Pattern (Saga 模式)
 
-**Choreography-based Saga:**
+**Choreography-based Saga (編排式 Saga):**
 ```java
 // Order Service
 @Service
@@ -240,7 +240,7 @@ public class PaymentService {
 }
 ```
 
-**Orchestration-based Saga:**
+**Orchestration-based Saga (協調式 Saga):**
 ```java
 @Service
 public class OrderSagaOrchestrator {
@@ -279,7 +279,7 @@ public class OrderSagaOrchestrator {
 }
 ```
 
-### 5. Service Discovery
+### 5. Service Discovery (服務發現)
 
 **Eureka Client:**
 ```java
@@ -302,7 +302,7 @@ eureka:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
 ```
 
-### 6. Circuit Breaker
+### 6. Circuit Breaker (斷路器)
 
 **Resilience4j:**
 ```java
@@ -327,9 +327,9 @@ public class OrderService {
 }
 ```
 
-### 7. Distributed Tracing
+### 7. Distributed Tracing (分散式追蹤)
 
-**Configuration:**
+**設定:**
 ```yaml
 management:
   tracing:
@@ -344,7 +344,7 @@ logging:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
 ```
 
-### 8. Centralized Configuration
+### 8. Centralized Configuration (集中式設定)
 
 **Config Server:**
 ```yaml
@@ -366,9 +366,9 @@ spring:
     import: configserver:http://localhost:8888
 ```
 
-## Common Patterns & Examples
+## 常見模式與範例
 
-### Pattern 1: Database per Service
+### 模式 1: Database per Service (每服務一資料庫)
 
 ```
 User Service → User Database (PostgreSQL)
@@ -376,20 +376,20 @@ Order Service → Order Database (MySQL)
 Product Service → Product Database (MongoDB)
 ```
 
-**Advantages:**
-- Loose coupling
-- Independent scaling
-- Technology diversity
+**優點:**
+- 鬆散耦合
+- 獨立擴展
+- 技術多樣性
 
-**Challenges:**
-- Data consistency
-- Complex queries across services
+**挑戰:**
+- 資料一致性
+- 跨服務的複雜查詢
 
-### Pattern 2: Shared Database (Anti-pattern)
+### 模式 2: Shared Database (共享資料庫) (反模式)
 
-Avoid sharing databases between services as it creates tight coupling.
+避免在服務之間共享資料庫，因為這會造成緊密耦合。
 
-### Pattern 3: Event-Driven Architecture
+### 模式 3: Event-Driven Architecture (事件驅動架構)
 
 ```java
 // Event Store
@@ -428,7 +428,7 @@ public class OrderEventListener {
 }
 ```
 
-### Pattern 4: CQRS (Command Query Responsibility Segregation)
+### 模式 4: CQRS (命令查詢職責分離)
 
 ```java
 // Command Side
@@ -459,14 +459,14 @@ public class OrderQueryService {
 }
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Service Independence
-- Each service should have its own database
-- Services should be deployable independently
-- Avoid shared libraries (prefer API contracts)
+### 1. 服務獨立性
+- 每個服務應擁有自己的資料庫
+- 服務應可獨立部署
+- 避免共享函式庫 (優先使用 API 契約)
 
-### 2. API Versioning
+### 2. API 版本控制
 ```java
 @RestController
 @RequestMapping("/api/v1/users")
@@ -481,7 +481,7 @@ public class UserV2Controller {
 }
 ```
 
-### 3. Health Checks
+### 3. Health Check (健康檢查)
 ```java
 @Component
 public class CustomHealthIndicator implements HealthIndicator {
@@ -499,7 +499,7 @@ public class CustomHealthIndicator implements HealthIndicator {
 }
 ```
 
-### 4. Graceful Degradation
+### 4. Graceful Degradation (優雅降級)
 ```java
 @Service
 public class RecommendationService {
@@ -516,7 +516,7 @@ public class RecommendationService {
 }
 ```
 
-### 5. Idempotency
+### 5. Idempotency (冪等性)
 ```java
 @Service
 public class PaymentService {
@@ -535,7 +535,7 @@ public class PaymentService {
 }
 ```
 
-### 6. Monitoring and Alerting
+### 6. Monitoring and Alerting (監控與告警)
 ```yaml
 management:
   endpoints:
@@ -550,7 +550,7 @@ management:
       application: ${spring.application.name}
 ```
 
-### 7. Security
+### 7. Security (安全性)
 ```java
 // JWT Token Validation in Gateway
 @Component
@@ -575,43 +575,43 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 }
 ```
 
-## Quick Reference
+## 快速參考
 
-### Microservices Characteristics
+### 微服務特性
 
-| Characteristic | Description |
-|----------------|-------------|
-| **Independently Deployable** | Each service can be deployed without affecting others |
-| **Organized around Business Capabilities** | Services align with business domains |
-| **Decentralized Data Management** | Each service owns its data |
-| **Infrastructure Automation** | CI/CD, containerization |
-| **Design for Failure** | Circuit breakers, retries, fallbacks |
+| 特性 | 說明 |
+|------|------|
+| **可獨立部署** | 每個服務可在不影響其他服務的情況下部署 |
+| **圍繞業務能力組織** | 服務與業務領域對齊 |
+| **去中心化資料管理** | 每個服務擁有自己的資料 |
+| **基礎設施自動化** | CI/CD、容器化 |
+| **為失敗而設計** | Circuit Breaker (斷路器)、Retry (重試)、Fallback (後備方案) |
 
-### Communication Patterns
+### 通訊模式
 
-| Pattern | Use Case | Technology |
-|---------|----------|------------|
-| **Synchronous REST** | Simple queries, CRUD | Spring Web, RestTemplate |
-| **gRPC** | High-performance, type-safe | gRPC, Protocol Buffers |
-| **Async Messaging** | Event-driven, decoupling | RabbitMQ, Kafka |
-| **GraphQL** | Flexible queries, mobile apps | Spring GraphQL |
+| 模式 | 使用場景 | 技術 |
+|------|----------|------|
+| **同步 REST** | 簡單查詢、CRUD 操作 | Spring Web, RestTemplate |
+| **gRPC** | 高效能、型別安全 | gRPC, Protocol Buffers |
+| **非同步訊息** | 事件驅動、解耦合 | RabbitMQ, Kafka |
+| **GraphQL** | 彈性查詢、行動應用 | Spring GraphQL |
 
-### Common Anti-patterns
+### 常見反模式
 
-1. **Distributed Monolith** - Services too coupled
-2. **Chatty Services** - Too many service calls
-3. **Shared Database** - Violates independence
-4. **No API Gateway** - Client complexity
-5. **Lack of Monitoring** - Can't troubleshoot
+1. **Distributed Monolith (分散式單體)** - 服務之間耦合過緊
+2. **Chatty Services (多話服務)** - 過多的服務間呼叫
+3. **Shared Database (共享資料庫)** - 違反獨立性原則
+4. **No API Gateway (缺少 API 閘道)** - 用戶端複雜度過高
+5. **Lack of Monitoring (缺乏監控)** - 無法進行問題排查
 
-### Tools & Technologies
+### 工具與技術
 
-- **Service Discovery:** Eureka, Consul, Kubernetes
-- **API Gateway:** Spring Cloud Gateway, Kong, Nginx
-- **Message Queue:** RabbitMQ, Kafka, AWS SQS
-- **Tracing:** Zipkin, Jaeger, AWS X-Ray
-- **Monitoring:** Prometheus, Grafana, ELK
+- **Service Discovery (服務發現):** Eureka, Consul, Kubernetes
+- **API Gateway (API 閘道):** Spring Cloud Gateway, Kong, Nginx
+- **Message Queue (訊息佇列):** RabbitMQ, Kafka, AWS SQS
+- **Tracing (追蹤):** Zipkin, Jaeger, AWS X-Ray
+- **Monitoring (監控):** Prometheus, Grafana, ELK
 
 ---
 
-**Remember:** Microservices add complexity. Only adopt this architecture when you need independent scaling, deployment, and team autonomy.
+**請記住:** 微服務會增加系統複雜度。只有在需要獨立擴展、獨立部署及團隊自主性時，才應採用此架構。

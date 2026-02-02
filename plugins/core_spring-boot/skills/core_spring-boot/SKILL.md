@@ -5,42 +5,42 @@ description: "Spring Boot 全方位開發。REST API、自動配置、Starter、
 
 # Spring Boot 開發專家 (Spring Boot Expert)
 
-You are a Spring Boot Expert specializing in Spring Boot 2.x and 3.x application development, configuration, best practices, and production deployment.
+你是 Spring Boot 開發專家，專精於 Spring Boot 2.x 和 3.x 應用程式開發、配置、最佳實踐以及正式環境部署。
 
-## Overview
+## 概述
 
-As a Spring Boot Expert, you provide:
-- Spring Boot application architecture and design
-- Auto-configuration and custom starters
-- RESTful API development
-- Spring Boot Actuator monitoring
-- Configuration management (Properties, YAML, Profiles)
-- Spring Boot testing strategies
-- Production-ready best practices
-- Migration guidance (Boot 2.x → 3.x)
-- Spring Data JPA entity mapping and relationships
-- Repository patterns, JPQL, Criteria API, Specifications
-- Pagination, sorting, and performance optimization
+作為 Spring Boot 開發專家，你提供以下能力：
+- Spring Boot 應用程式架構與設計
+- 自動配置（Auto-configuration）與自訂 Starter
+- RESTful API 開發
+- Spring Boot Actuator 監控
+- 組態管理（Properties、YAML、Profiles）
+- Spring Boot 測試策略
+- 正式環境就緒的最佳實踐
+- 遷移指南（Boot 2.x → 3.x）
+- Spring Data JPA 實體映射與關聯關係
+- Repository 模式、JPQL、Criteria API、Specifications
+- 分頁、排序與效能優化
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Develop Spring Boot applications (關鍵字: "spring boot", "springboot", "spring應用")
-- Ask about Spring configuration (關鍵字: "spring配置", "application.yml", "properties")
-- Need REST API development (關鍵字: "rest api", "controller", "restcontroller")
-- Want monitoring and health checks (關鍵字: "actuator", "health check", "監控")
-- Ask about Spring Boot best practices
-- Work with Spring Data JPA (關鍵字: "jpa", "spring data jpa", "hibernate")
-- Need entity mapping (關鍵字: "entity", "實體映射", "@Entity")
-- Create queries (關鍵字: "jpql", "query", "查詢", "@Query")
-- Handle relationships (關鍵字: "OneToMany", "ManyToOne", "關聯")
-- Optimize performance (關鍵字: "n+1", "lazy loading", "性能優化")
+當使用者遇到以下情境時啟用此技能：
+- 開發 Spring Boot 應用程式（關鍵字: "spring boot", "springboot", "spring應用"）
+- 詢問 Spring 配置相關問題（關鍵字: "spring配置", "application.yml", "properties"）
+- 需要 REST API 開發（關鍵字: "rest api", "controller", "restcontroller"）
+- 需要監控與健康檢查（關鍵字: "actuator", "health check", "監控"）
+- 詢問 Spring Boot 最佳實踐
+- 使用 Spring Data JPA（關鍵字: "jpa", "spring data jpa", "hibernate"）
+- 需要實體映射（關鍵字: "entity", "實體映射", "@Entity"）
+- 建立查詢（關鍵字: "jpql", "query", "查詢", "@Query"）
+- 處理關聯關係（關鍵字: "OneToMany", "ManyToOne", "關聯"）
+- 優化效能（關鍵字: "n+1", "lazy loading", "性能優化"）
 
-## Core Knowledge Areas
+## 核心知識領域
 
-### 1. Spring Boot Fundamentals
+### 1. Spring Boot 基礎
 
-**Project Structure:**
+**專案結構:**
 ```
 my-spring-boot-app/
 ├── src/
@@ -87,7 +87,7 @@ my-spring-boot-app/
 └── README.md
 ```
 
-**Main Application Class:**
+**主應用程式類別:**
 ```java
 package com.example.myapp;
 
@@ -103,7 +103,7 @@ public class MyApplication {
 }
 ```
 
-**Maven Dependencies (pom.xml):**
+**Maven 依賴設定 (pom.xml):**
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
@@ -186,9 +186,9 @@ public class MyApplication {
 </project>
 ```
 
-### 2. RESTful API Development
+### 2. RESTful API 開發
 
-**Controller Example:**
+**Controller 範例:**
 ```java
 package com.example.myapp.controller;
 
@@ -253,7 +253,7 @@ public class UserController {
 }
 ```
 
-**Service Layer:**
+**Service 層:**
 ```java
 package com.example.myapp.service.impl;
 
@@ -355,7 +355,7 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-**Entity:**
+**Entity（實體）:**
 ```java
 package com.example.myapp.model.entity;
 
@@ -397,7 +397,7 @@ public class User {
 }
 ```
 
-**DTO:**
+**DTO（資料傳輸物件）:**
 ```java
 package com.example.myapp.model.dto;
 
@@ -418,7 +418,7 @@ public class UserDTO {
 }
 ```
 
-**Request DTO:**
+**Request DTO（請求資料傳輸物件）:**
 ```java
 package com.example.myapp.model.dto;
 
@@ -445,7 +445,7 @@ public class UserCreateRequest {
 }
 ```
 
-**Repository:**
+**Repository（資料存取層）:**
 ```java
 package com.example.myapp.repository;
 
@@ -464,9 +464,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-### 3. Exception Handling
+### 3. 例外處理
 
-**Global Exception Handler:**
+**全域例外處理器:**
 ```java
 package com.example.myapp.exception;
 
@@ -552,7 +552,7 @@ public class GlobalExceptionHandler {
 }
 ```
 
-**Error Response:**
+**錯誤回應:**
 ```java
 package com.example.myapp.exception;
 
@@ -577,7 +577,7 @@ public class ErrorResponse {
 }
 ```
 
-### 4. Configuration Management
+### 4. 組態管理
 
 **application.yml:**
 ```yaml
@@ -683,7 +683,7 @@ management:
         include: health,info,metrics
 ```
 
-**Configuration Class:**
+**配置類別:**
 ```java
 package com.example.myapp.config;
 
@@ -699,7 +699,7 @@ public class JpaConfig {
 
 ### 5. Spring Boot Actuator
 
-**Actuator Endpoints:**
+**Actuator 端點:**
 ```
 /actuator/health        - Health status
 /actuator/info          - Application info
@@ -711,7 +711,7 @@ public class JpaConfig {
 /actuator/mappings      - Request mappings
 ```
 
-**Custom Health Indicator:**
+**自訂健康指標:**
 ```java
 package com.example.myapp.config;
 
@@ -753,7 +753,7 @@ public class DatabaseHealthIndicator implements HealthIndicator {
 }
 ```
 
-**Application Info:**
+**應用程式資訊:**
 ```yaml
 # application.yml
 info:
@@ -766,9 +766,9 @@ info:
     version: ${project.version}
 ```
 
-### 6. Testing
+### 6. 測試
 
-**Controller Test:**
+**Controller 測試:**
 ```java
 package com.example.myapp.controller;
 
@@ -826,7 +826,7 @@ class UserControllerTest {
 }
 ```
 
-**Service Test:**
+**Service 測試:**
 ```java
 package com.example.myapp.service;
 
@@ -892,7 +892,7 @@ class UserServiceImplTest {
 }
 ```
 
-**Integration Test:**
+**整合測試:**
 ```java
 package com.example.myapp;
 
@@ -958,7 +958,7 @@ class UserIntegrationTest {
 
 #### Entity Mapping 進階
 
-**Enum Mapping:**
+**Enum 映射:**
 ```java
 public enum UserStatus {
     ACTIVE, INACTIVE, SUSPENDED
@@ -969,7 +969,7 @@ public enum UserStatus {
 private UserStatus status;
 ```
 
-**Embedded Objects:**
+**嵌入式物件 (Embedded Objects):**
 ```java
 @Embeddable
 @Data
@@ -999,9 +999,9 @@ public class User {
 ```
 
 
-#### Entity Relationships
+#### 實體關聯關係
 
-**One-to-Many / Many-to-One:**
+**One-to-Many / Many-to-One（一對多 / 多對一）:**
 ```java
 @Entity
 @Table(name = "orders")
@@ -1035,7 +1035,7 @@ public class Order {
 }
 ```
 
-**Many-to-Many:**
+**Many-to-Many（多對多）:**
 ```java
 @Entity
 public class Student {
@@ -1069,7 +1069,7 @@ public class Course {
 }
 ```
 
-**One-to-One:**
+**One-to-One（一對一）:**
 ```java
 @Entity
 public class User {
@@ -1099,9 +1099,9 @@ public class UserProfile {
 ```
 
 
-#### Repository Interface
+#### Repository 介面
 
-**Basic Repository:**
+**基本 Repository:**
 ```java
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -1125,7 +1125,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-**Query Methods Naming Convention:**
+**查詢方法命名慣例:**
 ```java
 // find...By, read...By, get...By, query...By, count...By, exists...By, delete...By
 
@@ -1151,9 +1151,9 @@ findTop5ByOrderByCreatedAtDesc()                 // LIMIT 5 ORDER BY created_at 
 ```
 
 
-#### Custom Queries with @Query
+#### 使用 @Query 自訂查詢
 
-**JPQL Queries:**
+**JPQL 查詢:**
 ```java
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -1183,7 +1183,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-**Native SQL Queries:**
+**原生 SQL 查詢:**
 ```java
 @Query(value = "SELECT * FROM users WHERE email = :email", nativeQuery = true)
 User findByEmailNative(@Param("email") String email);
@@ -1196,16 +1196,16 @@ List<Object[]> getUsersWithOrderCount(@Param("status") String status);
 ```
 
 
-#### Specifications (Dynamic Queries)
+#### Specifications（動態查詢）
 
-**Specification Interface:**
+**Specification 介面:**
 ```java
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 }
 ```
 
-**Creating Specifications:**
+**建立 Specifications:**
 ```java
 public class UserSpecification {
 
@@ -1238,7 +1238,7 @@ public class UserSpecification {
 }
 ```
 
-**Using Specifications:**
+**使用 Specifications:**
 ```java
 @Service
 public class UserService {
@@ -1271,9 +1271,9 @@ public class UserService {
 ```
 
 
-#### Pagination and Sorting
+#### 分頁與排序
 
-**Pageable:**
+**Pageable（分頁）:**
 ```java
 @RestController
 @RequestMapping("/api/users")
@@ -1305,7 +1305,7 @@ public class UserController {
 }
 ```
 
-**Multiple Sort Fields:**
+**多欄位排序:**
 ```java
 Sort sort = Sort.by(
     Sort.Order.desc("createdAt"),
@@ -1315,9 +1315,9 @@ Pageable pageable = PageRequest.of(0, 10, sort);
 ```
 
 
-#### Performance Optimization
+#### 效能優化
 
-**Solve N+1 Problem:**
+**解決 N+1 問題:**
 ```java
 // Bad - N+1 queries
 List<User> users = userRepository.findAll();
@@ -1359,7 +1359,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-**DTO Projections:**
+**DTO 投影 (Projections):**
 ```java
 // Interface projection
 public interface UserSummary {
@@ -1389,7 +1389,7 @@ public class UserDTO {
 List<UserDTO> findAllDTO();
 ```
 
-**Query Hints:**
+**查詢提示 (Query Hints):**
 ```java
 @QueryHints(@QueryHint(name = "org.hibernate.readOnly", value = "true"))
 List<User> findByStatus(UserStatus status);
@@ -1399,15 +1399,15 @@ List<User> findAll();
 ```
 
 
-#### JPA Best Practices
+#### JPA 最佳實踐
 
-### 1. Use Lazy Loading by Default
+### 1. 預設使用 Lazy Loading（延遲載入）
 ```java
 @ManyToOne(fetch = FetchType.LAZY)  // Default, explicit is better
 private User user;
 ```
 
-### 2. Bidirectional Relationships - Keep Both Sides in Sync
+### 2. 雙向關聯 - 保持兩端同步
 ```java
 public void addOrder(Order order) {
     orders.add(order);
@@ -1420,7 +1420,7 @@ public void removeOrder(Order order) {
 }
 ```
 
-### 3. Use equals() and hashCode() Correctly
+### 3. 正確使用 equals() 和 hashCode()
 ```java
 @Entity
 public class User {
@@ -1443,7 +1443,7 @@ public class User {
 }
 ```
 
-### 4. Avoid toString() on Entities with Relationships
+### 4. 避免在有關聯關係的 Entity 上使用 toString()
 ```java
 @ToString(exclude = {"orders"})  // Exclude to avoid lazy loading issues
 public class User {
@@ -1451,7 +1451,7 @@ public class User {
 }
 ```
 
-### 5. Use @Modifying for Update/Delete Queries
+### 5. 更新/刪除查詢使用 @Modifying
 ```java
 @Modifying
 @Transactional
@@ -1460,9 +1460,9 @@ int updateStatus(@Param("id") Long id, @Param("status") UserStatus status);
 ```
 
 
-#### JPA Quick Reference
+#### JPA 快速參考
 
-### Common Annotations
+### 常用註解
 
 ```java
 @Entity                          // Mark as JPA entity
@@ -1498,7 +1498,7 @@ int updateStatus(@Param("id") Long id, @Param("status") UserStatus status);
 @Pattern
 ```
 
-### Repository Method Keywords
+### Repository 方法關鍵字
 
 ```
 find...By, read...By, get...By, query...By, search...By, stream...By
@@ -1514,21 +1514,21 @@ First, Top, Distinct
 ---
 
 
-## Best Practices
+## 最佳實踐
 
-### 1. Layered Architecture
+### 1. 分層架構
 
 ```
 Controller Layer (REST API) → Service Layer (Business Logic) → Repository Layer (Data Access)
 ```
 
-- **Controllers**: Handle HTTP requests, validation, response formatting
-- **Services**: Business logic, transaction management
-- **Repositories**: Database operations
+- **Controllers**: 處理 HTTP 請求、驗證、回應格式化
+- **Services**: 業務邏輯、交易管理
+- **Repositories**: 資料庫操作
 
-### 2. Constructor Injection
+### 2. 建構子注入
 
-**Prefer:**
+**推薦:**
 ```java
 @Service
 @RequiredArgsConstructor  // Lombok generates constructor
@@ -1537,7 +1537,7 @@ public class UserService {
 }
 ```
 
-**Avoid:**
+**避免:**
 ```java
 @Service
 public class UserService {
@@ -1546,19 +1546,19 @@ public class UserService {
 }
 ```
 
-### 3. Use DTOs
+### 3. 使用 DTO
 
-- Never expose entities directly in REST APIs
-- Use DTOs for request/response
-- Validate DTOs with Bean Validation
+- 永遠不要在 REST API 中直接暴露 Entity
+- 使用 DTO 作為請求/回應物件
+- 使用 Bean Validation 驗證 DTO
 
-### 4. Proper Exception Handling
+### 4. 適當的例外處理
 
-- Use `@RestControllerAdvice` for global exception handling
-- Create custom exceptions for business logic
-- Return meaningful error messages
+- 使用 `@RestControllerAdvice` 進行全域例外處理
+- 為業務邏輯建立自訂例外
+- 回傳有意義的錯誤訊息
 
-### 5. Transaction Management
+### 5. 交易管理
 
 ```java
 @Service
@@ -1572,7 +1572,7 @@ public class UserService {
 }
 ```
 
-### 6. Logging
+### 6. 日誌記錄
 
 ```java
 @Service
@@ -1587,15 +1587,15 @@ public class UserService {
 }
 ```
 
-### 7. Configuration Profiles
+### 7. 組態 Profile
 
-- Use profiles for different environments (dev, test, prod)
-- Externalize configuration
-- Use environment variables for sensitive data
+- 針對不同環境使用 Profile（dev、test、prod）
+- 將配置外部化
+- 對敏感資料使用環境變數
 
-## Common Patterns
+## 常見模式
 
-### Pattern 1: Repository Pattern
+### 模式 1: Repository 模式
 
 ```java
 @Repository
@@ -1608,7 +1608,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 }
 ```
 
-### Pattern 2: Service Interface Pattern
+### 模式 2: Service 介面模式
 
 ```java
 public interface UserService {
@@ -1620,7 +1620,7 @@ public interface UserService {
 }
 ```
 
-### Pattern 3: Builder Pattern (Lombok)
+### 模式 3: Builder 模式 (Lombok)
 
 ```java
 User user = User.builder()
@@ -1629,9 +1629,9 @@ User user = User.builder()
     .build();
 ```
 
-## Quick Reference
+## 快速參考
 
-### Common Annotations
+### 常用註解
 
 ```java
 @SpringBootApplication  // Main application class
@@ -1657,7 +1657,7 @@ User user = User.builder()
 @RequiredArgsConstructor  // Lombok constructor injection
 ```
 
-### Maven Commands
+### Maven 指令
 
 ```bash
 mvn clean install         # Build project
@@ -1668,4 +1668,4 @@ mvn package              # Create JAR
 
 ---
 
-**Remember:** Spring Boot favors convention over configuration. Follow Spring Boot conventions and best practices for maintainable applications.
+**請記住:** Spring Boot 偏好慣例優於配置（Convention over Configuration）。遵循 Spring Boot 的慣例與最佳實踐，打造可維護的應用程式。

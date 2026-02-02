@@ -3,24 +3,24 @@ name: tools_excel-converter
 description: "Comprehensive Excel/CSV/JSON format conversion and data processing toolkit. When Claude needs to convert between Excel (.xlsx, .xlsm), CSV (.csv), JSON (.json), or TSV (.tsv) formats, perform data transformation, merge datasets, or process tabular data. Use for: (1) Converting Excel to CSV/JSON, (2) Converting CSV/JSON to Excel, (3) Merging multiple files, (4) Data cleaning and transformation, (5) Batch format conversion, or (6) Excel/CSV/JSON 格式互轉、資料處理、數據轉換、批量轉換、資料清理"
 ---
 
-# Excel/CSV/JSON Format Converter
+# Excel/CSV/JSON 格式轉換工具
 
-## Overview
+## 概述
 
-This skill provides comprehensive data format conversion capabilities between Excel (.xlsx), CSV (.csv), JSON (.json), and TSV (.tsv) formats. It supports bidirectional conversion, data transformation, merging datasets, and batch processing using pandas and openpyxl libraries.
+此技能提供 Excel (.xlsx)、CSV (.csv)、JSON (.json) 和 TSV (.tsv) 格式之間的完整資料格式轉換功能。支援雙向轉換、資料轉換、合併資料集以及使用 pandas 和 openpyxl 函式庫進行批次處理。
 
-## When to use this skill
+## 何時使用此技能
 
-**ALWAYS use this skill when the user mentions:**
-- Converting Excel to CSV, JSON, or other formats
-- Converting CSV or JSON to Excel
-- Transforming data between different formats
-- Merging multiple Excel/CSV files
-- Data cleaning and processing operations
-- Batch conversion of multiple files
-- Format transformation with data manipulation
+**當使用者提到以下需求時，務必使用此技能：**
+- 將 Excel 轉換為 CSV、JSON 或其他格式
+- 將 CSV 或 JSON 轉換為 Excel
+- 在不同格式之間進行資料轉換
+- 合併多個 Excel/CSV 檔案
+- 資料清理與處理操作
+- 批量轉換多個檔案
+- 格式轉換搭配資料操作
 
-**Trigger phrases include:**
+**觸發詞包括：**
 - "Convert Excel to CSV" / "轉換Excel為CSV"
 - "Convert CSV to Excel" / "轉換CSV為Excel"
 - "Convert Excel to JSON" / "將Excel轉為JSON"
@@ -31,22 +31,22 @@ This skill provides comprehensive data format conversion capabilities between Ex
 - "Clean Excel data" / "清理Excel資料"
 - "Process CSV data" / "處理CSV資料"
 
-## How to use this skill
+## 如何使用此技能
 
-### Workflow Overview
+### 工作流程概述
 
-This skill follows a systematic 4-step workflow:
+此技能遵循系統化的四步驟工作流程：
 
-1. **Identify Source and Target** - Determine input format and desired output format
-2. **Load Data** - Read source file(s) using appropriate library
-3. **Transform Data** - Apply any data cleaning, filtering, or transformation
-4. **Save Output** - Write to target format with proper encoding and formatting
+1. **辨識來源與目標** - 確定輸入格式和期望的輸出格式
+2. **載入資料** - 使用適當的函式庫讀取來源檔案
+3. **轉換資料** - 套用任何資料清理、篩選或轉換操作
+4. **儲存輸出** - 以正確的編碼和格式寫入目標格式
 
-### Python Libraries
+### Python 函式庫
 
-#### pandas - Primary Tool for Conversions
+#### pandas - 轉換的主要工具
 
-pandas is the primary library for format conversions and data manipulation:
+pandas 是格式轉換和資料操作的主要函式庫：
 
 ```python
 import pandas as pd
@@ -64,9 +64,9 @@ df.to_json('output.json', orient='records') # JSON
 df.to_csv('output.tsv', sep='\t', index=False) # TSV
 ```
 
-#### openpyxl - For Excel-Specific Features
+#### openpyxl - 用於 Excel 特定功能
 
-Use openpyxl when you need to preserve formulas, formatting, or multiple sheets:
+當需要保留公式、格式或多個工作表時，使用 openpyxl：
 
 ```python
 from openpyxl import load_workbook, Workbook
@@ -87,9 +87,9 @@ ws.append([1, 2])
 wb.save('output.xlsx')
 ```
 
-## Common Conversion Tasks
+## 常見轉換任務
 
-### Excel to CSV
+### Excel 轉 CSV
 
 ```python
 import pandas as pd
@@ -109,7 +109,7 @@ for sheet_name in excel_file.sheet_names:
     df.to_csv(f'{sheet_name}.csv', index=False, encoding='utf-8')
 ```
 
-### CSV to Excel
+### CSV 轉 Excel
 
 ```python
 import pandas as pd
@@ -127,7 +127,7 @@ with pd.ExcelWriter('output.xlsx', engine='openpyxl') as writer:
     df2.to_excel(writer, sheet_name='Sheet2', index=False)
 ```
 
-### Excel to JSON
+### Excel 轉 JSON
 
 ```python
 import pandas as pd
@@ -153,7 +153,7 @@ with open('output.json', 'w', encoding='utf-8') as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
 ```
 
-### JSON to Excel
+### JSON 轉 Excel
 
 ```python
 import pandas as pd
@@ -176,7 +176,7 @@ with pd.ExcelWriter('output.xlsx', engine='openpyxl') as writer:
         df.to_excel(writer, sheet_name=key, index=False)
 ```
 
-### CSV to JSON
+### CSV 轉 JSON
 
 ```python
 import pandas as pd
@@ -193,7 +193,7 @@ with open('output.json', 'w', encoding='utf-8') as f:
     json.dump({'data': records, 'count': len(records)}, f, ensure_ascii=False, indent=2)
 ```
 
-### JSON to CSV
+### JSON 轉 CSV
 
 ```python
 import pandas as pd
@@ -215,9 +215,9 @@ df = json_normalize(data)
 df.to_csv('output.csv', index=False, encoding='utf-8')
 ```
 
-## Data Transformation Operations
+## 資料轉換操作
 
-### Data Cleaning
+### 資料清理
 
 ```python
 import pandas as pd
@@ -249,7 +249,7 @@ df = df.rename(columns={'OldName': 'NewName'})
 df.to_excel('cleaned.xlsx', index=False)
 ```
 
-### Data Filtering
+### 資料篩選
 
 ```python
 import pandas as pd
@@ -271,7 +271,7 @@ filtered = df[~df['Status'].isin(['Deleted', 'Archived'])]
 filtered.to_excel('filtered.xlsx', index=False)
 ```
 
-### Data Merging
+### 資料合併
 
 ```python
 import pandas as pd
@@ -295,7 +295,7 @@ merged = pd.merge(df1, df2, on='user_id', how='left')
 merged.to_excel('joined.xlsx', index=False)
 ```
 
-### Data Transformation
+### 資料轉換
 
 ```python
 import pandas as pd
@@ -329,9 +329,9 @@ pivot = df.pivot_table(
 df.to_excel('transformed.xlsx', index=False)
 ```
 
-## Batch Processing
+## 批次處理
 
-### Batch Convert Excel to CSV
+### 批量將 Excel 轉為 CSV
 
 ```python
 import pandas as pd
@@ -355,7 +355,7 @@ for filename in os.listdir(input_dir):
         print(f"Converted: {filename}")
 ```
 
-### Batch Convert CSV to Excel
+### 批量將 CSV 轉為 Excel
 
 ```python
 import pandas as pd
@@ -377,7 +377,7 @@ for filename in os.listdir(input_dir):
         print(f"Converted: {filename}")
 ```
 
-### Batch Merge and Convert
+### 批量合併與轉換
 
 ```python
 import pandas as pd
@@ -403,9 +403,9 @@ merged.to_json('merged_output.json', orient='records', force_ascii=False, indent
 print(f"Merged {len(csv_files)} files into Excel, CSV, and JSON formats")
 ```
 
-## Advanced Features
+## 進階功能
 
-### Preserving Excel Formatting
+### 保留 Excel 格式
 
 ```python
 from openpyxl import load_workbook
@@ -442,7 +442,7 @@ for column in ws.columns:
 wb.save('output.xlsx')
 ```
 
-### Handling Large Files
+### 處理大型檔案
 
 ```python
 import pandas as pd
@@ -467,7 +467,7 @@ for i, chunk in enumerate(pd.read_csv('large_file.csv', chunksize=chunk_size)):
 excel_writer.close()
 ```
 
-### Encoding Handling
+### 編碼處理
 
 ```python
 import pandas as pd
@@ -488,18 +488,18 @@ df.to_csv('output.csv', encoding='utf-8-sig', index=False)  # UTF-8 with BOM
 df.to_excel('output.xlsx', index=False)  # Excel handles encoding automatically
 ```
 
-## 繁體中文處理最佳實踐 (Traditional Chinese Handling)
+## 繁體中文處理最佳實踐
 
-### ⚠️ Windows 環境中文 Excel 處理的核心原則
+### Windows 環境中文 Excel 處理的核心原則
 
-在 Windows 環境中處理包含繁體中文的 Excel 檔案時,常遇到以下問題:
+在 Windows 環境中處理包含繁體中文的 Excel 檔案時，常遇到以下問題：
 1. **編碼問題**: CSV 中文顯示為亂碼
 2. **數字格式問題**: 編號如 "1-1-1" 被 Excel 誤認為日期
 3. **PowerShell 腳本問題**: 腳本內嵌中文導致執行失敗
 
-**核心解決方案: 資料與腳本分離**
+**核心解決方案：資料與腳本分離**
 
-### 方案 A: Python pandas (推薦用於資料轉換)
+### 方案 A：Python pandas（推薦用於資料轉換）
 
 #### 讀取繁體中文 Excel
 ```python
@@ -540,13 +540,13 @@ df['CASE編號'] = df['CASE編號'].astype(str)
 df.to_excel('output.xlsx', index=False)
 ```
 
-### 方案 B: PowerShell + Excel COM (用於複雜格式需求)
+### 方案 B：PowerShell + Excel COM（用於複雜格式需求）
 
-當需要精確控制 Excel 格式 (欄位寬度、顏色、框線等) 且資料包含繁體中文時,使用此方案。
+當需要精確控制 Excel 格式（欄位寬度、顏色、框線等）且資料包含繁體中文時，使用此方案。
 
-#### 步驟 1: 建立 UTF-8 資料檔案
+#### 步驟 1：建立 UTF-8 資料檔案
 
-建立一個 Tab 分隔的文字檔案 (`testdata.txt`),以 **UTF-8 編碼**儲存:
+建立一個 Tab 分隔的文字檔案 (`testdata.txt`)，以 **UTF-8 編碼**儲存：
 
 ```
 功能名稱	CASE 編號	CASE 主題	系統	測試角色	測試步驟	預期結果
@@ -555,14 +555,14 @@ df.to_excel('output.xlsx', index=False)
 新增供應商	2-1-1	進入新增頁面	WEB	TRAIN_USER	點擊「新增」按鈕	進入編輯頁面
 ```
 
-**注意**:
+**注意**：
 - 使用 Tab (`\t`) 作為分隔符號
-- 檔案必須以 **UTF-8** 編碼儲存 (使用 Notepad++, VS Code 等工具)
+- 檔案必須以 **UTF-8** 編碼儲存（使用 Notepad++、VS Code 等工具）
 - 每行代表一筆資料
 
-#### 步驟 2: 建立 PowerShell 腳本
+#### 步驟 2：建立 PowerShell 腳本
 
-建立一個**純英文**的 PowerShell 腳本 (`create_excel.ps1`):
+建立一個**純英文**的 PowerShell 腳本 (`create_excel.ps1`)：
 
 ```powershell
 # create_excel.ps1 (腳本內容不包含中文,避免編碼問題)
@@ -635,7 +635,7 @@ $excel.Quit()
 Write-Host "Excel file created: $xlsxPath"
 ```
 
-#### 步驟 3: 執行腳本
+#### 步驟 3：執行腳本
 
 ```powershell
 # 在 PowerShell 中執行
@@ -644,7 +644,7 @@ powershell -ExecutionPolicy Bypass -File "C:\path\to\create_excel.ps1"
 
 ### 關鍵技術要點
 
-#### 1. 防止日期自動轉換 ⭐
+#### 1. 防止日期自動轉換
 ```powershell
 # 在寫入資料前,先將欄位格式設為文字 (@)
 $ws.Columns.Item(2).NumberFormat = "@"
@@ -652,7 +652,7 @@ $ws.Columns.Item(2).NumberFormat = "@"
 
 這會防止 Excel 將 "1-1-1", "2-3-4" 等編號誤認為日期。
 
-#### 2. 正確讀取 UTF-8 檔案 ⭐
+#### 2. 正確讀取 UTF-8 檔案
 ```powershell
 # 必須指定 -Encoding UTF8
 $content = Get-Content -Path "file.txt" -Encoding UTF8
@@ -688,27 +688,27 @@ $wb.SaveAs($path, 6)   # 6 = csv
 
 ### 常見問題排解
 
-#### Q1: 中文顯示為亂碼
-**原因**: 編碼不正確
-**解決方案**:
-- CSV: 使用 `encoding='utf-8-sig'` (UTF-8 with BOM)
-- PowerShell: 確保資料檔案以 UTF-8 儲存,並使用 `-Encoding UTF8` 讀取
+#### Q1：中文顯示為亂碼
+**原因**：編碼不正確
+**解決方案**：
+- CSV：使用 `encoding='utf-8-sig'`（UTF-8 with BOM）
+- PowerShell：確保資料檔案以 UTF-8 儲存，並使用 `-Encoding UTF8` 讀取
 
-#### Q2: CASE 編號 (1-1-1) 變成日期 (Jan-01-01)
-**原因**: Excel 自動將連字號格式的數字解釋為日期
-**解決方案**:
-- pandas: 讀取時指定 `dtype={'CASE編號': str}`
-- PowerShell: 寫入前設定欄位格式 `$ws.Columns.Item(2).NumberFormat = "@"`
+#### Q2：CASE 編號 (1-1-1) 變成日期 (Jan-01-01)
+**原因**：Excel 自動將連字號格式的數字解釋為日期
+**解決方案**：
+- pandas：讀取時指定 `dtype={'CASE編號': str}`
+- PowerShell：寫入前設定欄位格式 `$ws.Columns.Item(2).NumberFormat = "@"`
 
-#### Q3: PowerShell 腳本執行失敗
-**原因**: 腳本包含中文字符或編碼問題
-**解決方案**:
+#### Q3：PowerShell 腳本執行失敗
+**原因**：腳本包含中文字符或編碼問題
+**解決方案**：
 - 腳本內容只使用英文和符號
 - 中文資料放在獨立的 UTF-8 文字檔案中
 - 使用 `-ExecutionPolicy Bypass` 執行
 
-#### Q4: pandas 讀取 CSV 時中文亂碼
-**解決方案**: 嘗試不同編碼
+#### Q4：pandas 讀取 CSV 時中文亂碼
+**解決方案**：嘗試不同編碼
 ```python
 # 嘗試 UTF-8 with BOM (Excel 匯出的 CSV 通常是這個)
 df = pd.read_csv('file.csv', encoding='utf-8-sig')
@@ -720,9 +720,9 @@ df = pd.read_csv('file.csv', encoding='big5')
 df = pd.read_csv('file.csv', encoding='gbk')
 ```
 
-### 實際範例: 測試腳本轉 Excel
+### 實際範例：測試腳本轉 Excel
 
-假設你有一個包含測試案例的文字檔 (`testcases.txt`):
+假設你有一個包含測試案例的文字檔 (`testcases.txt`)：
 
 ```
 功能名稱	CASE 編號	測試步驟	預期結果
@@ -731,7 +731,7 @@ df = pd.read_csv('file.csv', encoding='gbk')
 查詢功能	2-1-1	輸入查詢條件	顯示查詢結果
 ```
 
-**使用 pandas 轉換 (推薦):**
+**使用 pandas 轉換（推薦）：**
 ```python
 import pandas as pd
 
@@ -744,7 +744,7 @@ df.to_excel('測試案例.xlsx', index=False)
 print("轉換完成!")
 ```
 
-**使用 PowerShell (需要格式控制時):**
+**使用 PowerShell（需要格式控制時）：**
 ```powershell
 # 使用前面的 create_excel.ps1 腳本,修改路徑
 $dataPath = "C:\Users\a0304\Desktop\testcases.txt"
@@ -753,53 +753,53 @@ $xlsxPath = "C:\Users\a0304\Desktop\測試案例.xlsx"
 # 執行腳本...
 ```
 
-## Best Practices
+## 最佳實踐
 
-### Library Selection
-- **pandas**: Use for data conversions, cleaning, and transformations (95% of cases)
-- **openpyxl**: Use only when you need to preserve Excel formatting or work with formulas
+### 函式庫選擇
+- **pandas**：用於資料轉換、清理和轉換操作（95% 的情況）
+- **openpyxl**：僅在需要保留 Excel 格式或處理公式時使用
 
-### Data Quality
-- Always remove duplicates before converting
-- Handle missing values appropriately (fill, drop, or flag)
-- Validate data types before conversion
-- Check for encoding issues with non-ASCII characters
+### 資料品質
+- 轉換前務必移除重複資料
+- 適當處理缺失值（填補、刪除或標記）
+- 轉換前驗證資料型別
+- 檢查非 ASCII 字元的編碼問題
 
-### Performance Optimization
-- Use `chunksize` for large files
-- Specify `dtype` when reading to avoid type inference
-- Use `usecols` to read only needed columns
-- Consider using `pyarrow` engine for faster CSV reading
+### 效能最佳化
+- 大型檔案使用 `chunksize`（分塊讀取）
+- 讀取時指定 `dtype` 以避免型別推斷
+- 使用 `usecols` 僅讀取需要的欄位
+- 考慮使用 `pyarrow` 引擎加速 CSV 讀取
 
-### File Handling
-- Always use `encoding='utf-8'` for CSV files
-- Set `index=False` when writing to avoid index column
-- Use `force_ascii=False` for JSON with non-ASCII characters
-- Create output directories before writing files
+### 檔案處理
+- CSV 檔案一律使用 `encoding='utf-8'`
+- 寫入時設定 `index=False` 以避免索引欄位
+- JSON 含非 ASCII 字元時使用 `force_ascii=False`
+- 寫入檔案前先建立輸出目錄
 
-### Error Handling
-- Wrap file operations in try-except blocks
-- Validate file existence before reading
-- Check for empty DataFrames before writing
-- Log conversion progress for batch operations
+### 錯誤處理
+- 檔案操作包裹在 try-except 區塊中
+- 讀取前驗證檔案是否存在
+- 寫入前檢查 DataFrame 是否為空
+- 批次操作記錄轉換進度
 
-## Quick Reference
+## 快速參考
 
-| Task | Code |
-|------|------|
-| Excel → CSV | `pd.read_excel('in.xlsx').to_csv('out.csv', index=False)` |
-| CSV → Excel | `pd.read_csv('in.csv').to_excel('out.xlsx', index=False)` |
-| Excel → JSON | `pd.read_excel('in.xlsx').to_json('out.json', orient='records')` |
-| JSON → Excel | `pd.DataFrame(json.load(f)).to_excel('out.xlsx', index=False)` |
-| CSV → JSON | `pd.read_csv('in.csv').to_json('out.json', orient='records')` |
-| JSON → CSV | `pd.DataFrame(json.load(f)).to_csv('out.csv', index=False)` |
-| Merge files | `pd.concat([pd.read_excel(f) for f in files]).to_excel('merged.xlsx')` |
-| Remove duplicates | `df.drop_duplicates().to_excel('out.xlsx', index=False)` |
+| 任務 | 程式碼 |
+|------|--------|
+| Excel 轉 CSV | `pd.read_excel('in.xlsx').to_csv('out.csv', index=False)` |
+| CSV 轉 Excel | `pd.read_csv('in.csv').to_excel('out.xlsx', index=False)` |
+| Excel 轉 JSON | `pd.read_excel('in.xlsx').to_json('out.json', orient='records')` |
+| JSON 轉 Excel | `pd.DataFrame(json.load(f)).to_excel('out.xlsx', index=False)` |
+| CSV 轉 JSON | `pd.read_csv('in.csv').to_json('out.json', orient='records')` |
+| JSON 轉 CSV | `pd.DataFrame(json.load(f)).to_csv('out.csv', index=False)` |
+| 合併檔案 | `pd.concat([pd.read_excel(f) for f in files]).to_excel('merged.xlsx')` |
+| 移除重複資料 | `df.drop_duplicates().to_excel('out.xlsx', index=False)` |
 
-## Keywords
+## 關鍵字
 
-**English keywords:**
+**英文關鍵字：**
 excel converter, csv converter, json converter, format conversion, excel to csv, csv to excel, excel to json, json to excel, csv to json, json to csv, data transformation, data conversion, file conversion, batch conversion, merge excel, merge csv, data processing, tabular data, spreadsheet conversion
 
-**Chinese keywords (中文關鍵詞):**
+**中文關鍵字：**
 Excel轉換, CSV轉換, JSON轉換, 格式轉換, Excel轉CSV, CSV轉Excel, Excel轉JSON, JSON轉Excel, CSV轉JSON, JSON轉CSV, 資料轉換, 檔案轉換, 批量轉換, 合併Excel, 合併CSV, 資料處理, 表格轉換, 數據轉換

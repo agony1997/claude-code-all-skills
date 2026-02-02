@@ -3,24 +3,24 @@ name: devops_cicd
 description: "CI/CD 持續整合與部署專家。專精於 GitHub Actions、GitLab CI、Jenkins、自動化測試、部署管道、Docker 整合、版本發布自動化。關鍵字: cicd, ci/cd, github actions, gitlab ci, jenkins, pipeline, 持續整合, 持續部署, 自動化部署"
 ---
 
-# CI/CD Expert
+# CI/CD（持續整合/持續部署）專家
 
-You are a CI/CD Expert specializing in continuous integration, continuous delivery, and automation pipelines using GitHub Actions, GitLab CI, and Jenkins.
+你是一位 CI/CD 專家，專精於持續整合、持續交付，以及使用 GitHub Actions、GitLab CI 和 Jenkins 建構自動化管道（Pipeline）。
 
-## Overview
+## 概述
 
-CI/CD automates building, testing, and deploying applications, enabling faster and more reliable software delivery.
+CI/CD 能自動化應用程式的建構、測試與部署流程，實現更快速且更可靠的軟體交付。
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Set up CI/CD (關鍵字: "cicd", "ci/cd", "pipeline", "持續整合")
-- Use GitHub Actions (關鍵字: "github actions", "workflow", "actions")
-- Use GitLab CI (關鍵字: "gitlab ci", ".gitlab-ci.yml")
-- Configure Jenkins (關鍵字: "jenkins", "jenkinsfile")
-- Automate deployment (關鍵字: "deployment", "部署", "自動化部署")
+當使用者需要以下操作時，啟用此技能：
+- 設定 CI/CD（關鍵字: "cicd", "ci/cd", "pipeline", "持續整合"）
+- 使用 GitHub Actions（關鍵字: "github actions", "workflow", "actions"）
+- 使用 GitLab CI（關鍵字: "gitlab ci", ".gitlab-ci.yml"）
+- 設定 Jenkins（關鍵字: "jenkins", "jenkinsfile"）
+- 自動化部署（關鍵字: "deployment", "部署", "自動化部署"）
 
-## Core Concepts
+## 核心概念
 
 ### 1. GitHub Actions
 
@@ -115,7 +115,7 @@ jobs:
             docker-compose up -d
 ```
 
-**Matrix Strategy:**
+**矩陣策略（Matrix Strategy）：**
 ```yaml
 jobs:
   test:
@@ -226,7 +226,7 @@ deploy_production:
     - main
 ```
 
-### 3. Jenkins Pipeline
+### 3. Jenkins Pipeline（Jenkins 管道）
 
 **Jenkinsfile:**
 ```groovy
@@ -344,9 +344,9 @@ pipeline {
 }
 ```
 
-### 4. Common Patterns
+### 4. 常見模式
 
-**Semantic Release:**
+**語意化版本發佈（Semantic Release）：**
 ```yaml
 # GitHub Actions
 - name: Semantic Release
@@ -356,7 +356,7 @@ pipeline {
   run: npx semantic-release
 ```
 
-**Dependency Caching:**
+**依賴快取（Dependency Caching）：**
 ```yaml
 # GitHub Actions
 - uses: actions/cache@v3
@@ -367,7 +367,7 @@ pipeline {
       ${{ runner.os }}-node-
 ```
 
-**Multi-environment Deployment:**
+**多環境部署（Multi-environment Deployment）：**
 ```yaml
 deploy:
   script:
@@ -382,19 +382,19 @@ deploy:
       kubectl set image deployment/myapp myapp=$DOCKER_IMAGE -n $ENV
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Pipeline Stages
-Typical CI/CD pipeline:
+### 1. 管道階段（Pipeline Stages）
+典型的 CI/CD 管道流程：
 ```
 Checkout → Build → Test → Code Quality → Security Scan → Docker Build → Deploy
 ```
 
-### 2. Fail Fast
-Run quick tests (lint, unit tests) before expensive operations (integration tests, builds).
+### 2. 快速失敗（Fail Fast）
+在執行耗時操作（整合測試、建構）之前，先執行快速測試（lint、單元測試）。
 
-### 3. Use Secrets Management
-Never hardcode credentials:
+### 3. 使用密鑰管理（Secrets Management）
+永遠不要在程式碼中硬編碼憑證：
 ```yaml
 # GitHub Actions
 ${{ secrets.API_KEY }}
@@ -406,7 +406,7 @@ $CI_REGISTRY_PASSWORD
 credentials('api-key-id')
 ```
 
-### 4. Parallel Execution
+### 4. 平行執行（Parallel Execution）
 ```yaml
 parallel:
   - unit-tests
@@ -414,7 +414,7 @@ parallel:
   - lint
 ```
 
-### 5. Environment-specific Configuration
+### 5. 環境專屬設定（Environment-specific Configuration）
 ```yaml
 deploy_staging:
   environment: staging
@@ -426,7 +426,7 @@ deploy_production:
   only: [main]
 ```
 
-### 6. Artifact Management
+### 6. 產出物管理（Artifact Management）
 ```yaml
 artifacts:
   paths:
@@ -435,9 +435,9 @@ artifacts:
   expire_in: 7 days
 ```
 
-## Quick Reference
+## 快速參考
 
-### GitHub Actions Syntax
+### GitHub Actions 語法
 ```yaml
 on: [push, pull_request]
 jobs:
@@ -448,7 +448,7 @@ jobs:
       - run: npm test
 ```
 
-### GitLab CI Syntax
+### GitLab CI 語法
 ```yaml
 stages: [build, test, deploy]
 job-name:
@@ -458,7 +458,7 @@ job-name:
   only: [main]
 ```
 
-### Jenkins Pipeline Syntax
+### Jenkins Pipeline 語法
 ```groovy
 pipeline {
   agent any
@@ -472,7 +472,7 @@ pipeline {
 }
 ```
 
-### Common Commands
+### 常用指令
 ```bash
 # GitHub Actions
 gh workflow run ci.yml
@@ -489,4 +489,4 @@ curl -X POST http://jenkins/job/myjob/build --user user:token
 
 ---
 
-**Remember:** Good CI/CD pipelines are fast, reliable, and provide quick feedback. Automate everything from testing to deployment for consistent and error-free releases.
+**請記住：** 良好的 CI/CD 管道應該快速、可靠，並能提供即時回饋。從測試到部署的一切流程都應自動化，以確保一致且無錯誤的發佈。

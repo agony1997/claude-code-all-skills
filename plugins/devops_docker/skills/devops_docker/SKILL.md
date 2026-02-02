@@ -3,28 +3,28 @@ name: devops_docker
 description: "Docker 容器化專家。專精於 Dockerfile 編寫、映像優化、Docker Compose、容器網路、資料卷、多階段建構、最佳實踐。關鍵字: docker, container, dockerfile, docker-compose, 容器, 映像, image, 容器化"
 ---
 
-# Docker Expert
+# Docker 專家
 
-You are a Docker Expert specializing in containerization, Docker images, Docker Compose, and container orchestration best practices.
+你是一位 Docker 專家，專精於容器化（Containerization）、Docker 映像（Image）、Docker Compose 以及容器編排（Container Orchestration）最佳實踐。
 
-## Overview
+## 概述
 
-Docker is a platform for developing, shipping, and running applications in containers. Containers package software with all dependencies, ensuring consistency across environments.
+Docker 是一個用於在容器中開發、交付和運行應用程式的平台。容器將軟體與所有相依套件打包在一起，確保在不同環境中的一致性。
 
-## When to use this skill
+## 何時使用此技能
 
-Activate this skill when users:
-- Work with Docker (關鍵字: "docker", "container", "容器", "dockerfile")
-- Build images (關鍵字: "dockerfile", "build", "image", "映像")
-- Use Docker Compose (關鍵字: "docker-compose", "docker compose", "多容器")
-- Handle volumes (關鍵字: "volume", "資料卷", "persistent data")
-- Configure networks (關鍵字: "network", "網路", "bridge")
+當使用者遇到以下情況時啟用此技能：
+- 使用 Docker（關鍵字: "docker", "container", "容器", "dockerfile"）
+- 建構映像（關鍵字: "dockerfile", "build", "image", "映像"）
+- 使用 Docker Compose（關鍵字: "docker-compose", "docker compose", "多容器"）
+- 處理資料卷（關鍵字: "volume", "資料卷", "persistent data"）
+- 設定網路（關鍵字: "network", "網路", "bridge"）
 
-## Core Concepts
+## 核心概念
 
 ### 1. Dockerfile
 
-**Basic Dockerfile:**
+**基本 Dockerfile：**
 ```dockerfile
 FROM node:18-alpine
 
@@ -42,7 +42,7 @@ USER node
 CMD ["node", "server.js"]
 ```
 
-**Multi-stage Build:**
+**多階段建構（Multi-stage Build）：**
 ```dockerfile
 # Build stage
 FROM node:18 AS builder
@@ -70,7 +70,7 @@ USER node
 CMD ["node", "dist/server.js"]
 ```
 
-**Java Spring Boot:**
+**Java Spring Boot：**
 ```dockerfile
 FROM maven:3.8-openjdk-17 AS build
 WORKDIR /app
@@ -86,9 +86,9 @@ EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
 ```
 
-### 2. Docker Commands
+### 2. Docker 指令
 
-**Images:**
+**映像（Image）：**
 ```bash
 # Build image
 docker build -t myapp:1.0 .
@@ -116,7 +116,7 @@ docker inspect myapp:1.0
 docker history myapp:1.0
 ```
 
-**Containers:**
+**容器（Container）：**
 ```bash
 # Run container
 docker run -d --name myapp -p 3000:3000 myapp:1.0
@@ -149,7 +149,7 @@ docker inspect myapp
 docker stats myapp
 ```
 
-**Volumes:**
+**資料卷（Volume）：**
 ```bash
 # Create volume
 docker volume create mydata
@@ -169,7 +169,7 @@ docker run -v mydata:/app/data myapp
 docker run -v $(pwd)/data:/app/data myapp  # Bind mount
 ```
 
-**Networks:**
+**網路（Network）：**
 ```bash
 # Create network
 docker network create mynetwork
@@ -189,7 +189,7 @@ docker run --network mynetwork myapp
 
 ### 3. Docker Compose
 
-**docker-compose.yml:**
+**docker-compose.yml：**
 ```yaml
 version: '3.8'
 
@@ -267,7 +267,7 @@ volumes:
   postgres-data:
 ```
 
-**Docker Compose Commands:**
+**Docker Compose 指令：**
 ```bash
 # Start services
 docker-compose up
@@ -295,9 +295,9 @@ docker-compose exec web bash
 docker-compose ps
 ```
 
-### 4. Optimization
+### 4. 優化
 
-**Layer Caching:**
+**層級快取（Layer Caching）：**
 ```dockerfile
 # Bad - cache invalidates on any file change
 COPY . .
@@ -309,7 +309,7 @@ RUN npm install
 COPY . .
 ```
 
-**Reduce Image Size:**
+**縮小映像大小：**
 ```dockerfile
 # Use alpine
 FROM node:18-alpine  # Much smaller than node:18
@@ -330,7 +330,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 ```
 
-**.dockerignore:**
+**.dockerignore：**
 ```
 node_modules
 npm-debug.log
@@ -345,7 +345,7 @@ build
 .idea
 ```
 
-### 5. Health Checks
+### 5. 健康檢查（Health Check）
 
 ```dockerfile
 # In Dockerfile
@@ -363,7 +363,7 @@ services:
       start_period: 40s
 ```
 
-### 6. Security
+### 6. 安全性（Security）
 
 ```dockerfile
 # Don't run as root
@@ -384,20 +384,20 @@ docker run --read-only myapp
 docker run --cap-drop=ALL --cap-add=NET_BIND_SERVICE myapp
 ```
 
-## Best Practices
+## 最佳實踐
 
-### 1. Use Official Base Images
+### 1. 使用官方基礎映像
 ```dockerfile
 FROM node:18-alpine        # Official Node.js
 FROM python:3.11-slim      # Official Python
 FROM openjdk:17-jre-slim   # Official OpenJDK
 ```
 
-### 2. One Process Per Container
-Each container should have a single responsibility (microservices principle).
+### 2. 每個容器只執行一個程序
+每個容器應承擔單一職責（微服務原則）。
 
-### 3. Use .dockerignore
-Exclude unnecessary files from build context:
+### 3. 使用 .dockerignore
+從建構上下文中排除不必要的檔案：
 ```
 node_modules
 .git
@@ -405,13 +405,13 @@ node_modules
 .env
 ```
 
-### 4. Leverage Build Cache
-Order Dockerfile instructions from least to most frequently changing.
+### 4. 善用建構快取
+將 Dockerfile 指令從最少變動排列到最常變動。
 
-### 5. Use Multi-Stage Builds
-Separate build and runtime environments to reduce image size.
+### 5. 使用多階段建構
+將建構環境與執行環境分離，以縮小映像大小。
 
-### 6. Set Resource Limits
+### 6. 設定資源限制
 ```bash
 docker run --memory="512m" --cpus="1.0" myapp
 ```
@@ -430,9 +430,9 @@ services:
           memory: 256M
 ```
 
-## Quick Reference
+## 快速參考
 
-### Common Commands
+### 常用指令
 ```bash
 # Images
 docker build -t name:tag .
@@ -457,23 +457,23 @@ docker volume prune
 docker network prune
 ```
 
-### Dockerfile Instructions
+### Dockerfile 指令說明
 ```dockerfile
-FROM      # Base image
-WORKDIR   # Working directory
-COPY      # Copy files
-ADD       # Copy + extract archives
-RUN       # Execute command
-CMD       # Default command
-ENTRYPOINT # Main command
-EXPOSE    # Document port
-ENV       # Environment variable
-ARG       # Build argument
-VOLUME    # Mount point
-USER      # User to run as
-HEALTHCHECK # Health check
+FROM      # 基礎映像
+WORKDIR   # 工作目錄
+COPY      # 複製檔案
+ADD       # 複製 + 解壓縮檔案
+RUN       # 執行指令
+CMD       # 預設指令
+ENTRYPOINT # 主要指令
+EXPOSE    # 宣告連接埠
+ENV       # 環境變數
+ARG       # 建構參數
+VOLUME    # 掛載點
+USER      # 執行身份
+HEALTHCHECK # 健康檢查
 ```
 
 ---
 
-**Remember:** Containers should be ephemeral, stateless, and easily replaceable. Use volumes for persistent data and environment variables for configuration.
+**請記住：** 容器應該是短暫的（Ephemeral）、無狀態的（Stateless），且易於替換。使用資料卷（Volume）來保存持久化資料，使用環境變數來進行組態設定。
