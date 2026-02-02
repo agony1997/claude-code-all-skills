@@ -4,7 +4,7 @@
   "owner": {
     "name": "agony1997"
   },
-  "description": "所有技能的 Marketplace：26 個技能插件 + 3 個複合技能（含前綴分類）",
+  "description": "所有技能的 Marketplace：22 個技能插件 + 3 個複合技能（含前綴分類）",
   "plugins": [
     {
       "name": "core_system-design",
@@ -154,39 +154,11 @@
       "tags": ["chart", "mermaid", "plantuml", "uml", "diagram", "圖表"]
     },
     {
-      "name": "tools_excel-converter",
-      "source": "./plugins/tools_excel-converter",
-      "description": "Excel/CSV/JSON 格式互轉與資料處理工具",
-      "category": "tools",
-      "tags": ["excel", "csv", "json", "data-conversion", "格式互轉"]
-    },
-    {
       "name": "tools_markdown-converter",
       "source": "./plugins/tools_markdown-converter",
       "description": "Markdown 格式互轉工具，支援 HTML、PDF、DOCX",
       "category": "tools",
       "tags": ["markdown", "html", "pdf", "docx", "format-conversion", "文檔轉換"]
-    },
-    {
-      "name": "tools_pdf-processor",
-      "source": "./plugins/tools_pdf-processor",
-      "description": "PDF 處理工具，合併、分割、提取、建立、浮水印",
-      "category": "tools",
-      "tags": ["pdf", "merge", "split", "extract", "watermark", "PDF處理"]
-    },
-    {
-      "name": "tools_tech-presentation",
-      "source": "./plugins/tools_tech-presentation",
-      "description": "技術簡報生成工具，使用 python-pptx 建立 PowerPoint",
-      "category": "tools",
-      "tags": ["powerpoint", "pptx", "presentation", "slides", "技術簡報"]
-    },
-    {
-      "name": "tools_word-processor",
-      "source": "./plugins/tools_word-processor",
-      "description": "Word 文檔建立、編輯與轉換工具",
-      "category": "tools",
-      "tags": ["word", "docx", "document", "formatting", "Word文檔"]
     },
     {
       "name": "composite_architect",
