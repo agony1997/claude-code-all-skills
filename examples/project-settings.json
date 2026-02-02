@@ -32,6 +32,9 @@
     "tools_excel-converter@all-skills": false,
     "tools_markdown-converter@all-skills": false,
     "tools_pdf-processor@all-skills": false,
-    "tools_tech-presentation@all-skills": false
+    "tools_tech-presentation@all-skills": false,
+    "composite_architect@all-skills": true,
+    "composite_spring-stack@all-skills": true,
+    "composite_frontend@all-skills": true
   }
 }

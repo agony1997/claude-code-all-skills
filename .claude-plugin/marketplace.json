@@ -1,10 +1,10 @@
 {
   "name": "all-skills",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "owner": {
     "name": "agony1997"
   },
-  "description": "所有技能的 Marketplace：26 個技能插件（含前綴分類）",
+  "description": "所有技能的 Marketplace：26 個技能插件 + 3 個複合技能（含前綴分類）",
   "plugins": [
     {
       "name": "core_system-design",
@@ -187,6 +187,27 @@
       "description": "Word 文檔建立、編輯與轉換工具",
       "category": "tools",
       "tags": ["word", "docx", "document", "formatting", "Word文檔"]
+    },
+    {
+      "name": "composite_architect",
+      "source": "./plugins/composite_architect",
+      "description": "複合技能：系統設計 + DDD 端到端交付 + 品質保證",
+      "category": "composite",
+      "tags": ["architect", "架構師", "system-design", "clean-architecture", "hexagonal", "ddd", "domain-driven-design", "event-storming", "bounded-context", "aggregate", "cqrs", "sa", "sd", "tdd", "code-review", "refactor", "重構", "實作規劃", "品質保證"]
+    },
+    {
+      "name": "composite_spring-stack",
+      "source": "./plugins/composite_spring-stack",
+      "description": "複合技能：Spring Boot + Spring Data JPA + 資料庫設計 + PostgreSQL",
+      "category": "composite",
+      "tags": ["spring-boot", "spring", "java", "rest-api", "jpa", "hibernate", "postgresql", "database-design", "flyway", "jsonb", "full-text-search", "cte", "window-function", "資料庫設計", "索引"]
+    },
+    {
+      "name": "composite_frontend",
+      "source": "./plugins/composite_frontend",
+      "description": "複合技能：Vue 3 + Quasar Framework + TypeScript",
+      "category": "composite",
+      "tags": ["vue", "vue3", "composition-api", "pinia", "quasar", "spa", "pwa", "typescript", "generic", "interface", "組件", "前端", "型別", "泛型"]
     }
   ]
 }
