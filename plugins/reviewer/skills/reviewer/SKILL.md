@@ -45,6 +45,8 @@ description: >
 - **資料庫規範**：Entity 對應、Migration、索引
 - **前端規範**：元件結構、狀態管理、型別定義
 
+> **可選整合** — 若已安裝 superpowers 插件，在產出報告前可搭配 `superpowers:verification-before-completion` 使用，確保審查的完整性。
+
 ### 4. 產出審查報告
 
 ```
@@ -72,6 +74,8 @@ description: >
 - 不合規: N
 - 合規率: N%
 ```
+
+> **可選整合** — 若已安裝 superpowers 插件，當審查發現需修復的問題時，可搭配 `superpowers:systematic-debugging` 使用，以系統化方式定位和修復問題。
 
 ## 專案端設置指南
 

@@ -77,6 +77,10 @@ description: >
 
 ### 3. Agent Teams 並行實作（後端 + 前端）
 
+> **可選整合** — 若已安裝 superpowers 插件，實作過程中可搭配 `superpowers:test-driven-development` 使用，以 TDD 紅-綠-重構循環確保程式碼品質。
+
+> **可選整合** — 若已安裝 superpowers 插件，實作過程中遇到 bug 可搭配 `superpowers:systematic-debugging` 使用，以系統化方式定位問題。
+
 > **為什麼改用 Agent Teams**：實作階段需要跨層溝通（如前端發現 API 格式問題可直接跟後端 teammate 協調），且使用者可以隨時用 **Shift+Down 切換到任一 teammate 直接介入修正方向**。
 
 使用 `TeamCreate` 建立實作團隊，然後用 `Task` 工具（帶 `team_name` 參數）生成 teammates：
@@ -265,3 +269,5 @@ TeamCreate:
 - **步驟 3（實作）使用 Agent Teams**：支援跨層溝通、人工介入、共享任務列表
 - Teammates 的 prompt 須包含完整 context（技術規格全文、實作指示全文、專案規範摘要），確保獨立作業品質一致
 - 所有 Task Agent / Teammates 指定 `model: "opus"`
+
+> **可選整合** — 若已安裝 superpowers 插件，完成實作後可搭配 `superpowers:finishing-a-development-branch` 使用，引導開發分支的結案流程。

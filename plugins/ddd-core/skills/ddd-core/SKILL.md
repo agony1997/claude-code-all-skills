@@ -626,6 +626,8 @@ public class OrderApprovalService {
 
 ---
 
+> **可選整合** — 若已安裝 superpowers 插件，可在啟動 DDD 流程前先搭配 `superpowers:brainstorming` 使用，協助探索需求意圖、釐清業務範圍與設計方向。
+
 ## Phase 1: Event Storming 領域探索
 
 ### 核心職責
@@ -1263,6 +1265,8 @@ sequenceDiagram
 3. **最小單元**: 每個任務對應一個檔案或一個小型變更
 4. **依賴排序**: 被依賴的先做，依賴別人的後做
 
+> **可選整合** — 若已安裝 superpowers 插件，可搭配 `superpowers:test-driven-development` 使用，以其 TDD 紅-綠-重構循環來執行每個任務。
+
 #### 拆解順序（每個聚合）
 
 ```
@@ -1381,3 +1385,9 @@ Task 3 (Entity) → Task 5 (Aggregate Root)
 - Migration Script 任務在所有 Domain 任務之後、Repository 實作之前
 - 前端任務在所有後端 API 任務完成之後
 - 若發現 SD 設計有遺漏，主動提出並建議補充
+
+> **可選整合** — 若已安裝 superpowers 插件，可搭配 `superpowers:writing-plans` 使用，以其計畫格式產出更結構化的實作計畫文件。
+
+> **可選整合** — 若已安裝 superpowers 插件，進入實作階段時可搭配 `superpowers:using-git-worktrees` 使用，在獨立的 worktree 中隔離開發。
+
+> **可選整合** — 若已安裝 superpowers 插件，實作完成後可搭配 `superpowers:verification-before-completion` 使用，確保所有產出的完整性。

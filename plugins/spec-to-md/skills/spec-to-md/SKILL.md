@@ -87,6 +87,8 @@ API、資料庫、Entity 的全部技術細節，語氣為規格說明式：
 
 #### 第三階段（Agent Teams 並行）：`02_後端實作.md` + `03_前端實作.md`
 
+> **可選整合** — 若已安裝 superpowers 插件，可搭配 `superpowers:dispatching-parallel-agents` 使用，以其並行任務調度方法論管理 Agent Teams。
+
 > **為什麼改用 Agent Teams**：後端和前端實作文件需要保持一致性（API 端點名稱、參數格式、回應結構），teammates 可以**直接互相校對**確保文件一致，使用者也可以**隨時切入任一 teammate 修正方向**。
 
 01_技術規格確認後，建立 Agent Team 並行產出：

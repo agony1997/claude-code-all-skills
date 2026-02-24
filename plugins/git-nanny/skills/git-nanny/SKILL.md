@@ -271,6 +271,10 @@ gh pr view
 gh pr view --web
 ```
 
+> **可選整合** — 若已安裝 superpowers 插件，PR 建立後可搭配 `superpowers:requesting-code-review` 使用，獲得結構化的程式碼審查。
+
+> **可選整合** — 若已安裝 superpowers 插件，收到 review 回饋時可搭配 `superpowers:receiving-code-review` 使用，以審慎態度處理回饋，避免盲目同意或忽略。
+
 ### 程式碼審查檢查清單
 
 **嚴重（必須修正）：** 安全漏洞、資料毀損風險、邏輯錯誤
@@ -335,6 +339,8 @@ main（正式環境）
 │   ├── release/*（發布準備，從 develop 分出）
 │   └── hotfix/*（緊急修復，從 main 分出）
 ```
+
+> **可選整合** — 若已安裝 superpowers 插件，開始分支開發時可搭配 `superpowers:using-git-worktrees` 使用，在獨立的 worktree 中隔離開發。
 
 **功能開發流程：**
 ```bash
@@ -437,6 +443,8 @@ git branch --merged main | grep -v "main\|develop" | xargs git branch -d
 # 清除遠端追蹤分支
 git fetch --prune
 ```
+
+> **可選整合** — 若已安裝 superpowers 插件，準備合併或完成分支時可搭配 `superpowers:finishing-a-development-branch` 使用，引導結案流程（合併、PR 或清理）。
 
 ---
 
