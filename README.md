@@ -1,6 +1,6 @@
 # all-skills
 
-Claude Code 技能插件 Marketplace，共 26 個插件，依前綴分為 5 大類。
+Claude Code 技能插件 Marketplace，共 22 個插件，依前綴分為 5 大類。
 
 ## 插件清單
 
@@ -42,18 +42,14 @@ Claude Code 技能插件 Marketplace，共 26 個插件，依前綴分為 5 大�
 | `devops_cicd` | CI/CD GitHub Actions、GitLab CI、Jenkins |
 | `devops_git` | Git Commit、PR、分支策略、版本發布 |
 
-### tools_ — 文件工具（8）
+### tools_ — 文件工具（4）
 
 | 插件 | 說明 |
 |------|------|
 | `tools_api-docs` | API 文檔 OpenAPI 3.0/Swagger |
 | `tools_business-report` | 商業報告：週報、月報、季報 |
 | `tools_chart-generator` | 圖表生成 Mermaid/PlantUML |
-| `tools_excel-converter` | Excel/CSV/JSON 格式互轉 |
 | `tools_markdown-converter` | Markdown ↔ HTML/PDF/DOCX |
-| `tools_pdf-processor` | PDF 合併、分割、提取、浮水印 |
-| `tools_tech-presentation` | 技術簡報 PowerPoint 生成 |
-| `tools_word-processor` | Word 文檔建立與編輯 |
 
 ## 使用方式
 
@@ -106,10 +102,7 @@ cp examples/project-settings.json <project>/.claude/settings.json
     "tools_api-docs@all-skills": true,
     "tools_business-report@all-skills": true,
     "tools_chart-generator@all-skills": true,
-    "tools_excel-converter@all-skills": true,
-    "tools_markdown-converter@all-skills": true,
-    "tools_pdf-processor@all-skills": true,
-    "tools_tech-presentation@all-skills": true
+    "tools_markdown-converter@all-skills": true
   },
   "language": "繁體中文",
   "autoUpdatesChannel": "latest",
@@ -159,10 +152,7 @@ cp examples/project-settings.json <project>/.claude/settings.json
     "tools_api-docs@all-skills": false,
     "tools_business-report@all-skills": false,
     "tools_chart-generator@all-skills": false,
-    "tools_excel-converter@all-skills": false,
-    "tools_markdown-converter@all-skills": false,
-    "tools_pdf-processor@all-skills": false,
-    "tools_tech-presentation@all-skills": false
+    "tools_markdown-converter@all-skills": false
   }
 }
 ```
@@ -219,7 +209,7 @@ Project scope（<project>/.claude/settings.json）
 ```
 all-skills/
 ├── README.md
-├── plugins/                    # 26 個技能插件
+├── plugins/                    # 22 個技能插件
 │   ├── core_*/
 │   ├── db_*/
 │   ├── frontend_*/
