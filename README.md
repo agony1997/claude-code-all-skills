@@ -1,4 +1,4 @@
-# all-skills
+# touchfish-skills
 
 Claude Code 技能插件 Marketplace，共 5 個工作流型插件。
 
@@ -8,9 +8,9 @@ Claude Code 技能插件 Marketplace，共 5 個工作流型插件。
 
 | 插件 | 類型 | 說明 |
 |------|------|------|
-| `core_ddd-delivery` | 方法論 | DDD 端到端交付：Event Storming → SA → SD → 實作規劃 |
-| `devops_git` | 操作流程 | Git Commit、PR、分支策略、版本發布 + 團隊規範 |
-| `standards-reviewer` | 審查流程 | 專案規範審查員：根據專案載入對應規範，執行合規審查 |
+| `ddd-core` | 方法論 | DDD 端到端交付：Event Storming → SA → SD → 實作規劃 |
+| `git-nanny` | 操作流程 | Git Commit、PR、分支策略、版本發布 + 團隊規範 |
+| `reviewer` | 審查流程 | 專案規範審查員：根據專案載入對應規範，執行合規審查 |
 | `spec-to-md` | 轉換流程 | 規格文件 → 結構化 AI Coding 實作文件 |
 | `md-to-code` | 實作流程 | 實作文件 → 程式碼（並行 Agent Teams） |
 
@@ -27,12 +27,12 @@ Claude Code 技能插件 Marketplace，共 5 個工作流型插件。
 ### 安裝
 
 ```bash
-claude /plugin add ./path/to/all-skills
+claude /plugin add ./path/to/touchfish-skills
 ```
 
 ### 建議配置
 
-將 **devops_git** 放在 User scope（全域可用），其餘按專案需求啟用。
+將 **git-nanny** 放在 User scope（全域可用），其餘按專案需求啟用。
 
 #### User scope — 全域工具
 
@@ -41,8 +41,8 @@ claude /plugin add ./path/to/all-skills
 ```jsonc
 {
   "enabledPlugins": {
-    "all-skills": true,
-    "devops_git@all-skills": true
+    "touchfish-skills": true,
+    "git-nanny@touchfish-skills": true
   }
 }
 ```
@@ -54,11 +54,11 @@ claude /plugin add ./path/to/all-skills
 ```jsonc
 {
   "enabledPlugins": {
-    "all-skills": true,
-    "core_ddd-delivery@all-skills": true,
-    "standards-reviewer@all-skills": true,
-    "spec-to-md@all-skills": true,
-    "md-to-code@all-skills": true
+    "touchfish-skills": true,
+    "ddd-core@touchfish-skills": true,
+    "reviewer@touchfish-skills": true,
+    "spec-to-md@touchfish-skills": true,
+    "md-to-code@touchfish-skills": true
   }
 }
 ```
@@ -66,16 +66,16 @@ claude /plugin add ./path/to/all-skills
 ### 目錄結構
 
 ```
-all-skills/
+touchfish-skills/
 ├── README.md
 ├── plugins/
-│   ├── core_ddd-delivery/        # DDD 方法論
-│   ├── devops_git/               # Git 控管流程
-│   ├── standards-reviewer/       # 規範審查員（支援多專案規範）
-│   ├── spec-to-md/               # 規格 → 實作文件
-│   └── md-to-code/               # 實作文件 → 程式碼
-├── docs/plans/                   # 設計與計畫文件
-└── examples/                     # 設定檔範例
+│   ├── ddd-core/                    # DDD 方法論
+│   ├── git-nanny/                   # Git 控管流程
+│   ├── reviewer/                    # 規範審查員（讀取專案內規範）
+│   ├── spec-to-md/                  # 規格 → 實作文件
+│   └── md-to-code/                  # 實作文件 → 程式碼
+├── docs/plans/                      # 設計與計畫文件
+└── examples/                        # 設定檔範例
     ├── global-settings.json
     └── project-settings.json
 ```

@@ -1,7 +1,7 @@
 {
   "enabledPlugins": {
-    "all-skills": true,
-    "devops_git@all-skills": true
+    "touchfish-skills": true,
+    "git-nanny@touchfish-skills": true
   },
   "language": "繁體中文",
   "autoUpdatesChannel": "latest",

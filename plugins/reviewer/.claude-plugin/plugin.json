@@ -1,11 +1,11 @@
 {
   "version": "1.0.0",
-  "name": "standards-reviewer",
+  "name": "reviewer",
   "description": "Project standards reviewer: load project-specific coding standards and review code compliance",
   "author": {
     "name": "Custom Skills"
   },
   "skills": [
-    "./skills/standards-reviewer"
+    "./skills/reviewer"
   ]
 }

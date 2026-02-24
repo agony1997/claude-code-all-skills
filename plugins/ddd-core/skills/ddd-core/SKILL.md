@@ -1,5 +1,5 @@
 ---
-name: core_ddd-delivery
+name: ddd-core
 description: "DDD 端到端交付流程。DDD 理論基礎（戰略設計、戰術設計、CQRS、Event Sourcing）→ Event Storming 領域探索 → SA 領域分析 → SD 戰術設計 → 實作規劃。關鍵字: ddd, domain driven design, 領域驅動, bounded context, aggregate, event storming, 事件風暴, sa, sd, 系統分析, 系統設計, implementation plan, 實作規劃, cqrs, event sourcing"
 ---
 

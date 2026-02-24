@@ -1,5 +1,5 @@
 ---
-name: standards-reviewer
+name: reviewer
 description: >
   專案規範審查員：讀取專案內的規範文件，執行程式碼合規審查。
   規範文件由使用者維護在專案中（如 .standards/ 目錄），skill 只負責審查工作流。

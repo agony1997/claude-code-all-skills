@@ -1,5 +1,5 @@
 ---
-name: devops_git
+name: git-nanny
 description: "Git 全方位專家：涵蓋 Commit 訊息生成、Pull Request 建立與審查、分支策略管理、版本發布與 Changelog。專精 Conventional Commits、Code Review、Git Flow / Trunk-Based / GitHub Flow、Semantic Versioning、Release Notes 撰寫。關鍵字: commit, pull request, PR, branch, release, changelog, git flow, trunk-based, github flow, semantic versioning, conventional commits, code review, git tag, 提交, 分支, 版本發布, 合併請求, 程式碼審查, 更新日誌"
 ---
 

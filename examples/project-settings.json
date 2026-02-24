@@ -16,10 +16,10 @@
     ]
   },
   "enabledPlugins": {
-    "all-skills": true,
-    "core_ddd-delivery@all-skills": true,
-    "standards-reviewer@all-skills": true,
-    "spec-to-md@all-skills": true,
-    "md-to-code@all-skills": true
+    "touchfish-skills": true,
+    "ddd-core@touchfish-skills": true,
+    "reviewer@touchfish-skills": true,
+    "spec-to-md@touchfish-skills": true,
+    "md-to-code@touchfish-skills": true
   }
 }
