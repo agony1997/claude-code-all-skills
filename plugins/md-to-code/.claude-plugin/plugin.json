@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "md-to-code",
+  "description": "MD-to-Code: Implement code step-by-step from structured AI coding documents",
+  "author": {
+    "name": "Custom Skills"
+  },
+  "skills": [
+    "./skills/md-to-code"
+  ]
+}

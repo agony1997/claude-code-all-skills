@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "spec-to-md",
+  "description": "Spec-to-MD: Convert specification files to AI coding implementation documents",
+  "author": {
+    "name": "Custom Skills"
+  },
+  "skills": [
+    "./skills/spec-to-md"
+  ]
+}
