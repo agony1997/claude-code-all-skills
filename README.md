@@ -1,8 +1,22 @@
 # touchfish-skills
 
+> Workflow-oriented skill plugins for Claude Code — 7 plugins covering DDD, Git, code review, spec conversion, implementation, project exploration, and team collaboration.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Plugins](https://img.shields.io/badge/plugins-7-blue.svg)](.claude-plugin/marketplace.json)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Skills-blueviolet.svg)](https://docs.anthropic.com/en/docs/claude-code)
+
 Claude Code 技能插件 Marketplace，共 7 個工作流型插件。
 
 > **設計原則**：只保留有明確工作流的技能。純領域知識（Spring Boot、PostgreSQL、Vue.js 等）交給 Claude 本身的能力，流程方法論（TDD、brainstorming、debugging）交給 superpowers 等外部插件。
+
+## 快速開始
+
+```bash
+claude /plugin add ./path/to/touchfish-skills
+```
+
+將 **git-nanny** 放在 User scope（全域可用），其餘按專案需求啟用。
 
 ## 插件清單
 
@@ -15,6 +29,19 @@ Claude Code 技能插件 Marketplace，共 7 個工作流型插件。
 | `md-to-code` | 實作流程 | 實作文件 → 程式碼（並行 Agent Teams） |
 | `explorer` | 探索工具 | 專案探索者：Opus Leader + sub-agents 並行探索，產出專案地圖 |
 | `dev-team` | 團隊協作 | 開發團隊：多角色流水線（PM/開發者/QA），動態規模，混合 agents |
+
+## 架構概覽
+
+```
+需求 ──→ ddd-core ──→ spec-to-md ──→ md-to-code ──→ git-nanny
+          (DDD)        (規格→文件)    (文件→程式碼)   (提交/PR)
+
+探索 ──→ explorer ──→ PROJECT_MAP.md
+          (並行探索)
+
+大功能 ─→ dev-team ──→ PM → API 契約 → 開發 + QA 流水線 → 交付
+          (多角色)
+```
 
 ## 搭配的外部插件
 
@@ -40,17 +67,7 @@ Claude Code 技能插件 Marketplace，共 7 個工作流型插件。
 
 > **未安裝 superpowers？** 所有 touchfish-skills 技能皆可獨立使用，superpowers 整合點僅為可選增強。
 
-## 使用方式
-
-### 安裝
-
-```bash
-claude /plugin add ./path/to/touchfish-skills
-```
-
-### 建議配置
-
-將 **git-nanny** 放在 User scope（全域可用），其餘按專案需求啟用。
+## 設定範例
 
 #### User scope — 全域工具
 
@@ -83,11 +100,12 @@ claude /plugin add ./path/to/touchfish-skills
 }
 ```
 
-### 目錄結構
+## 目錄結構
 
 ```
 touchfish-skills/
 ├── README.md
+├── LICENSE
 ├── plugins/
 │   ├── ddd-core/                    # DDD 方法論
 │   ├── git-nanny/                   # Git 控管流程
@@ -101,3 +119,15 @@ touchfish-skills/
     ├── global-settings.json
     └── project-settings.json
 ```
+
+## Attribution
+
+本專案的 `git-nanny` 技能引用了以下開放標準：
+
+- [Conventional Commits](https://www.conventionalcommits.org/) (CC BY 3.0)
+- [Semantic Versioning](https://semver.org/) (CC BY 3.0)
+- [Keep a Changelog](https://keepachangelog.com/) (MIT)
+
+## License
+
+[MIT](LICENSE)
