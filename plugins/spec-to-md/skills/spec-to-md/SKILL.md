@@ -4,7 +4,7 @@ description: >
   讀取規格文件轉換為 AI coding 實作文件（.md），產出技術規格、後端實作指示、前端實作指示等結構化文件。
   使用時機：當使用者提供規格文件並要求產生實作文件、轉換規格為 coding 文件時觸發。
   關鍵字：規格轉換、spec to md、產生實作文件、讀取規格、分析需求、coding 文件、開發文件、
-  to md、toMD、toMd、TOMD。
+  to md、toMD、toMd、TOMD、specification, 規格文件, 需求文件, 需求轉換, 實作指示, 實作文件, 技術規格, 文件生成, 文件產生, 前端實作, 後端實作, convert, 轉換。
 ---
 
 # Spec-to-MD：規格文件轉 AI Coding 實作文件

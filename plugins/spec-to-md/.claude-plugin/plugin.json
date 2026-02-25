@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "name": "spec-to-md",
-  "description": "Spec-to-MD: Convert specification files to AI coding implementation documents",
+  "description": "規格文件轉 AI Coding 實作文件：讀取規格文件，產出技術規格、後端實作指示、前端實作指示等結構化文件",
   "author": {
     "name": "Custom Skills"
   },

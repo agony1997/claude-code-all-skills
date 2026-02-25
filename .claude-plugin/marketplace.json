@@ -9,13 +9,13 @@
     {
       "name": "ddd-core",
       "source": "./plugins/ddd-core",
-      "description": "DDD 端到端交付：Event Storming → SA 領域分析 → SD 戰術設計 → 實作規劃",
+      "description": "DDD 端到端交付：DDD 理論基礎 → Event Storming → SA 領域分析 → SD 戰術設計 → 實作規劃",
       "tags": ["ddd", "domain-driven-design", "event-storming", "sa", "sd", "cqrs", "event-sourcing"]
     },
     {
       "name": "git-nanny",
       "source": "./plugins/git-nanny",
-      "description": "Git 管家：Commit、PR、分支策略、版本發布與 Changelog + 團隊規範",
+      "description": "Git 管家：Commit、PR、分支策略、版本發布與 Changelog",
       "tags": ["git", "commit", "pull-request", "branch", "release", "conventional-commits"]
     },
     {

@@ -6,7 +6,7 @@ description: >
   首次啟用時會詢問規範文件位置。
   使用時機：實作完成後要求審查、CI 前檢查、程式碼合規確認、規範檢查。
   關鍵字：review, 審查, 規範, standards, compliance, 合規, 檢查, CI, pre-commit,
-  code review, 程式碼審查, 規格檢查。
+  code review, 程式碼審查, 規格檢查, lint, linting, coding standards, 編碼規範, 合規審查, 規範審查, quality, 品質, 程式碼品質。
 ---
 
 # 專案規範審查員 (Standards Reviewer)

@@ -5,7 +5,7 @@ description: >
   依序參考技術規格、後端實作指示、前端實作指示，逐步確認後實作後端與前端程式碼。
   使用時機：當使用者要求根據已產出的實作文件開始寫程式、實作功能、按照文件 coding、
   依文件實作、開始開發時觸發。關鍵字：md to code、根據文件實作、開始寫程式、
-  按文件 coding、依文件開發、實作程式碼、開始實作、to code、toCode。
+  按文件 coding、依文件開發、實作程式碼、開始實作、to code、toCode、implement, implementation, 寫程式, coding, 依規格實作, 按規格開發, 從文件產生程式碼, generate code, code generation, 開始開發。
 ---
 
 # MD-to-Code：根據實作文件逐步實作
