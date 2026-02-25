@@ -69,7 +69,10 @@ Leader 可在 spawn Worker 時透過 `model` 參數調整，但預設為 Sonnet�
      - 讀取根目錄結構
      - 辨識技術棧和框架
      - 找出關鍵檔案（進入點、設定檔、路由）
-   - 產出簡要的專案概覽筆記
+     - 盤點公用組件（utils, common, shared 目錄）
+     - 搜尋專案規範文件（CLAUDE.md, .standards/, CONTRIBUTING.md, lint 設定等）
+     - **若找不到規範文件** → AskUserQuestion 詢問使用者：規範在哪？有哪些慣例？
+   - 產出簡要的專案概覽筆記（含公用組件清單和規範摘要）
 
 4. 確認專案地圖已就緒。
 
@@ -83,8 +86,14 @@ Leader 可在 spawn Worker 時透過 `model` 參數調整，但預設為 Sonnet�
 
 2. 參考 PROJECT_MAP.md 了解專案現況：
    - 現有架構和分層
-   - 可復用的元件和模組
+   - **公用組件與可複用資源**（從 PROJECT_MAP.md 的「公用組件」章節取得）
+   - **專案規範統整**（從 PROJECT_MAP.md 的「專案規範」章節取得）
    - 需要修改的檔案範圍
+
+   > **若 PROJECT_MAP.md 中缺少公用組件或規範資訊**（例如未使用 explorer 產出）：
+   > TL 應自行快速掃描，或使用 AskUserQuestion 向使用者確認：
+   > - 是否有可複用的公用組件？
+   > - 專案規範文件在哪裡？有哪些命名慣例？
 
 3. 使用 TaskCreate 拆分任務：
    - 每個任務粒度要小到單一 worker 可獨立完成
@@ -191,6 +200,8 @@ interface EntityName {
 
    API 契約位置：<路徑>（開發必須遵循此契約）
    專案地圖位置：<路徑>
+   公用組件清單：<從 PROJECT_MAP.md 擷取的可複用元件摘要>
+   專案規範摘要：<從 PROJECT_MAP.md 擷取的規範重點>
    ```
 
 3. pg-leader 評估任務量後 spawn 適當數量的 pg workers（teammates, Sonnet）：
@@ -223,6 +234,8 @@ interface EntityName {
 
    API 契約位置：<路徑>（開發必須嚴格遵循此契約）
    專案地圖位置：<路徑>
+   公用組件清單：<可複用元件摘要，優先使用這些元件而非重新建立>
+   專案規範摘要：<命名慣例、架構模式、程式碼風格等，必須遵循>
 
    <Worker 行為準則（見下方）>
    ```
@@ -231,7 +244,7 @@ interface EntityName {
 
 5. pg-leader 拆分高層任務為細粒度子任務，指派給 workers。
 
-### Phase 3+4: 流水線開發與審查
+### Phase 4: 流水線開發與審查
 
 **目標：** 開發和審查同時進行，提高效率。
 

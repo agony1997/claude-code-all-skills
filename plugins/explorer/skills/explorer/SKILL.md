@@ -89,6 +89,24 @@ else:
    - 對外暴露的 API 或介面
    - 共用的型別或工具
 
+5. **公用組件與可複用資源**
+   - 共用工具類別（utils, helpers, common）
+   - 共用 UI 元件（如有前端：Button, Modal, Table 等）
+   - 共用型別定義（types, interfaces, DTOs）
+   - 公版/範本（template, base class, abstract class）
+   - 共用常數與設定（constants, enums, config）
+   - 列出每個公用組件的檔案路徑、用途、使用範例
+
+6. **專案規範與慣例**
+   - 尋找並讀取以下規範文件（按優先順序）：
+     - CLAUDE.md（Claude Code 專案指示）
+     - .standards/、docs/standards/、standards/ 目錄
+     - CONTRIBUTING.md、DEVELOP.md、CODING_STYLE.md
+     - .editorconfig、.eslintrc、.prettierrc、checkstyle.xml 等 lint 設定
+     - NAMING_CONVENTIONS.md 或相關命名規範
+   - 統整規範重點：命名慣例、架構模式、程式碼風格、commit 規範
+   - 如果完全找不到規範文件，請明確標注「⚠️ 未找到專案規範」
+
 請以結構化的 Markdown 格式回報，確保每個項目都有具體的檔案路徑佐證。
 不確定的地方請明確標注「⚠️ 不確定」。
 ```
@@ -115,7 +133,18 @@ Task(subagent_type: "Explore", model: "sonnet") × N
 □ 設定檔之間是否有矛盾？
 □ 模組間依賴方向是否合理（無循環依賴）？
 □ 是否有報告遺漏重要目錄或檔案？
+□ 公用組件清單是否完整？各報告引用的共用元件是否一致？
+□ 專案規範是否已找到並統整？若未找到，是否需要詢問使用者？
 ```
+
+**專案規範確認（必要步驟）：**
+
+- 若 sub-agents 回報「⚠️ 未找到專案規範」→ 使用 AskUserQuestion 詢問使用者：
+  - 專案是否有規範文件？位於何處？
+  - 是否有未文件化的命名慣例或架構約定？
+  - 是否需要建立基本規範？
+- 若使用者提供了規範位置 → 再派 sub-agent 讀取並統整
+- 若使用者確認無規範 → 在 PROJECT_MAP.md 中標注「專案目前無明確規範」
 
 **審視迴圈：**
 
@@ -183,6 +212,22 @@ Task(subagent_type: "Explore", model: "sonnet") × N
 ## 關鍵檔案索引
 | 檔案 | 用途 | 備註 |
 |------|------|------|
+
+## 公用組件與可複用資源
+| 組件 | 路徑 | 類型 | 說明 |
+|------|------|------|------|
+
+（例：BaseEntity, ApiClient, DateUtils, CommonButton, ResponseWrapper 等）
+
+## 專案規範統整
+- **規範文件來源：** （列出找到的規範檔案路徑）
+- **命名慣例：** （類別、方法、變數、檔案的命名規則）
+- **架構模式：** （分層架構、設計模式等）
+- **程式碼風格：** （縮排、引號、lint 規則等）
+- **Commit 規範：** （如有 Conventional Commits 等）
+- **其他約定：** （API 規範、錯誤處理慣例等）
+
+> 若專案無明確規範，此處標注「專案目前無明確規範」並列出從程式碼中觀察到的隱性慣例。
 
 ## 已知問題與注意事項
 （交叉比對發現的不一致、潛在問題等）
