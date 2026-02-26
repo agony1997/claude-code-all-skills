@@ -112,7 +112,7 @@ touchfish-skills/
 │   ├── md-to-code/                      # 同 spec-to-md 結構
 │   ├── explorer/                        # 含 prompts/ + references/
 │   └── dev-team/                        # 含 prompts/（4 角色模板）
-└── docs/plans/                          # 設計與計畫文件
+└── LICENSE
 ```
 
 ## Attribution
