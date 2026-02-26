@@ -122,7 +122,12 @@ FORBIDDEN:
    ```
    TL spawns workers with team_name. Worker prompts set pg-leader as their superior.
 
-4. **Load prompt templates**: use Glob to find `**/dev-team/**/PROMPTS.md`, then Read it. Use those templates when spawning each agent.
+4. **Load prompt templates on demand**: before spawning each agent, use Glob to find the matching template file under `**/dev-team/**/prompts/`, then Read it.
+   - Spawning pg-leader → Read `prompts/pg-leader.md`
+   - Spawning qa-leader → Read `prompts/qa-leader.md`
+   - Spawning explore-leader → Read `prompts/explore-leader.md`
+   - Spawning workers → Read `prompts/worker.md`
+   Each file is self-contained — read it, fill in variables, use as spawn prompt.
 
 5. TaskUpdate: assign high-level tasks to pg-leader.
 
