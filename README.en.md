@@ -26,13 +26,17 @@ All 7 plugins now follow a unified structure:
 | On-demand reference files | 1 | 18 |
 | Human guides | 1 | 7 |
 
-## Quick Start
+## Installation
 
 ```bash
-claude /plugin add ./path/to/touchfish-skills
+# 1. Clone locally
+git clone https://github.com/agony1997/TouchFish-Skills.git
+
+# 2. Add to Claude Code (installs all plugins; enable individual skills as needed)
+claude mcp add-plugin ./path/to/TouchFish-Skills
 ```
 
-Set **git-nanny** at User scope (globally available); enable others per project.
+> **Tip**: Set `git-nanny` at User scope (globally available); enable others per project.
 
 ## Plugin List
 
@@ -83,38 +87,6 @@ Below are recommended skill combinations for common scenarios. **Bold** items ar
 
 > **No superpowers installed?** All touchfish-skills work independently; superpowers integration points are optional enhancements.
 
-## Configuration Examples
-
-#### User scope — Global tools
-
-`~/.claude/settings.json` (see `examples/global-settings.json`):
-
-```jsonc
-{
-  "enabledPlugins": {
-    "touchfish-skills": true,
-    "git-nanny@touchfish-skills": true
-  }
-}
-```
-
-#### Project scope — Per-project
-
-`<project>/.claude/settings.json` (see `examples/project-settings.json`):
-
-```jsonc
-{
-  "enabledPlugins": {
-    "touchfish-skills": true,
-    "ddd-core@touchfish-skills": true,
-    "reviewer@touchfish-skills": true,
-    "spec-to-md@touchfish-skills": true,
-    "md-to-code@touchfish-skills": true,
-    "explorer@touchfish-skills": true,
-    "dev-team@touchfish-skills": true
-  }
-}
-```
 
 ## Directory Structure
 

@@ -26,13 +26,17 @@ Claude Code 技能插件 Marketplace，共 7 個工作流型插件。
 | 按需載入檔案 | 1 | 18 |
 | 中文人類指南 | 1 | 7 |
 
-## 快速開始
+## 安裝
 
 ```bash
-claude /plugin add ./path/to/touchfish-skills
+# 1. Clone 到本機
+git clone https://github.com/agony1997/TouchFish-Skills.git
+
+# 2. 在 Claude Code 中安裝（整包安裝，按需啟用個別技能）
+claude mcp add-plugin ./path/to/TouchFish-Skills
 ```
 
-將 **git-nanny** 放在 User scope（全域可用），其餘按專案需求啟用。
+> **建議**：將 `git-nanny` 放在 User scope（全域可用），其餘按專案需求啟用。
 
 ## 插件清單
 
@@ -83,38 +87,6 @@ claude /plugin add ./path/to/touchfish-skills
 
 > **未安裝 superpowers？** 所有 touchfish-skills 技能皆可獨立使用，superpowers 整合點僅為可選增強。
 
-## 設定範例
-
-#### User scope — 全域工具
-
-`~/.claude/settings.json`（對應 `examples/global-settings.json`）：
-
-```jsonc
-{
-  "enabledPlugins": {
-    "touchfish-skills": true,
-    "git-nanny@touchfish-skills": true
-  }
-}
-```
-
-#### Project scope — 按專案啟用
-
-`<project>/.claude/settings.json`（對應 `examples/project-settings.json`）：
-
-```jsonc
-{
-  "enabledPlugins": {
-    "touchfish-skills": true,
-    "ddd-core@touchfish-skills": true,
-    "reviewer@touchfish-skills": true,
-    "spec-to-md@touchfish-skills": true,
-    "md-to-code@touchfish-skills": true,
-    "explorer@touchfish-skills": true,
-    "dev-team@touchfish-skills": true
-  }
-}
-```
 
 ## 目錄結構
 
