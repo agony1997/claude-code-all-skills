@@ -1,6 +1,6 @@
 # dev-team 技能使用指南
 
-> 版本：1.1.0 | 最後更新：2026-02-26
+> 版本：1.2.0 | 最後更新：2026-02-26
 
 ## 這是什麼？
 
@@ -49,15 +49,16 @@ dev-team 是一個**多角色 Agent 團隊協作技能**，讓 Claude Code 模�
 | **explore-leader** | Opus | 探索：深入了解專案特定區域（可選） |
 | **pg-1, pg-2, ...** | Sonnet | 開發 workers：寫程式碼，由 TL spawn、pg-leader 管理 |
 
-### v1.0 → v1.1 關鍵變更
+### v1.1 → v1.2 關鍵變更
 
-| 項目 | v1.0 | v1.1 |
+| 項目 | v1.1 | v1.2 |
 |------|------|------|
-| 誰 spawn workers | pg-leader | **TL**（控制權集中） |
-| QA 觸發路徑 | pg-leader → qa-leader | **pg-leader → TL → qa-leader** |
-| pg-leader 角色 | 可能自己做完所有事 | **嚴格管理者，禁止自己實作** |
-| 多規格書 | 不支援 | **支援並行/序列/單一專精模式** |
-| 通訊紀律 | 無 | **所有 agent 必須回應上級訊息** |
+| 文件追蹤 | 無 | **TRACE.md 追蹤矩陣（需求 ↔ 任務 ↔ QA 雙向綁定）** |
+| 流程紀錄 | 無 | **PROCESS_LOG.md 事件追加式記錄** |
+| 問題紀錄 | 無 | **ISSUES.md 問題與決策紀錄** |
+| API 契約 | 僅口頭確認 | **API_CONTRACT.md 正式檔案 + 修改紀錄** |
+| 交付報告 | TL 口述 | **DELIVERY_REPORT.md 結構化報告 + 反向連結** |
+| Agent 回報 | 自由格式 | **結構化前綴（COMPLETED/QA-PASS/QA-FAIL/CONTRACT-CHECK）** |
 
 ---
 
@@ -134,6 +135,52 @@ TL 產出交付報告，關閉團隊。**不會自動 commit/push**，由你決�
 
 ---
 
+## 產出文件
+
+dev-team 會在你指定的輸出目錄（預設 `docs/dev-team/<feature>/`）產出以下追蹤文件。
+所有檔案帶日期前綴（`YYYY-MM-DD-`），以專案開始日為準：
+
+```
+<output-dir>/
+├── YYYY-MM-DD-TRACE.md              ← 追蹤矩陣（核心：需求 ↔ 任務 ↔ QA 雙向綁定）
+├── YYYY-MM-DD-API_CONTRACT.md       ← API 契約（Phase 2 產出，含修改紀錄）
+├── YYYY-MM-DD-PROCESS_LOG.md        ← 流程紀錄（關鍵事件追加式記錄）
+├── YYYY-MM-DD-ISSUES.md             ← 問題與決策紀錄
+└── YYYY-MM-DD-DELIVERY_REPORT.md    ← 交付報告（Phase 6 產出，含反向連結）
+```
+
+### 追蹤矩陣（TRACE.md）
+
+追蹤矩陣是雙向綁定的核心，映射：
+
+```
+上游規格節 → Req-ID → 任務 → Worker → 開發狀態 → QA 結果
+```
+
+狀態流程：`pending → in-progress → done → qa-pass / qa-fail → fixed`
+
+每當任務狀態變更，TL 會自動更新 TRACE.md。最終 Summary 計數所有需求項的通過/延遲/未解決數量。
+
+### 流程紀錄（PROCESS_LOG.md）
+
+記錄關鍵事件（非詳細對話），事件類型包括：
+`team-assembled`, `task-completed`, `qa-triggered`, `review-pass`, `review-fail`, `issue-reported`, `decision`, `contract-amended`, `phase-transition`
+
+### 問題紀錄（ISSUES.md）
+
+QA 審查失敗或契約驗證不一致時自動建立條目，記錄問題描述、相關任務/需求、解決方式。
+
+### 交付報告（DELIVERY_REPORT.md）
+
+Phase 6 最終產出，包含：
+- 已實作項目（前端/後端分列）
+- QA 結果摘要
+- 契約驗證結果
+- 延遲/手動項目
+- 交叉引用所有追蹤文件
+
+---
+
 ## 溝通路徑
 
 ```
@@ -185,14 +232,20 @@ TL 產出交付報告，關閉團隊。**不會自動 commit/push**，由你決�
 
 ```
 plugins/dev-team/
-├── .claude-plugin/plugin.json          ← 插件元資料 (v1.1.0)
+├── .claude-plugin/plugin.json          ← 插件元資料 (v1.2.0)
 ├── skills/dev-team/
 │   ├── SKILL.md                        ← AI 核心指令（英文，始終載入）
-│   └── prompts/                        ← Spawn 模板（按需載入，每次只讀一個）
-│       ├── pg-leader.md                ← 開發組管理者
-│       ├── qa-leader.md                ← 品質保證組長
-│       ├── explore-leader.md           ← 探索組長
-│       └── worker.md                   ← 開發 Worker
+│   ├── prompts/                        ← Spawn 模板（按需載入，每次只讀一個）
+│   │   ├── pg-leader.md                ← 開發組管理者
+│   │   ├── qa-leader.md                ← 品質保證組長
+│   │   ├── explore-leader.md           ← 探索組長
+│   │   └── worker.md                   ← 開發 Worker
+│   └── references/                     ← 文件模板（按需載入）
+│       ├── trace-template.md           ← 追蹤矩陣模板
+│       ├── api-contract-template.md    ← API 契約模板
+│       ├── process-log-template.md     ← 流程紀錄模板
+│       ├── issues-template.md          ← 問題紀錄模板
+│       └── delivery-report-template.md ← 交付報告模板
 └── docs/
     └── GUIDE.zh-TW.md                  ← 本文件（中文，給人讀的）
 ```

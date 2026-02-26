@@ -79,41 +79,42 @@ FORBIDDEN:
 
 1. Read user requirements/specs.
 
-2. **Multi-spec assessment** (if user provides multiple specs/domains):
-   Analyze cross-domain relationships:
-   - Dependencies between domains?
-   - Shared DB tables / entities?
-   - Shared API path prefixes?
+2. **AskUserQuestion**: output directory for tracking files (default: `docs/dev-team/<feature>/`).
+   All output files use date prefix: `YYYY-MM-DD-` (e.g. `2026-02-26-TRACE.md`). Use project start date.
 
-   Use AskUserQuestion to confirm execution strategy:
-   - **Parallel**: domains are independent → assign separate worker groups per domain
-   - **Sequential**: domain A depends on B → complete B first
-   - **Single-focus**: high complexity + cross-dependencies → one domain at a time
+3. **Multi-spec assessment** (if user provides multiple specs/domains):
+   Analyze cross-domain relationships (dependencies, shared DB tables, shared API paths).
+   Use AskUserQuestion to confirm: **Parallel** / **Sequential** / **Single-focus**.
+   TL MUST explain reasoning. User makes final decision. Skip if single spec.
 
-   TL MUST explain reasoning. User makes final decision.
-   Skip this step if only one spec/domain.
-
-3. Reference PROJECT_MAP.md: architecture, reusable components, project standards.
+4. Reference PROJECT_MAP.md: architecture, reusable components, project standards.
    If PROJECT_MAP.md lacks component/standards info → scan or AskUserQuestion.
 
-4. TaskCreate: break into tasks. Each task completable by one worker.
+5. TaskCreate: break into tasks. Each task completable by one worker.
    Tag frontend/backend. Define blockedBy/blocks dependencies.
+   Assign Req-ID (R01, R02...) to each traceable requirement from upstream specs.
 
-5. AskUserQuestion: confirm task list, acceptance criteria, priority.
+6. AskUserQuestion: confirm task list, acceptance criteria, priority.
+
+7. Read `references/trace-template.md` → write `{date}-TRACE.md` to output dir (fill Source Documents + Requirement Mapping, all Status = pending).
 
 ### Phase 2: API Contract (TL solo)
 
-1. Write API_CONTRACT.md: endpoints (method, path, request/response, errors), shared types, error format.
+1. Read `references/api-contract-template.md` → write `{date}-API_CONTRACT.md` to output dir: endpoints (method, path, request/response, errors), shared types, error format.
 2. AskUserQuestion: confirm contract.
-3. Contract change rule: any change requires TL approval. Worker → Leader → TL → decision → notify all leaders.
+3. Update `{date}-TRACE.md`: fill API Contract Trace table.
+4. Contract change rule: any change requires TL approval. Worker → Leader → TL → decision → notify all leaders.
 
 ### Phase 3: Team Assembly
 
 1. TeamCreate: `"dev-<project>-<feature>"`
 
-2. Spawn leaders (Opus, Task tool with team_name): explore-leader (if needed), pg-leader, qa-leader.
+2. Read `references/process-log-template.md` → init `{date}-PROCESS_LOG.md` in output dir.
+   Read `references/issues-template.md` → init `{date}-ISSUES.md` in output dir.
 
-3. **TL decides worker count and spawns directly:**
+3. Spawn leaders (Opus, Task tool with team_name): explore-leader (if needed), pg-leader, qa-leader.
+
+4. **TL decides worker count and spawns directly:**
    ```
    ≤3 implementation tasks → no workers, pg-leader works alone
    4-8 tasks → at least 2 workers
@@ -122,16 +123,14 @@ FORBIDDEN:
    ```
    TL spawns workers with team_name. Worker prompts set pg-leader as their superior.
 
-4. **Load prompt templates on demand**: before spawning each agent, use Glob to find the matching template file under `**/dev-team/**/prompts/`, then Read it.
-   - Spawning pg-leader → Read `prompts/pg-leader.md`
-   - Spawning qa-leader → Read `prompts/qa-leader.md`
-   - Spawning explore-leader → Read `prompts/explore-leader.md`
-   - Spawning workers → Read `prompts/worker.md`
+5. **Load prompt templates on demand**: before spawning each agent, use Glob to find the matching template file under `**/dev-team/**/prompts/`, then Read it.
    Each file is self-contained — read it, fill in variables, use as spawn prompt.
 
-5. TaskUpdate: assign high-level tasks to pg-leader.
+6. Update `{date}-TRACE.md` Worker column. Append `{date}-PROCESS_LOG.md`: `team-assembled`.
 
-6. pg-leader decomposes into fine-grained subtasks, assigns to workers (TaskUpdate owner).
+7. TaskUpdate: assign high-level tasks to pg-leader.
+
+8. pg-leader decomposes into fine-grained subtasks, assigns to workers (TaskUpdate owner).
    - pg-leader MUST NOT spawn workers.
    - To request more workers: SendMessage to TL. TL decides.
 
@@ -143,33 +142,33 @@ FORBIDDEN:
 
 2. Worker completes task → TaskUpdate completed → SendMessage pg-leader.
 
-3. pg-leader receives completion → **SendMessage TL**: "Task X done, files: Y, next: Z"
-   Do NOT notify qa-leader directly.
+3. pg-leader receives completion → **SendMessage TL** using structured prefix: `COMPLETED: Task {ID} | Files: {list} | Next: {plan}`
 
-4. **TL receives report** → SendMessage qa-leader: "Task X complete, please review" + task description + files.
+4. **TL receives report** → append PROCESS_LOG (`task-completed`), update TRACE Status → `done`.
+   SendMessage qa-leader: "Task X complete, please review" + task description + files.
+   Append PROCESS_LOG (`qa-triggered`).
 
 5. qa-leader dispatches sub-agent (Sonnet) for review. Can run multiple reviews in parallel.
 
-6. Review results:
-   - **Pass** → qa-leader notifies TL.
-   - **Fail** → qa-leader notifies TL → TL notifies pg-leader → pg-leader creates fix task.
+6. Review results (qa-leader uses structured prefix):
+   - **Pass** → `QA-PASS: Task {ID} | Checked: {summary}` → TL appends PROCESS_LOG (`review-pass`), updates TRACE → `qa-pass`.
+   - **Fail** → `QA-FAIL: Task {ID} | Issues: {list} | Severity: {level}` → TL appends PROCESS_LOG (`review-fail`), updates TRACE → `qa-fail`, adds ISSUES entry. TL notifies pg-leader → fix task.
 
 7. Adding workers mid-flight: pg-leader requests TL → TL spawns new worker → notifies pg-leader.
 
 ### Phase 5: Contract Consistency Check
 
-qa-leader performs final verification:
-- Backend API matches contract? (paths, methods, params)
-- Frontend calls match contract? (URLs, request format)
-- Request/Response alignment?
-- Error handling consistency?
-- Shared type definitions consistent?
+qa-leader performs final verification using structured prefix `CONTRACT-CHECK: {endpoint} | Backend: {pass/fail} | Frontend: {pass/fail}`:
+- Backend API matches contract? Frontend calls match contract?
+- Request/Response alignment? Error handling? Shared types?
 
-Fail → back to pipeline. Pass → Phase 6.
+TL updates TRACE API Contract Trace Verified column.
+Inconsistencies → add ISSUES entry. Fail → back to pipeline. Pass → Phase 6.
 
 ### Phase 6: Delivery
 
-1. TL writes delivery report: features, files, QA summary, known limitations.
-2. Shutdown: shutdown_request to all leaders → confirm all teammates closed → TeamDelete.
-3. Present report to user.
-4. Do NOT auto-commit/push. User decides.
+1. Finalize `{date}-TRACE.md` Summary counts.
+2. Read `references/delivery-report-template.md` → write `{date}-DELIVERY_REPORT.md` to output dir.
+3. Present to user: list all 5 output files (`{date}-TRACE.md`, `{date}-API_CONTRACT.md`, `{date}-PROCESS_LOG.md`, `{date}-ISSUES.md`, `{date}-DELIVERY_REPORT.md`) with paths.
+4. Shutdown: shutdown_request to all leaders → confirm all teammates closed → TeamDelete.
+5. Do NOT auto-commit/push. User decides.
