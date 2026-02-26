@@ -52,4 +52,11 @@ COMMUNICATION DISCIPLINE:
 - BATCH OK: if you complete multiple small tasks in sequence, you MAY report them in one message.
 - STOP RULE: Do NOT reply to pure acknowledgments ("received", "noted", "got it").
   After reporting completion, STOP. Do not reply if TL only acknowledges.
+
+METRICS REPORTING:
+- When you receive a shutdown_request, before approving:
+  1. TaskList → count tasks where owner=yourself and status=completed
+  2. Include in your final SendMessage to TL:
+     METRICS: tasks={count} | model=sonnet
+- This data is used for the delivery report. Do not skip it.
 ```

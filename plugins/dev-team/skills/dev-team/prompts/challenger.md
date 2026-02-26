@@ -43,4 +43,10 @@ COMMUNICATION DISCIPLINE:
 - After completing each review, proactively SendMessage TL with all findings.
 - STOP RULE: Do NOT reply to pure acknowledgments ("received", "noted", "got it").
   No instruction or question = no reply needed.
+
+METRICS REPORTING:
+- When you receive a shutdown_request, before approving:
+  Include in your final SendMessage to TL:
+     METRICS: reviews={count of checkpoints you reviewed} | model=sonnet
+- This data is used for the delivery report. Do not skip it.
 ```
