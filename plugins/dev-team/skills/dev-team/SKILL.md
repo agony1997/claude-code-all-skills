@@ -147,6 +147,10 @@ FORBIDDEN:
    - After initial assignment, workers self-assign subsequent tasks.
    - Notify challenger: review task decomposition + API Contract.
 
+8. **Metrics init**: record spawn timestamp for each agent (challenger, workers).
+   Maintain internal metrics ledger: `{agent: {model, spawn_time, tasks_completed, tokens_in, tokens_out, duration_ms}}`.
+   QA sub-agent metrics are accumulated separately as a group.
+
 ### Phase 4: Pipeline Development & Review
 
 **Three parallel pipelines:**
@@ -166,6 +170,7 @@ FORBIDDEN:
    a. Update TRACE → `done`, append PROCESS_LOG (`task-completed`).
    b. Read `references/qa-review-template.md` → spawn QA sub-agent (Task tool, subagent_type: "general-purpose", model: "sonnet", NOT a teammate).
    c. QA sub-agent reviews and returns structured result.
+   d. Extract `<usage>` from QA sub-agent return (total_tokens, duration_ms). Accumulate into QA metrics ledger.
 
 4. **QA result handling:**
    - **PASS** → TL updates TRACE → `qa-pass`, appends PROCESS_LOG (`review-pass`).
@@ -195,7 +200,18 @@ Inconsistencies → add ISSUES entry. Fail → back to pipeline (create fix task
 ### Phase 6: Delivery
 
 1. Finalize `{date}-TRACE.md` Summary counts.
-2. Read `references/delivery-report-template.md` → write `{date}-DELIVERY_REPORT.md` to output dir.
-3. Present to user: list all 5 output files (`{date}-TRACE.md`, `{date}-API_CONTRACT.md`, `{date}-PROCESS_LOG.md`, `{date}-ISSUES.md`, `{date}-DELIVERY_REPORT.md`) with paths.
-4. Shutdown: shutdown_request to challenger + all workers → confirm all teammates closed → TeamDelete.
-5. Do NOT auto-commit/push. User decides.
+
+2. **Assemble Agent Metrics**:
+   a. Send shutdown_request to challenger + all workers. Each responds with `METRICS:` line.
+   b. Parse METRICS from each agent's final message (tasks completed, model).
+   c. Calculate duration per agent: shutdown_time - spawn_time.
+   d. QA sub-agents: use accumulated exact token/duration data from Phase 4.
+   e. Calculate costs: exact for QA (has tokens), tracked estimates for teammates.
+      Pricing: Opus in=$15/MTok out=$75/MTok | Sonnet in=$3/MTok out=$15/MTok.
+
+3. Read `references/delivery-report-template.md` → write `{date}-DELIVERY_REPORT.md` to output dir.
+   Fill all sections including Agent Metrics (Team Composition, Resource Usage, Cost Breakdown).
+
+4. Present to user: list all 5 output files with paths.
+5. Confirm all teammates closed → TeamDelete.
+6. Do NOT auto-commit/push. User decides.
