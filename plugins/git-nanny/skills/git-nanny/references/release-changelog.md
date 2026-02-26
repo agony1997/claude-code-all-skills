@@ -95,7 +95,7 @@ chore(release): bump version to 1.2.0
 
 Update version and generate changelog
 
-Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>
+Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>
 EOF
 )"
 

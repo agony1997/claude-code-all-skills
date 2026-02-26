@@ -112,8 +112,7 @@ touchfish-skills/
 │   ├── md-to-code/                      # Same as spec-to-md
 │   ├── explorer/                        # Has prompts/ + references/
 │   └── dev-team/                        # Has prompts/ (4 role templates)
-├── docs/plans/                          # Design & plan documents
-└── examples/                            # Configuration examples
+└── docs/plans/                          # Design & plan documents
 ```
 
 ## Attribution
