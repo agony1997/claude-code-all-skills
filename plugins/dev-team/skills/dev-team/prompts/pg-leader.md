@@ -40,4 +40,7 @@ COMMUNICATION DISCIPLINE:
   Instruction → acknowledge + state plan. Disagree → state reason. NEVER silently ignore.
 - After completing each batch of tasks, proactively SendMessage TL:
   what's done, next steps, any blockers. Do not wait to be asked.
+- STOP RULE: Do NOT reply to pure acknowledgments ("received", "noted", "got it").
+  No instruction or question = no reply needed.
+- When a worker reports completion: TaskUpdate + SendMessage TL. Do NOT send acknowledgment back to worker.
 ```

@@ -32,8 +32,9 @@ TL (Opus) — PM, owns all spawn authority
 
 **Key rules:**
 - TL spawns ALL agents (leaders AND workers). No one else spawns.
-- pg-leader is a MANAGER — assigns tasks, monitors progress, coordinates. Does NOT write code (exception: ≤3 tasks and TL sent no workers).
-- QA triggering goes through TL: pg-leader → TL → qa-leader. Never pg-leader → qa-leader directly.
+- **Lightweight mode** (≤2 workers): skip pg-leader. TL manages workers + qa-leader directly.
+- **Full mode** (≥3 workers): pg-leader manages workers. Does NOT write code.
+- QA triggering always goes through TL. Never pg-leader → qa-leader directly.
 - Leaders: Opus. Workers: Sonnet (default), Haiku if TL decides.
 
 ## Communication Rules
@@ -59,6 +60,8 @@ FORBIDDEN:
   If you disagree: state your reason. NEVER silently ignore.
 - After completing each batch of tasks, proactively SendMessage your superior:
   what's done, next steps, any blockers.
+- STOP RULE: Do NOT reply to pure acknowledgments ("received", "noted", "got it").
+  No instruction or question = no reply needed. This prevents ping-pong loops.
 ```
 
 ## Phase Flow
@@ -90,13 +93,16 @@ FORBIDDEN:
 4. Reference PROJECT_MAP.md: architecture, reusable components, project standards.
    If PROJECT_MAP.md lacks component/standards info → scan or AskUserQuestion.
 
-5. TaskCreate: break into tasks. Each task completable by one worker.
+5. **Scope check**: verify requirements against current codebase. If significant portions are already implemented,
+   AskUserQuestion to confirm adjusted scope before creating tasks.
+
+6. TaskCreate: break into tasks. Each task completable by one worker.
    Tag frontend/backend. Define blockedBy/blocks dependencies.
    Assign Req-ID (R01, R02...) to each traceable requirement from upstream specs.
 
-6. AskUserQuestion: confirm task list, acceptance criteria, priority.
+7. AskUserQuestion: confirm task list, acceptance criteria, priority.
 
-7. Read `references/trace-template.md` → write `{date}-TRACE.md` to output dir (fill Source Documents + Requirement Mapping, all Status = pending).
+8. Read `references/trace-template.md` → write `{date}-TRACE.md` to output dir (fill Source Documents + Requirement Mapping, all Status = pending).
 
 ### Phase 2: API Contract (TL solo)
 
@@ -112,49 +118,53 @@ FORBIDDEN:
 2. Read `references/process-log-template.md` → init `{date}-PROCESS_LOG.md` in output dir.
    Read `references/issues-template.md` → init `{date}-ISSUES.md` in output dir.
 
-3. Spawn leaders (Opus, Task tool with team_name): explore-leader (if needed), pg-leader, qa-leader.
-
-4. **TL decides worker count and spawns directly:**
+3. **TL decides worker count and mode:**
    ```
-   ≤3 implementation tasks → no workers, pg-leader works alone
-   4-8 tasks → at least 2 workers
-   ≥9 tasks → at least 3 workers
-   frontend + backend tasks → at least 1 of each
+   ≤3 tasks → 1 worker | 4-8 tasks → 2-3 workers | ≥9 tasks → 3+ workers
+   frontend + backend → at least 1 of each
    ```
-   TL spawns workers with team_name. Worker prompts set pg-leader as their superior.
+   - **Lightweight** (≤2 workers): no pg-leader. TL → workers + qa-leader.
+   - **Full** (≥3 workers): pg-leader coordinates. TL → pg-leader + qa-leader + workers.
 
-5. **Load prompt templates on demand**: before spawning each agent, use Glob to find the matching template file under `**/dev-team/**/prompts/`, then Read it.
+4. Spawn agents (Task tool with team_name):
+   - Lightweight: qa-leader (Opus) + workers (Sonnet). Worker `{superior}` = TL.
+   - Full: pg-leader (Opus) + qa-leader (Opus) + workers (Sonnet). Worker `{superior}` = pg-leader.
+   - explore-leader (Opus) if needed.
+
+5. **Load prompt templates on demand**: Glob `**/dev-team/**/prompts/` → Read.
    Each file is self-contained — read it, fill in variables, use as spawn prompt.
 
 6. Update `{date}-TRACE.md` Worker column. Append `{date}-PROCESS_LOG.md`: `team-assembled`.
 
-7. TaskUpdate: assign high-level tasks to pg-leader.
-
-8. pg-leader decomposes into fine-grained subtasks, assigns to workers (TaskUpdate owner).
-   - pg-leader MUST NOT spawn workers.
-   - To request more workers: SendMessage to TL. TL decides.
+7. Assign tasks:
+   - Lightweight: TL assigns directly to workers (TaskUpdate owner).
+   - Full: TL assigns to pg-leader → pg-leader decomposes and assigns to workers.
+   pg-leader MUST NOT spawn workers. To request more: SendMessage TL.
 
 ### Phase 4: Pipeline Development & Review
 
-**Core principle:** All cross-group notifications go through TL. Never rely on pg-leader to notify qa-leader.
+**Notification chain:**
+- Lightweight: worker → TL → qa-leader
+- Full: worker → pg-leader → TL → qa-leader
 
-1. pg-leader manages workers: assign tasks (TaskUpdate), monitor (TaskList), handle blockers, coordinate dependencies.
+1. **Full**: pg-leader manages workers (TaskUpdate, TaskList, blockers, dependencies).
+   **Lightweight**: TL manages workers directly.
 
-2. Worker completes task → TaskUpdate completed → SendMessage pg-leader.
+2. Worker completes task → TaskUpdate completed → SendMessage `{superior}` (TL or pg-leader).
+   Workers MAY batch-report multiple completed tasks in one message.
 
-3. pg-leader receives completion → **SendMessage TL** using structured prefix: `COMPLETED: Task {ID} | Files: {list} | Next: {plan}`
+3. **Full only**: pg-leader → TL using `COMPLETED:` prefix. Lightweight: skip (TL already received).
 
-4. **TL receives report** → append PROCESS_LOG (`task-completed`), update TRACE Status → `done`.
-   SendMessage qa-leader: "Task X complete, please review" + task description + files.
-   Append PROCESS_LOG (`qa-triggered`).
+4. **TL** → append PROCESS_LOG (`task-completed`), update TRACE → `done`.
+   SendMessage qa-leader + append PROCESS_LOG (`qa-triggered`).
 
 5. qa-leader dispatches sub-agent (Sonnet) for review. Can run multiple reviews in parallel.
 
 6. Review results (qa-leader uses structured prefix):
    - **Pass** → `QA-PASS: Task {ID} | Checked: {summary}` → TL appends PROCESS_LOG (`review-pass`), updates TRACE → `qa-pass`.
-   - **Fail** → `QA-FAIL: Task {ID} | Issues: {list} | Severity: {level}` → TL appends PROCESS_LOG (`review-fail`), updates TRACE → `qa-fail`, adds ISSUES entry. TL notifies pg-leader → fix task.
+   - **Fail** → `QA-FAIL: Task {ID} | Issues: {list} | Severity: {level}` → TL appends PROCESS_LOG (`review-fail`), updates TRACE → `qa-fail`, adds ISSUES entry. Fix task assigned by TL (or pg-leader in full mode).
 
-7. Adding workers mid-flight: pg-leader requests TL → TL spawns new worker → notifies pg-leader.
+7. Adding workers mid-flight: request TL → TL spawns → notifies manager.
 
 ### Phase 5: Contract Consistency Check
 

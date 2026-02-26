@@ -1,6 +1,6 @@
 # dev-team 技能使用指南
 
-> 版本：1.2.0 | 最後更新：2026-02-26
+> 版本：1.3.0 | 最後更新：2026-02-26
 
 ## 這是什麼？
 
@@ -49,16 +49,14 @@ dev-team 是一個**多角色 Agent 團隊協作技能**，讓 Claude Code 模�
 | **explore-leader** | Opus | 探索：深入了解專案特定區域（可選） |
 | **pg-1, pg-2, ...** | Sonnet | 開發 workers：寫程式碼，由 TL spawn、pg-leader 管理 |
 
-### v1.1 → v1.2 關鍵變更
+### v1.2 → v1.3 關鍵變更
 
-| 項目 | v1.1 | v1.2 |
+| 項目 | v1.2 | v1.3 |
 |------|------|------|
-| 文件追蹤 | 無 | **TRACE.md 追蹤矩陣（需求 ↔ 任務 ↔ QA 雙向綁定）** |
-| 流程紀錄 | 無 | **PROCESS_LOG.md 事件追加式記錄** |
-| 問題紀錄 | 無 | **ISSUES.md 問題與決策紀錄** |
-| API 契約 | 僅口頭確認 | **API_CONTRACT.md 正式檔案 + 修改紀錄** |
-| 交付報告 | TL 口述 | **DELIVERY_REPORT.md 結構化報告 + 反向連結** |
-| Agent 回報 | 自由格式 | **結構化前綴（COMPLETED/QA-PASS/QA-FAIL/CONTRACT-CHECK）** |
+| 團隊模式 | 一律有 pg-leader | **輕量模式（≤2 workers 跳過 pg-leader）** |
+| 訊息迴圈 | 常發生 ping-pong | **STOP RULE：純確認訊息不回覆** |
+| 範圍檢查 | 無 | **Phase 1 比對現有程式碼，已實作部分先確認** |
+| Worker 回報 | 逐個回報 | **允許批量回報多個小任務** |
 
 ---
 
@@ -85,11 +83,9 @@ TL 先了解你的專案。如果有安裝 `explorer` skill 會自動使用，�
 ### Phase 1: 需求分析
 
 1. TL 閱讀你的需求/規格書
-2. **多份規格書時**，TL 會分析領域間的依賴關係，問你要：
-   - 並行開發（領域獨立）
-   - 序列開發（有依賴）
-   - 單一專精（逐個完成）
-3. 拆分任務，問你確認
+2. **範圍檢查**：TL 比對現有程式碼，若大部分已實作會先問你確認調整範圍
+3. **多份規格書時**，TL 會分析領域間的依賴關係，問你要並行/序列/單一
+4. 拆分任務，問你確認
 
 ### Phase 2: API 契約
 
@@ -97,33 +93,26 @@ TL 定義前後端共用的 API 契約，問你確認。確認後成為開發基
 
 ### Phase 3: 組建團隊
 
-TL 根據任務數量決定團隊規模：
+TL 根據任務數量決定團隊規模和模式：
 
-| 任務數量 | Workers |
-|---------|---------|
-| ≤3 | 不 spawn，pg-leader 自己做 |
-| 4-8 | 至少 2 workers |
-| ≥9 | 至少 3 workers |
-| 前端+後端 | 至少各 1 |
+| 任務數量 | Workers | 模式 |
+|---------|---------|------|
+| ≤3 | 1 worker | 輕量（TL 直接管理） |
+| 4-8 | 2-3 workers | ≤2 輕量 / ≥3 完整 |
+| ≥9 | 3+ workers | 完整（pg-leader 管理） |
+| 前端+後端 | 至少各 1 | — |
 
-**TL 直接 spawn 所有 workers**，pg-leader 只負責管理指派。
+- **輕量模式**（≤2 workers）：跳過 pg-leader，TL 直接管理 workers + qa-leader，減少 overhead
+- **完整模式**（≥3 workers）：pg-leader 負責任務分解、指派、協調
 
 ### Phase 4: 流水線開發
 
-```
-開發                          審查
-┌──────┐                    ┌──────┐
-│ pg-1 │──完成──→ pg-leader │ qa   │
-│ pg-2 │         ──回報──→  │leader│
-│ pg-3 │              TL    │      │
-│ pg-4 │         ──通知──→  │ sub- │
-└──────┘                    │agents│
-                            └──────┘
-```
-
-通知鏈：`worker → pg-leader → TL → qa-leader → sub-agent 審查 → qa-leader → TL`
+通知鏈依模式不同：
+- **輕量**：`worker → TL → qa-leader`
+- **完整**：`worker → pg-leader → TL → qa-leader`
 
 所有跨組通知都經過 TL，確保 QA 審查一定會發生。
+Worker 可批量回報多個完成的小任務。
 
 ### Phase 5: 契約驗證
 
@@ -232,7 +221,7 @@ Phase 6 最終產出，包含：
 
 ```
 plugins/dev-team/
-├── .claude-plugin/plugin.json          ← 插件元資料 (v1.2.0)
+├── .claude-plugin/plugin.json          ← 插件元資料 (v1.3.0)
 ├── skills/dev-team/
 │   ├── SKILL.md                        ← AI 核心指令（英文，始終載入）
 │   ├── prompts/                        ← Spawn 模板（按需載入，每次只讀一個）
@@ -254,8 +243,8 @@ plugins/dev-team/
 
 ## 常見問題
 
-**Q: pg-leader 可以自己寫程式碼嗎？**
-A: 只有在任務 ≤3 且 TL 沒派 workers 時可以。否則必須指派給 workers。
+**Q: pg-leader 一定會出現嗎？**
+A: 不一定。≤2 workers 時使用輕量模式，跳過 pg-leader，TL 直接管理 workers。≥3 workers 才會有 pg-leader。
 
 **Q: 我可以一次給多份規格書嗎？**
 A: 可以。TL 會分析依賴後問你要並行、序列或逐個完成。

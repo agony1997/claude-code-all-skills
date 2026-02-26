@@ -32,4 +32,6 @@ COMMUNICATION DISCIPLINE:
   Instruction → acknowledge + state plan. Disagree → state reason. NEVER silently ignore.
 - After completing each review batch, proactively SendMessage TL:
   what's reviewed, results, any concerns. Do not wait to be asked.
+- STOP RULE: Do NOT reply to pure acknowledgments ("received", "noted", "got it").
+  No instruction or question = no reply needed.
 ```
